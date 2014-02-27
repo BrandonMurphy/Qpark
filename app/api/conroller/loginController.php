@@ -39,38 +39,187 @@ $email = 'brandon@test.com';
 // Create login functions
 // Login Function
 
-class login {
+class User {
+
+function Logout(){
+
+        session_start();
+        session_destroy();
+        $_SESSION = array();
+        header("Location: index.php");
+
+
+}
+
+
+function RegisterVehicle($make, $model, $year, $plate, $color, $state){
+
+session_start();
+if(isset($_POST['submit']))
+        {
+
+
+$link = mysql_connect('localhost', 'root', 'root');
+                        if (!$link) {
+                        die('Could not connect: ' . mysql_error());
+                        }
+                                //echo 'Connected successfully';
+
+
+                        $email =  $_SESSION['email'];
+
+
+                                $query = sprintf("SELECT user_id from rdtg6.User WHERE user_email='%s'",
+                                mysql_real_escape_string($email));
+
+
+
+
+
+                                $results = mysql_query($query);
+
+                                $row = mysql_fetch_assoc($results);
+
+
+
+
+                                $make = $_POST['make'];
+                                $model = $_POST['model'];
+                                $year = '1990';
+                                $plate = $_POST['plate'];
+                                $color = $_POST['color'];
+                                $state = $_POST['state'];
+                                $user_id = $row['user_id'];
+
+
+ $veh = mysql_query("Insert into rdtg6.Vehicle VALUES(NULL, '$make', '$model', 1990, '$plate', '$color', '$state','$user_id')");
+
+                                if(!$veh)
+                                                {
+                                                        header("Location: register.php");
+                                                }
+                                else
+                                                {
+                                                        header("Location: home.php");
+                                                }
+
+
+}
+
+
+
+}
+
+function Register($email, $password, $firstname, $lastname, $pawprint, ){
+
+session_start();
+
+
+        if(isset($_POST['submit']))
+        {
+
+
+                if(!$_POST['email'])
+                {
+                        echo '<br/>';
+                        echo 'Error: Some data was invalid. Please try again.';
+                        echo '<br/>';
+                        exit;
+                }
+                if(!$_POST['password'])
+                {
+                        echo '<br/>';
+                        echo 'Error: Some data was invalid. Please try again.';
+                        echo '<br/>';
+                        exit;
+                }
+                if(!$_POST['confirm-password'])
+                {
+                        echo '<br/>';
+                        echo 'Error: Some data was invalid. Please try again.';
+                        echo '<br/>';
+                        exit;
+                }
+                //check if passwords match
+                if(strcmp($_POST['password'], $_POST['confirm-password'])==0)
+                {
+
+                        $link = mysql_connect('localhost', 'root', 'root');
+                        if (!$link) {
+                        die('Could not connect: ' . mysql_error());
+                        }
+                                //echo 'Connected successfully';
+
+
+                                $query = sprintf("SELECT user_email from rdtg6.User WHERE user_email='%s'",
+                                mysql_real_escape_string($_POST['email']));
+
+
+
+                                $results = mysql_query($query);
+
+                                $row = mysql_fetch_assoc($results);
+
+
+
+                                        //check if username exists
+                                          if(strcmp($row, $_POST['email'])==0)
+                                        {
+                                                echo "Username already taken.";
+
+                                        }
+                                        //if not exists insert new name
+                                        else
+                                        {
+
+                                                $email = $_POST['email'];
+                                                $salt = sha1($_POST['email']);
+                                                $password = sha1($_POST['password'] . $salt);
+                                                $fname = $_POST['firstname'];
+                                                $lname = $_POST['lastname'];
+                                                $permission = "a";
+                                                $pawprint = $_POST['pawprint'];
+                                                $isactive = "true";
+                                                $qrcode = "qr";
+                                                $datetime = '2014-02-12 00:00:00';
+
+
+                                                mysql_query("Insert INTO rdtg6.User VALUES (NULL, '$email', '$password', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$datetime')");
+
+
+                                        mysql_close($link);
+
+
+//create session to send username accross pages
+                                                                $_SESSION['email'] = $_POST['email'];
+
+                                                if(isset($_SESSION['email']))
+                                                {
+                                                        header("Location: vehicleregister.php");
+                                                }
+
+                                    }
+
+
+
+                }
+
+                else
+                {
+                        echo'<br/>';
+                        echo"password does not match confirmation password";
+                }
+
+
+
+
+
+        }
+
+
+}
 
 	function login($email, $password) {
-
-		// //call safestrip function
- 	// 	$user = safestrip($username);
- 	// 	$pass = safestrip($password);
-
-		// //convert password to md5
- 	// 	$password = md5($pass);
-
- 	// 	// check if the user id and password combination exist in database
-  // 		$sql = mysql_query("SELECT * FROM Authentication WHERE username = '$user' AND password = '$pass'")or die(mysql_error());
-
-  // 		//if match is equal to 1 there is a match
-  // 		if (mysql_num_rows($sql) == 1) {
-
-  //           //set session
-  //           $_SESSION['authorized'] = true;
-
-  //           // reload the page
-  //          	$_SESSION['success'] = 'Login Successful';
-  //           header('Location: ./index.php');
-  //           exit;
-
-
-  //  		} else {
-  //           // login failed save error to a session
-  //           $_SESSION['error'] = 'Sorry, wrong username or password';
-  // 		}
-
-    // vars
 
 $link = mysql_connect('localhost', 'root', 'root');
                         if (!$link) {
@@ -155,8 +304,8 @@ $link = mysql_connect('localhost', 'root', 'root');
                         echo '<br/>';
                 }
 
+      }
 }
-	}
 
 	//function to show any messages
 	/*function messages() {
