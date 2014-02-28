@@ -1,40 +1,10 @@
-<html>
-<head>
-<title>Log in</title>
-</head>
-<body>
-        <form action='index.php' method='POST'>
-                <label id='email'>Email: </label>
-                <input type='text' name='email' /> <br />
-                <label id='password'>Password: </label>
-                <input type='password' name='password' /> <br />
-                <input type='submit' value='Submit' name='submit' />
-                        </form>
-        <a onlick="myFunction()">Click here</a> to register.
-</body>
-</html>
-<script type="text/javascript">
-function myFunction() {
-
-    $.ajax({
-        url: 'loginController',
-        type: 'POST',
-        dataType: "json",
-        data: {
-            email: $('#email').val(),
-            password: $('#password').val()
-        },
-        success: function(data){
-            alert(JSON.stringify(data));
-    });
-
-}
-</script>
 <?php
 
 $username = 'Brandon';
 $password = 'Guest';
 $email = 'brandon@test.com';
+
+$user = new stdClass();
 
 // Create login functions
 // Login Function
@@ -72,7 +42,7 @@ class login {
 
     // vars
 
-$link = mysql_connect('localhost', 'root', 'root');
+$link = mysql_connect('localhost', 'QPark', 'root', 'root');
                         if (!$link) {
                         die('Could not connect: ' . mysql_error());
                         }
