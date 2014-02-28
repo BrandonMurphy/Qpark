@@ -52,6 +52,110 @@ function Logout(){
 }
 
 
+function updateaacountinfo($description){
+
+if(isset($_POST['submit']))
+{
+        session_start();
+
+        $email = $_SESSION['email'];
+
+        //connect to databse
+        $link = mysql_connect('localhost', 'root', 'root');
+                        if (!$link) {
+                        die('Could not connect: ' . mysql_error());
+                        }
+$query = sprintf("UPDATE rdtg6.User SET user_pawprint = '%s' WHERE user_email = '%s'",mysql_real_escape_string($_POST['description']), mysql_real_escape_string($email));
+
+
+
+        $results = mysql_query($query);
+
+        mysql_free_result($results);
+        mysql_close($link);
+
+        header("Location: home.php");
+
+
+
+}
+
+}
+
+
+function readaccountinfo(){
+session_start();
+
+$email = $_SESSION['email'];
+
+// Connect to database
+$link = mysql_connect('localhost', 'root', 'root');
+                        if (!$link) {
+                        die('Could not connect: ' . mysql_error());
+                        }
+
+$query = sprintf("Select user_email, user_firstname, user_lastname, user_pawprint from rdtg6.User where user_email='%s'",
+                                mysql_real_escape_string($email));
+$result = mysql_query($query);
+
+write_results_to_table($result);
+
+
+        echo "</br>";
+        echo "<a href = 'update.php'>Update</a> Account Info";
+        echo "</br>";
+        echo "</br>";
+
+
+mysql_free_result($result);
+mysql_close($link);
+
+function write_results_to_table($result)
+{
+
+        $row = mysql_fetch_assoc($result);
+
+
+        echo '<table border = "1">';
+        echo "<tr>";
+        foreach($row as $key => $value)
+        {
+                echo "<th>$key</th>";
+        }
+
+        echo "</tr>";
+
+        echo "<tr>";
+        foreach($row as $res)
+        {
+                echo "<td>$res</td>";
+        }
+
+        echo "</tr>";
+
+        while($row = mysql_fetch_assoc($result))
+        {
+                //print_r($row);
+
+                echo "<tr>";
+
+                foreach($row as $res)
+                {
+                        echo "<td>$res</td>";
+                }
+
+                echo "</tr>";
+
+        }
+        echo "</table>\n";
+
+
+}
+
+
+}
+
+
 function RegisterVehicle($make, $model, $year, $plate, $color, $state){
 
 session_start();
