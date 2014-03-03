@@ -11,6 +11,97 @@ $user = new stdClass();
 
 class User {
 
+function viewticket(){
+
+    session_start();
+
+$email = $_SESSION['email'];
+
+
+// Connect to database
+$link = mysql_connect('localhost', 'root', 'root');
+                        if (!$link) {
+                        die('Could not connect: ' . mysql_error());
+                        }
+
+$query = sprintf("Select user_id from rdtg6.User where user_email='%s'", mysql_real_escape_string($email));
+
+$result = mysql_query($query);
+
+$userid = mysql_fetch_assoc($result);
+
+//echo $userid['user_id'];
+
+$query1 = sprintf("Select vehicle_id from rdtg6.Vehicle where vehicle_userid='%s'", mysql_real_escape_string($userid['user_id']));
+
+$result1 = mysql_query($query1);
+
+$vehicleid = mysql_fetch_assoc($result1);
+
+//echo $vehicleid['vehicle_id'];
+
+$query2 = sprintf("Select park_id from rdtg6.Park where park_vehicleid='%s'", mysql_real_escape_string($vehicleid['vehicle_id']));
+
+$result2 = mysql_query($query2);
+
+$parkid = mysql_fetch_assoc($result2);
+
+//echo $parkid['park_id'];
+
+$query3 = sprintf("Select * from rdtg6.Ticket where ticket_parkid='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($parkid['park_id']));
+
+$result3 = mysql_query($query3);
+
+write_results_to_table($result3);
+
+mysql_free_result($result);
+mysql_close($link);
+
+function write_results_to_table($result)
+{
+
+        $row = mysql_fetch_assoc($result);
+
+
+        echo '<table border = "1">';
+        echo "<tr>";
+        foreach($row as $key => $value)
+        {
+                echo "<th>$key</th>";
+        }
+
+        echo "</tr>";
+
+         echo "<tr>";
+        foreach($row as $res)
+        {
+                echo "<td>$res</td>";
+        }
+
+        echo "</tr>";
+
+         while($row = mysql_fetch_assoc($result))
+        {
+                //print_r($row);
+
+                echo "<tr>";
+
+                foreach($row as $res)
+                {
+                        echo "<td>$res</td>";
+                }
+
+         }
+        echo "</table>\n";
+
+}
+
+
+
+
+
+    }
+
 function Logout(){
 
         session_start();
