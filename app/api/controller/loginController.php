@@ -1,4 +1,14 @@
 <?php
+echo "<pre>";
+echo "string";
+if(isset($_POST['action']) && !empty($_POST['action'])) {
+    $action = $_POST['action'];
+    switch($action) {
+        case 'login' : login();break;
+        case 'blah' : blah();break;
+        // ...etc...
+    }
+}
 
 $username = 'Brandon';
 $password = 'Guest';
@@ -8,8 +18,6 @@ $user = new stdClass();
 
 // Create login functions
 // Login Function
-
-class User {
 
 function viewticket(){
 
@@ -275,7 +283,7 @@ $link = mysql_connect('localhost', 'root', 'root');
 
 }
 
-function Register($email, $password, $firstname, $lastname, $pawprint, ){
+function Register($email, $password, $firstname, $lastname, $pawprint ){
 
 session_start();
 
@@ -381,11 +389,10 @@ session_start();
 
         }
 
-
 }
 
-	function login($email, $password) {
-
+function login($email, $password) {
+echo "test";
 $link = mysql_connect('localhost', 'QPark', 'root', 'root');
                         if (!$link) {
                         die('Could not connect: ' . mysql_error());
@@ -469,7 +476,6 @@ $link = mysql_connect('localhost', 'QPark', 'root', 'root');
                         echo '<br/>';
                 }
 
-      }
 }
 
 	//function to show any messages

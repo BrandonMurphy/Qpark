@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="bower_components/gumby/css/gumby.css">
   <script src="bower_components/gumby/js/libs/modernizr-2.6.2.min.js"></script>
 </head>
-<body ng-app="qparkApp">
+<body ng-app="qparkApp" ng-controller="MainCtrl">
   <div class="row navbar" id="nav1" style="max-width: 100%;">
     <!-- Toggle for mobile navigation, targeting the <ul> -->
     <a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
@@ -47,6 +47,7 @@
       <input class="loginUser"></input>
       <p class="pass">PASSWORD</p>
       <input class="loginPass"></input>
+      <div class="loginConfirm medium default btn" ng-click="login()">Login</div>
     </div>
   </div>
 

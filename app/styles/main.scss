@@ -2,8 +2,19 @@
     float: right;
     color: white;
     margin-top: -40px;
-    margin-right: 130px;
-    width: 365px;
+    margin-right: 200px;
+    width: 435px;
+}
+
+.loginConfirm {
+    margin-right: -310px;
+    height: 30px !important;
+    width: 80px !important;
+    float: right;
+}
+
+.loginConfirm:hover {
+    cursor: pointer;
 }
 
 .loginLink {
@@ -45,6 +56,7 @@
 
 .pass {
     float: right;
+    margin-right: 80px;
 }
 
 .loginUser {
@@ -52,7 +64,7 @@
     height: 30px;
     position: absolute;
     top: 20px;
-    right: 260px;
+    right: 400px;
 }
 
 .loginPass {
@@ -60,7 +72,7 @@
     height: 30px;
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 170px;
 }
 
 /* Space out content a bit */
