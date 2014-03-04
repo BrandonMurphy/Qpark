@@ -20,14 +20,13 @@ $user = new stdClass();
 // Login Function
 
 function viewticket(){
-
-    session_start();
+        session_start();
 
 $email = $_SESSION['email'];
 
 
 // Connect to database
-$link = mysql_connect('localhost', 'root', 'root');
+$link = mysql_connect('dbhost-mysql.cs.missouri.edu', 'rdtg6', 'EvkknFwT');
                         if (!$link) {
                         die('Could not connect: ' . mysql_error());
                         }
@@ -52,15 +51,23 @@ $query2 = sprintf("Select park_id from rdtg6.Park where park_vehicleid='%s'", my
 
 $result2 = mysql_query($query2);
 
-$parkid = mysql_fetch_assoc($result2);
+//$parkid = mysql_fetch_assoc($result2);
 
-//echo $parkid['park_id'];
 
-$query3 = sprintf("Select * from rdtg6.Ticket where ticket_parkid='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($parkid['park_id']));
+while ($row = mysql_fetch_array($result2, MYSQL_ASSOC)) {
+
+$query3 = sprintf("Select * from rdtg6.Ticket where ticket_parkid='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($row['park_id']));
 
 $result3 = mysql_query($query3);
-
 write_results_to_table($result3);
+
+echo '<br/>';
+
+}
+
+//$result3 = mysql_query($query3);
+
+//write_results_to_table($result3);
 
 mysql_free_result($result);
 mysql_close($link);
@@ -80,7 +87,7 @@ function write_results_to_table($result)
 
         echo "</tr>";
 
-         echo "<tr>";
+        echo "<tr>";
         foreach($row as $res)
         {
                 echo "<td>$res</td>";
@@ -103,9 +110,7 @@ function write_results_to_table($result)
         echo "</table>\n";
 
 }
-
-
-
+   
 
 
     }
