@@ -2,7 +2,7 @@
 class Admin {
 	function deleteTicket($ticketId){
 		if (isset($ticketId) && ($ticketId != NULL)) {
-    		$id = sanitize($ticketId, 'int');  //protect from sql injection
+    		$ticketId = sanitize($ticketId, 'int');  //protect from sql injection
     		$query = "DELETE FROM Ticket WHERE ticket_id=$ticketId";
     			if(!mysql_query($query, $db_server))
         			echo "DELETE failed: $query<br />" . 
@@ -10,9 +10,9 @@ class Admin {
 		}
 	}
 	function editTicket($ticket){
-		if (isset($ticketId) && ($ticketId != NULL)) {
-			$id = sanitize($ticketId, 'int');  //protect from sql injection
-			$query = "UPDATE Ticket WHERE ticket_id=$ticket->ticketId";
+		if (isset($ticket->id) && ($ticket->id != NULL)) {
+			$ticket->id = sanitize($ticket->id, 'int');  //protect from sql injection
+			$query = "UPDATE Ticket WHERE ticket_id=$ticket->id";
 				if(!mysql_query($query, $db_server))
         			echo "UPDATE failed: $query<br />" . 
         			mysql_error() . "<br /><br />";
@@ -30,7 +30,7 @@ class Admin {
 	}
 	function deleteAccount($userId){
 		if (isset($userId) && ($userId != NULL)) {
-			$id = sanitize($userId, 'int');  //protect from sql injection
+			$userId = sanitize($userId, 'int');  //protect from sql injection
 			$query = "DELETE User WHERE user_id=$userId";
 				if(!mysql_query($query, $db_server))
         			echo "DELETE failed: $query<br />" . 
