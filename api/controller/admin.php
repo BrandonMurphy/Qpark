@@ -37,6 +37,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'editAccount'){
 		editAccount($vars['fname'], $vars['lname'], $vars['password'], $vars['email'], $vars['permission']);
 	}
+	if($vars['action'] == 'viewAllTickets'){
+		viewAllTickets();
+	}
 }
 
 function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
@@ -132,6 +135,19 @@ function editAccount($fname, $lname, $passwordParam, $emailParam, $permissionPar
 	mysql_free_result($results);
 	mysql_close($link);
 
+}
+
+function viewAllTickets(){
+	$query="SELECT * FROM Ticket ORDER BY ticket_date";
+	$results = mysql_query($query);
+
+	while ($row = mysql_fetch_array($results)) {
+    	echo '<tr>';
+    	foreach($row as $field) {
+       		echo '<td>' . htmlspecialchars($field) . '</td>';
+    	}
+    	echo '</tr>';
+	}
 }
 
 ?>
