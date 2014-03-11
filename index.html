@@ -96,7 +96,7 @@
 				<div class="ten columns centered">
 					<p class="required" style="margin-top: 50px;">* Required Field</p>
 					<div class="medium primary btn" style="margin-top: -60px; float: right;">
-						<a href="#" onclick="updateAccountInfo()">Register</a>
+						<a href="#" onclick="register()">Register</a>
 					</div>
 				</div>
 			</div>
@@ -114,11 +114,11 @@
 			<div class="row" style="margin-left: -30px; margin-top: -20px;">
 				<div class="emailRow twelve columns">
 					<div>E-Mail</div>
-					<input style="width: 350px;"></input>
+					<input id="email" style="width: 350px;"></input>
 				</div>
 				<div class="twelve columns">
 					<div>Password</div>
-					<input style="width: 350px;"></input>
+					<input id="user_pass" style="width: 350px;"></input>
 				</div>
 				<div class="twelve columns" style="margin-top: 10px;">
 					<div class="medium default btn" onclick="login()">
