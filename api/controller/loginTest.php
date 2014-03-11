@@ -24,6 +24,15 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'update'){
 		updateaacountinfo($vars['fname'],$vars['lname'], $vars['password'], $vars['email']);
 	}
+	if($vars['action'] == 'payment'){
+		payment($vars['email'],$vars['garage'], $vars['duration'], $vars['price']);
+	}
+	if($vars['action'] == 'logout'){
+		logout();
+	}
+	if($vars['action'] == 'viewticket'){
+		viewticket($vars['email']);
+	}
 } else{
 	echo "no action selected";
 }
@@ -152,7 +161,8 @@ else
     $permission = "a";
     $pawprint = $pawprintParam;
     $isactive = "true";
-    $qrcode = "qr";
+    $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+    $qrcode = $url . $salt;
     $datetime = $_SERVER['REQUEST_TIME'];
 
 	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$datetime')");
@@ -220,4 +230,151 @@ echo "function end";
 
 
 }
+
+function payment($emailParam, $garageParam, $parkDurationParam, $priceParam){
+
+
+$query = sprintf("SELECT user_id from User WHERE user_email='%s'",
+mysql_real_escape_string($emailParam));
+
+$results = mysql_query($query);
+
+$row = mysql_fetch_assoc($results);
+
+//echo $row['user_id'];
+
+$vehicleUserID = $row['user_id'];
+
+$query1 = sprintf("SELECT vehicle_id from Vehicle WHERE vehicle_userid ='%s'", mysql_real_escape_string($vehicleUserID));
+
+$results1 = mysql_query($query1);
+
+$row1 = mysql_fetch_assoc($results1);
+
+//echo $row1['vehicle_id'];
+
+ $vehicleId = $row1['vehicle_id'];
+ $garage = $garageParam;
+ $timeRemaining = '60.00';
+ $date = '2014-03-03';
+ $datetime = '2014-03-03 00:00:00';
+ $isactive = "true";
+ $price = $priceParam;
+ $duration = $parkDurationParam;
+
+ $query2 = mysql_query("Insert into Park VALUES(NULL, '$date', '$datetime', '$garage', '$duration', '$price', '$isactive','$timeRemaining', '$vehicleId')");
+                $results2 = mysql_query($query2);
+
+
+                                if($query2)
+                                {
+                                        //header("Location: home.php");
+                                	echo "Payment Success";
+                                }
+mysql_free_result($results);
+mysql_free_result($results1);
+mysql_free_result($results2);
+
+mysql_close($link);                              
+}
+
+
+
+function viewticket($emailParam){
+        session_start();
+
+//$email = $_SESSION['email'];
+
+
+$query = sprintf("Select user_id from User where user_email='%s'", mysql_real_escape_string($email));
+
+$result = mysql_query($query);
+
+$userid = mysql_fetch_assoc($result);
+
+//echo $userid['user_id'];
+
+$query1 = sprintf("Select vehicle_id from Vehicle where vehicle_userid='%s'", mysql_real_escape_string($userid['user_id']));
+
+$result1 = mysql_query($query1);
+
+$vehicleid = mysql_fetch_assoc($result1);
+
+//echo $vehicleid['vehicle_id'];
+
+$query2 = sprintf("Select park_id from Park where park_vehicleid='%s'", mysql_real_escape_string($vehicleid['vehicle_id']));
+
+$result2 = mysql_query($query2);
+
+//$parkid = mysql_fetch_assoc($result2);
+
+
+while ($row = mysql_fetch_array($result2, MYSQL_ASSOC)) {
+
+$query3 = sprintf("Select * from Ticket where ticket_parkid='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($row['park_id']));
+
+$result3 = mysql_query($query3);
+write_results_to_table($result3);
+
+echo '<br/>';
+
+}
+
+//$result3 = mysql_query($query3);
+
+//write_results_to_table($result3);
+
+mysql_free_result($result);
+mysql_close($link);
+
+function write_results_to_table($result)
+{
+
+        $row = mysql_fetch_assoc($result);
+
+
+        echo '<table border = "1">';
+        echo "<tr>";
+        foreach($row as $key => $value)
+        {
+                echo "<th>$key</th>";
+        }
+
+        echo "</tr>";
+
+        echo "<tr>";
+        foreach($row as $res)
+        {
+                echo "<td>$res</td>";
+        }
+
+        echo "</tr>";
+
+         while($row = mysql_fetch_assoc($result))
+        {
+                //print_r($row);
+
+                echo "<tr>";
+
+                foreach($row as $res)
+                {
+                        echo "<td>$res</td>";
+                }
+
+         }
+        echo "</table>\n";
+
+}
+   
+}
+
+function Logout(){
+
+        session_start();
+        session_destroy();
+        $_SESSION = array();
+        //header("Location: index.php");
+        echo "Logout";
+}
+
 ?>
