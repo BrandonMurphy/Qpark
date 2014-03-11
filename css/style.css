@@ -1,0 +1,69 @@
+/*
+We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
+However, this blank file is available if you prefer
+*/
+.loginOrRegister {
+	float: right;
+	margin-top: -40px;
+}
+
+.loginLink {
+	float: left;
+	margin-right: 10px;
+}
+
+.loginLink:hover {
+	cursor: pointer;
+}
+
+.loginLink > a:hover {
+	color: #FFE000 !important;
+}
+
+.registerLink {
+	float: left;
+	margin-left: 10px;
+}
+
+.registerLink:hover {
+	cursor: pointer;
+}
+
+.registerLink > a:hover {
+	color: #FFE000 !important;
+}
+
+.modal > .content {
+	background: #585757;
+}
+
+.loginModal {
+	max-width: 400px !important;
+}
+
+.modalLogo {
+	height: 120px;
+}
+
+.emailRow {
+	margin-left: 8px !important;
+}
+
+i {
+	color: #f0f0f0 !important;
+}
+
+i:hover {
+	cursor: pointer;
+	color: white !important;
+}
+
+@media only screen and (max-width: 568px) {
+	.modalLogo {
+		height: 180px;
+	}
+
+	.emailRow {
+		margin-left: 0px !important;
+	}
+}
