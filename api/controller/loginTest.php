@@ -377,4 +377,10 @@ function Logout(){
         echo "Logout";
 }
 
+
+//Start to implment the api for the Android application///
+
+
+
+
 ?>
