@@ -255,14 +255,12 @@ $row1 = mysql_fetch_assoc($results1);
 
  $vehicleId = $row1['vehicle_id'];
  $garage = $garageParam;
- $timeRemaining = '60.00';
- $date = '2014-03-03';
  $datetime = '2014-03-03 00:00:00';
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
 
- $query2 = mysql_query("Insert into Park VALUES(NULL, '$date', '$datetime', '$garage', '$duration', '$price', '$isactive','$timeRemaining', '$vehicleId')");
+ $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$garage', '$duration', '$price', '$isactive', '$vehicleId')");
                 $results2 = mysql_query($query2);
 
 
