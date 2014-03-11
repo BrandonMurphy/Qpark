@@ -24,9 +24,13 @@ Gumby.ready(function() {
 
 
 function login() {
+	var email = $( "#email" ).val();
+	var user_pass = $( "#user_pass" ).val();
+	console.log(email);
+	console.log(user_pass);
 	$.ajax({
 		type: "GET",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=login&email=thatCoolGuy6@email.com&password=myNewPass',
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
 		success: function(result){
 			console.log(result);
