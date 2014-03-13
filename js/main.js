@@ -39,9 +39,19 @@ function login() {
 }
 
 function register() {
+	var fname = $( "#fname" ).val();
+	var lname = $( "#lname" ).val();
+	var reg_email = $( "#reg_email" ).val();
+	var reg_pass = $( "#reg_pass" ).val();
+
+	console.log(fname);
+	console.log(lname);
+	console.log(reg_email);
+	console.log(reg_pass);
+
 	$.ajax({
 		type: "POST",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=register&email=thatCoolGuy6@email.com&password=mypass&fname=that&lname=guy&pawprint=tthtguy&make=ford&model=mustang&year=1999&plate=SL1G1Y&color=white&state=MO',
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=tthtguy&make=ford&model=cobraMustang&year=1999&plate=SL1G1Y&color=white&state=MO',
 		aysnc: false,
 		success: function(result){
 			console.log(result);

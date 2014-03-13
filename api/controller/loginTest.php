@@ -39,29 +39,17 @@ if(isset($vars['action']) && $vars['action'] != ''){
 
 
 function login($email, $password) {
-//echo $email;
+//echo $password;
 
 $query = sprintf("SELECT user_email from User WHERE user_email='%s';",
 mysql_real_escape_string($email));
-
-//echo $query;
-
 $results = mysql_query($query);
-//echo $results;
 $row = mysql_fetch_assoc($results);
 mysql_free_result($results);
-//$row = "Sucessful Ajax Call!";
-//print_r($row);
-
 $email = $row['user_email'];
-//echo $email;
-
-
-
 
 if(strcmp($email, $row) == 0)
 {
-	
 $query1 = sprintf("SELECT user_password from User WHERE user_email='%s'",
 mysql_real_escape_string($email));
 $results1 = mysql_query($query1);
@@ -69,9 +57,10 @@ $row1 = mysql_fetch_assoc($results1);
 mysql_free_result($results1);
 mysql_close($link);
 $salt = sha1($email);
-      
+$saltedPass = sha1($password . $salt);
+
     //comparing password in database with users input
-    if(strcmp(sha1($password . $salt), $row1['user_password']) == 0)
+    if(strcmp($saltedPass, $row1['user_password']) == 0)
     {
 
             //create username session to be sent accross pages
@@ -86,14 +75,14 @@ $salt = sha1($email);
     else
     {
             echo '<br/>';
-            echo"Invalid username or password";
+            echo"Invalid password";
             echo '<br/>';
     }
 }
 else
 {
         echo '<br/>';
-        echo "Invalid usernam or password";
+        echo "Invalid username";
         echo '<br/>';
 }
 }
@@ -165,7 +154,7 @@ else
     $qrcode = $url . $salt;
     $datetime = $_SERVER['REQUEST_TIME'];
 
-	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$datetime')");
+	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$datetime')");
 
 
 	// Query for user_id for user that was just created
@@ -187,18 +176,19 @@ else
 
 	$veh = mysql_query("Insert into Vehicle VALUES(NULL, '$make', '$model', 1999, '$plate', '$color', '$state','$user_id')");
 
-	echo $makeParam;
-	echo "<br/>";
-	echo $modelParam;
-	echo "<br/>";
-	echo $yearParam;
-	echo "<br/>";
-	echo $licensePlate;
-	echo "<br/>";
-	echo $colorParam;
-	echo "<br/>";
-	echo $stateParam;
-	echo "<br/>";
+	// echo $makeParam;
+	// echo "<br/>";
+	// echo $modelParam;
+	// echo "<br/>";
+	// echo $yearParam;
+	// echo "<br/>";
+	// echo $licensePlate;
+	// echo "<br/>";
+	// echo $colorParam;
+	// echo "<br/>";
+	// echo $stateParam;
+	// echo "<br/>";
+	echo $veh;
 
 	if(!$veh)
 	{

@@ -76,20 +76,20 @@
 			</div>
 			<div class="row">
 				<div class="ten columns centered text-center">
-					* First Name<input></input>
-					* Last Name<input></input>
+					* First Name<input id="fname"></input>
+					* Last Name<input id="lname"></input>
 				</div>
 			</div>
 			<div class="row" style="margin-top: 20px;">
 				<div class="ten columns centered text-center">
-					* E-Mail<input style="margin-right: 7px;"></input>
-					* Confirm E-Mail<input></input>
+					* E-Mail<input id="reg_email" style="margin-right: 7px;"></input>
+					* Confirm E-Mail<input id="reg_email_conf"></input>
 				</div>
 			</div>
 			<div class="row" style="margin-top: 20px; margin-left: -20px;">
 				<div class="twelve columns centered text-center">
-					* Password<input></input>
-					* Confirm Password<input></input>
+					* Password<input type="password" name="password" id="reg_pass"></input>
+					* Confirm Password<input type="password" name="password" id="reg_pass_conf"></input>
 				</div>
 			</div>
 			<div class="row">
@@ -118,7 +118,7 @@
 				</div>
 				<div class="twelve columns">
 					<div>Password</div>
-					<input id="user_pass" style="width: 350px;"></input>
+					<input type="password" id="user_pass" style="width: 350px;"></input>
 				</div>
 				<div class="twelve columns" style="margin-top: 10px;">
 					<div class="medium default btn" onclick="login()">
