@@ -40,6 +40,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'viewAllTickets'){
 		viewAllTickets();
 	}
+	if($vars['action'] == 'viewParks'){
+		viewParks($vars['email']);
+	}
 }
 
 function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
@@ -148,6 +151,82 @@ function viewAllTickets(){
     	}
     	echo '</tr>';
 	}
+}
+
+function viewParks($emailParam){
+
+	if($emailParam != NULL)
+	{
+		$query = sprintf("SELECT user_id from User WHERE user_email ='%s'",
+		mysql_real_escape_string($emailParam));
+		$results = mysql_query($query);
+		$row = mysql_fetch_assoc($results);
+		$userid = $row['user_id'];
+
+		$query1 = sprintf("SELECT vehicle_id from Vehicle WHERE vehicle_userid ='%s'",
+		mysql_real_escape_string($userid));
+		$results1 = mysql_query($query1);
+		$row = mysql_fetch_assoc($results1);
+		$userid = $row['vehicle_id'];
+
+		$query2 = sprintf("SELECT * from Park where park_vehicleid ='%s' ORDER BY park_time DESC", 
+		mysql_real_escape_string($row['vehicle_id']));
+		$result2 = mysql_query($query2);
+
+		write_results_to_table($result2);
+
+		mysql_free_result($result);
+		mysql_free_result($result1);
+		mysql_free_result($result2);
+
+	}
+	else
+	{
+		$query = sprintf("SELECT * from Park ORDER BY park_time DESC");
+		$result = mysql_query($query);
+		write_results_to_table($result);
+		mysql_free_result($result);
+	}
+
+	function write_results_to_table($result)
+{
+
+        $row = mysql_fetch_assoc($result);
+
+
+        echo '<table border = "1">';
+        echo "<tr>";
+        foreach($row as $key => $value)
+        {
+                echo "<th>$key</th>";
+        }
+
+        echo "</tr>";
+
+        echo "<tr>";
+        foreach($row as $res)
+        {
+                echo "<td>$res</td>";
+        }
+
+        echo "</tr>";
+
+         while($row = mysql_fetch_assoc($result))
+        {
+                //print_r($row);
+
+                echo "<tr>";
+
+                foreach($row as $res)
+                {
+                        echo "<td>$res</td>";
+                }
+
+         }
+        echo "</table>\n";
+
+}
+	
 }
 
 ?>

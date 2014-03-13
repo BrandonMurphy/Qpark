@@ -58,6 +58,9 @@ function getParkValidity($employeeGarage, $qrId){
 
     //$query = "UPDATE Park SET park_status=0 WHERE (park_time + park_duration) > NOW() AND park_status NOT LIKE 0";
 
+
+    //"UPDATE Park SET park_status = 'false' WHERE (park_time + park_duration) <= NOW()"; //
+
   
 
 }
