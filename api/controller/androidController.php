@@ -54,20 +54,20 @@ $salt = sha1($email);
     if(strcmp(sha1($password . $salt), $row1['user_password']) == 0)
     {
 
-		$validation = "True";
-		echo json_encode($valitaion);
+		$validation = True;
+		echo json_encode($validation);
 		
 	}
     else
     {
-        $validation = "False";
-		echo json_encode($valitaion);  
+        $validation = False;
+		echo json_encode($validation);  
     }
 }
 else
 {
-        $validation = "False";
-		echo json_encode($valitaion);
+        $validation = False;
+		echo json_encode($validation);
 }
 
 }
