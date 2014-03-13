@@ -152,7 +152,7 @@ else
     $isactive = "true";
     $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     $qrcode = $url . $salt;
-    $datetime = $_SERVER['REQUEST_TIME'];
+    $datetime = date('Y/m/d') . " " .date('g:i:s');
 
 	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$datetime')");
 
@@ -174,7 +174,7 @@ else
 	$state = $stateParam;
 	$user_id = $row['user_id'];
 
-	$veh = mysql_query("Insert into Vehicle VALUES(NULL, '$make', '$model', 1999, '$plate', '$color', '$state','$user_id')");
+	$veh = mysql_query("Insert into Vehicle VALUES(NULL, '$make', '$model', '$year', '$plate', '$color', '$state','$user_id')");
 
 	// echo $makeParam;
 	// echo "<br/>";
@@ -245,7 +245,7 @@ $row1 = mysql_fetch_assoc($results1);
 
  $vehicleId = $row1['vehicle_id'];
  $garage = $garageParam;
- $datetime = '2014-03-03 00:00:00';
+ $datetime = date('Y/m/d') . " " .date('g:i:s');
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
