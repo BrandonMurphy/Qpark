@@ -19,10 +19,51 @@ if(!empty($_GET)){
 
 if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'getParkValidity'){
-		getParkValidity($vars['employeeGarage'], $vars['userId']);
+		getParkValidity($vars['employeeGarage'], $vars['qrId']);
 	}
+    if($vars['action'] == 'getVehicleInfo'){
+        getParkValidity($vars['employeeGarage'], $vars['qrId']);
+    }
 }
+function getVehicleInfo($employeeGarage, $qrId){
 
+    $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $userId = $row[0];
+
+    $db_result = mysql_query("SELECT vehicle_id FROM Vehicle WHERE vehicle_userid = $userId");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $vehicleId = $row[0];
+
+    $db_result = mysql_query("SELECT vehicle_make FROM Vehicle WHERE vehicle_id = $vehicle_id");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $make = $row[0];
+
+    $make = json_encode($make);
+    echo $make;
+
+    $db_result = mysql_query("SELECT vehicle_model FROM Vehicle WHERE vehicle_id = $vehicle_id");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $model = $row[0];
+
+    $model = json_encode($model);
+    echo $model;
+
+    $db_result = mysql_query("SELECT vehicle_year FROM Vehicle WHERE vehicle_id = $vehicle_id");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $year = $row[0];
+
+    $year = json_encode($year);
+    echo $year;
+
+    $db_result = mysql_query("SELECT vehicle_plate FROM Vehicle WHERE vehicle_id = $vehicle_id");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $plate = $row[0];
+
+    $plate = json_encode($plate);
+    echo $plate;
+
+}
 
 function getParkValidity($employeeGarage, $qrId){
 
