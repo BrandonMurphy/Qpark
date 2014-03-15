@@ -406,8 +406,9 @@ function addtime($emailParam, $parkduration)
     echo '<br/>';
     $duration = $parkdurationold + $parkduration;
     
-    $sumtime = date("H:i:s",$duration);
-    echo $sumtime;
+    echo $duration;
+    //$sumtime = date("H:i:s",$duration);
+    //echo $sumtime;
 
     $query2 = sprintf("UPDATE Park SET park_duration = '%s' WHERE park_vehicleid = '%s'",
     mysql_real_escape_string($duration), mysql_real_escape_string($parkvehicleid));
