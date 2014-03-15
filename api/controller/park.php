@@ -22,7 +22,7 @@ if(isset($vars['action']) && $vars['action'] != ''){
 		getParkValidity($vars['employeeGarage'], $vars['qrId']);
 	}
     if($vars['action'] == 'getVehicleInfo'){
-        getParkValidity($vars['employeeGarage'], $vars['qrId']);
+        getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
     }
 }
 function getVehicleInfo($employeeGarage, $qrId){
