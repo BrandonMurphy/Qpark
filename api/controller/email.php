@@ -23,6 +23,32 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'registerEmail'){
 		registerEmail($vars['email']);
 	}
+    if($vars['action'] == 'loginEmail'){
+        resetPasswordEmail($vars['email']);
+    }
+}
+
+function resetPasswordEmail($email){
+
+    $salt = sha1($email);
+    $temp = 'temp';
+    $tempPassword = $temp . $salt;
+    
+    $query = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'", mysql_real_escape_string($tempPassword), mysql_real_escape_string($email));
+
+
+
+    $result = $mgClient->sendMessage("$domain",
+    array('from'    => 'Enter QPark Email address here',
+        'to'      => $email,
+        'subject' => 'QPark Login Information',
+        'text'    => "Hello '.$email'. Your temporary password is '.$tempPassword.'.  Please use this
+                        to login to QPark.  You can then reset your password in your account settings.
+                        Thanks!'\n'-QPark Team   "));
+
+
+
+
 }
 function registerEmail($email){
 
