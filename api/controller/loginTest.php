@@ -368,7 +368,7 @@ function Logout(){
         echo "Logout";
 }
 
-function addtime($emailParam, $parkduration)
+function addtime($emailParam, $timeToAdd)
 {
 
     $query = sprintf("SELECT user_id from User WHERE user_email='%s'",
@@ -394,20 +394,27 @@ function addtime($emailParam, $parkduration)
     mysql_real_escape_string($parkvehicleid));
     $result3 = mysql_query($query3);
     $row3 = mysql_fetch_assoc($result3);
-    $parkdurationold = $row3['park_duration'];
+    $duration = $row3['park_duration'];
 
-    echo $parkdurationold;
+
+    $duration = New datetime();
+
+    $duration->modify("+'$timeToAdd'");
+
+
+
+    /*echo $parkdurationold;
     echo '<br/>';
     echo $parkduration;
-    echo '<br/>';
+    echo '<br/>';*/
 
     
 
-    echo '<br/>';
+    /*echo '<br/>';
     $duration = $parkdurationold + $parkduration;
     
-    $sumtime = date("H:i:s",$duration);
-    echo $sumtime;
+    $sumtime = date("H:i:s", $duration);
+    echo $sumtime;*/
 
     $query2 = sprintf("UPDATE Park SET park_duration = '%s' WHERE park_vehicleid = '%s'",
     mysql_real_escape_string($duration), mysql_real_escape_string($parkvehicleid));
