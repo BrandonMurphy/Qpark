@@ -73,7 +73,7 @@ function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $p
 
 function deactivateUser($email){
 	if ($email != NULL) {
-   		$query = sprintf("UPDATE User SET user_isactive = '0' WHERE user_email = '%s'", mysql_real_escape_string($email));
+   		$query = sprintf("UPDATE User SET user_isactive = false WHERE user_email = '%s'", mysql_real_escape_string($email));
    		
    		$results = mysql_query($query);
 		mysql_free_result($results);
@@ -83,7 +83,7 @@ function deactivateUser($email){
 
 function reactivateUser($email){
 	if ($email != NULL) {
-   		$query = sprintf("UPDATE User SET user_isactive = '1' WHERE user_email = '%s'", mysql_real_escape_string($email));
+   		$query = sprintf("UPDATE User SET user_isactive = true WHERE user_email = '%s'", mysql_real_escape_string($email));
    		
    		$results = mysql_query($query);
 		mysql_free_result($results);
