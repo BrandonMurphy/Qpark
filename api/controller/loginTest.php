@@ -33,6 +33,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'viewticket'){
 		viewticket($vars['email']);
 	}
+    if($vars['action'] == 'addtime'){
+        addtime($vars['email'], $vars['duration']);
+    }
 } else{
 	echo "no action selected";
 }
@@ -365,10 +368,62 @@ function Logout(){
         echo "Logout";
 }
 
+function addtime($emailParam, $parkduration)
+{
 
-//Start to implment the api for the Android application///
+    $query = sprintf("SELECT user_id from User WHERE user_email='%s'",
+    mysql_real_escape_string($emailParam));
+    $results = mysql_query($query);
+    $row = mysql_fetch_assoc($results);
+    $vehicleUserID = $row['user_id'];
 
+    $query1 = sprintf("SELECT vehicle_id from Vehicle where vehicle_userid='%s'", 
+    mysql_real_escape_string($vehicleUserID));
+    $result1 = mysql_query($query1);
+    $row1 = mysql_fetch_assoc($result1);
+    $parkvehicleid = $row1['vehicle_id'];
 
+    //$email = $emailParam;
+    //$duration = $parkduration;
 
+    echo $parkvehicleid;
+    echo '<br/>';
+    
+
+    $query3 = sprintf("SELECT park_duration from Park where park_vehicleid= '%s'", 
+    mysql_real_escape_string($parkvehicleid));
+    $result3 = mysql_query($query3);
+    $row3 = mysql_fetch_assoc($result3);
+    $parkdurationold = $row3['park_duration'];
+
+    echo $parkdurationold;
+    echo '<br/>';
+    echo $parkduration;
+    echo '<br/>';
+
+    
+
+    echo '<br/>';
+    $duration = $parkdurationold + $parkduration;
+    
+    $sumtime = date("H:i:s",$duration);
+    echo $sumtime;
+
+    $query2 = sprintf("UPDATE Park SET park_duration = '%s' WHERE park_vehicleid = '%s'",
+    mysql_real_escape_string($duration), mysql_real_escape_string($parkvehicleid));
+    $result2 = mysql_query($query2);
+
+    if($result2)
+    {
+        echo "success";
+    }
+
+    mysql_free_result($results);
+    mysql_free_result($result1);
+    mysql_free_result($result2);
+    mysql_free_result($result3);
+    mysql_close($link);
+
+}
 
 ?>
