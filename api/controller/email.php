@@ -26,9 +26,13 @@ if(isset($vars['action']) && $vars['action'] != ''){
 }
 function registerEmail($email){
 
-    $db_result = mysql_query("SELECT user_qrcodeid FROM User WHERE user_email = $email");
+    $salt = sha1($email);
+    $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+    $qrcode = $url . $salt;
+
+    $db_result = mysql_query("SELECT user_qrcode FROM User WHERE user_email = $email");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
-    $qrId = $row[0];
+    $qrcode = $row[0];
 
 
     $mgClient = new Mailgun('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
@@ -40,7 +44,7 @@ function registerEmail($email){
         'subject' => 'Welcome to QPark!',
         'text'    => "Thank you for registering with QPark!  You have chosen to login with 
                         the email '.$email .'.  You can also find and print your personal QPark 
-                        Code at https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='.$qrId\n.'
+                        Code at https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='.$qrcode\n.'
                         Please attach your QPark Code to the lower lefthand side of the inside of your
                         windshield.  For more questions or concerns, you can contact QPark at <Qpark email>.
                         Thanks again for choosing QPark!    "));
