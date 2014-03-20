@@ -68,7 +68,8 @@ $saltedPass = sha1($password . $salt);
 
 		if(isset($email))
 		{
-		        echo "Sucessful";
+                $sessionData = array(True, $email);
+		        print_r($sessionData);
 		}
 
 	}

@@ -22,6 +22,11 @@ Gumby.ready(function() {
 	Gumby.log("This is a touch enabled device...");
 });
 
+// Enable Carousel Slider
+$(document).ready(function(){
+  $('.bxslider').bxSlider();
+});
+
 
 function login() {
 	var email = $( "#email" ).val();
@@ -29,11 +34,15 @@ function login() {
 	console.log(email);
 	console.log(user_pass);
 	$.ajax({
-		type: "GET",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
 		success: function(result){
-			console.log(result);
+			console.log(result[0]);
+			if(result[0] == 1) {
+				console.log("login was successful");
+				window.location.href = "Views/home.html?username=" + result[1];
+			}
 		}
 	});
 }
@@ -51,7 +60,7 @@ function register() {
 
 	$.ajax({
 		type: "POST",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=tthtguy&make=ford&model=cobraMustang&year=1999&plate=SL1G1Y&color=white&state=MO',
+		url: 'http://babbage.cs.missouri.edu~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=tthtguy&make=ford&model=cobraMustang&year=1999&plate=SL1G1Y&color=white&state=MO',
 		aysnc: false,
 		success: function(result){
 			console.log(result);
@@ -62,7 +71,7 @@ function register() {
 function updateAccountInfo() {
 	$.ajax({
 		type: "POST",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/loginTest.php?action=update&fname=this&lname=coolGuy&password=&email=thatCoolGuy6@email.com',
+		url: 'http://babbage.cs.missouri.edu~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=update&fname=this&lname=coolGuy&password=&email=thatCoolGuy6@email.com',
 		aysnc: false,
 		success: function(result){
 			console.log(result);
