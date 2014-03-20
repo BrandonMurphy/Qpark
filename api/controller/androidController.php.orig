@@ -18,9 +18,6 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'employeelogin'){
 		employeelogin($vars['email'], $vars['password']);
 	}
-	if($vars['action'] == 'createticket'){
-		createticket($vars['price'], $vars['violation'], $vars['notes'], $vars['employeeid'], $vars['parkid']);
-	}
 } else{
 	echo "no action selected";
 }
@@ -56,35 +53,34 @@ $salt = sha1($email);
     //comparing password in database with users input
     if(strcmp(sha1($password . $salt), $row1['user_password']) == 0)
     {
+
+<<<<<<< HEAD
+		$validation = True;
+=======
 		$validation = array('employee_login' => True);
-		echo json_encode($validation);	
+>>>>>>> f1a9eec0e6a87cbe719e4ee211bd4943f2b74474
+		echo json_encode($validation);
+		
 	}
     else
     {
+<<<<<<< HEAD
+        $validation = False;
+=======
         $validation = array('employee_login' => False);
+>>>>>>> f1a9eec0e6a87cbe719e4ee211bd4943f2b74474
 		echo json_encode($validation);  
     }
 }
 else
 {
+<<<<<<< HEAD
+        $validation = False;
+=======
         $validation = array('employee_login' => False);
+>>>>>>> f1a9eec0e6a87cbe719e4ee211bd4943f2b74474
 		echo json_encode($validation);
 }
-
-}
-
-function createticket($priceParam, $violationParam, $notesParam, $employeeIdParam, $parkIdParam) {
-
-$date = date('Y/m/d');
-$time = date('g:i:s');
-$violation = $violationParam;
-$price = $priceParam;
-$notes = $notesParam;
-$employeeid = $employeeIdParam;
-$isactive = "true";
-$parkid = $parkIdParam;
-
-mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violation', '$notes', '$employeeid','$isactive', '$parkid')");
 
 }
 ?>
