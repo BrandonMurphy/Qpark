@@ -28,20 +28,23 @@ $(document).ready(function(){
 });
 
 
-function login() {
+function login(page) {
 	var email = $( "#email" ).val();
 	var user_pass = $( "#user_pass" ).val();
-	console.log(email);
-	console.log(user_pass);
+	var user = email.substring(0, email.indexOf("@"));
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
 		success: function(result){
-			console.log(result[0]);
-			if(result[0] == 1) {
+			console.log(result);
+			if(result == 'success') {
 				console.log("login was successful");
-				window.location.href = "Views/home.html?username=" + result[1];
+				if(page == 1){
+					window.location.href = "Views/home.php?user="+user;
+				} else if (page == 2) {
+					window.location.href = "home.php?user="+user;
+				}
 			}
 		}
 	});
@@ -52,18 +55,31 @@ function register() {
 	var lname = $( "#lname" ).val();
 	var reg_email = $( "#reg_email" ).val();
 	var reg_pass = $( "#reg_pass" ).val();
-
-	console.log(fname);
-	console.log(lname);
-	console.log(reg_email);
-	console.log(reg_pass);
+	var reg_make = $( "#reg_make" ).val();
+	var reg_model = $( "#reg_model" ).val();
+	var reg_year = $( "#reg_year" ).val();
+	var reg_plate = $( "#reg_plate" ).val();
+	var reg_color = $( "#reg_color" ).val();
+	var reg_state = $( "#reg_state" ).val();
 
 	$.ajax({
 		type: "POST",
-		url: 'http://babbage.cs.missouri.edu~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=tthtguy&make=ford&model=cobraMustang&year=1999&plate=SL1G1Y&color=white&state=MO',
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=temp&make=' + reg_make + '&model=' + reg_model + '&year=' + reg_year + '&plate=' + reg_plate + '&color=' + reg_color + '&state=' + reg_state,
 		aysnc: false,
 		success: function(result){
 			console.log(result);
+			if(result == 'success') {
+				var user = reg_email.substring(0, reg_email.indexOf("@"));
+				$.ajax({
+					type: "POST",
+					url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/email.php?action=registerEmail&email=' + reg_email + '&user=' + user,
+					aysnc: false,
+					success: function(result){
+						console.log(result);
+						$('.registerContent').html('<h4 style="margin-left: -40px !important;">Please check your email to confirm your email address and login.</h4>');
+					}
+				});
+			}
 		}
 	});
 }
@@ -71,7 +87,7 @@ function register() {
 function updateAccountInfo() {
 	$.ajax({
 		type: "POST",
-		url: 'http://babbage.cs.missouri.edu~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=update&fname=this&lname=coolGuy&password=&email=thatCoolGuy6@email.com',
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=update&fname=this&lname=coolGuy&password=&email=thatCoolGuy6@email.com',
 		aysnc: false,
 		success: function(result){
 			console.log(result);

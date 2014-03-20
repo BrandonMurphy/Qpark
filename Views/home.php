@@ -60,9 +60,9 @@
 		</ul>
 
 		<div class="loginOrRegister">
-			<div class="switch loginLink" gumby-trigger="#modal2"><a>Login</a></div>
-			<p style="float: left;">or</p>
-			<div class="switch registerLink" gumby-trigger="#modal1"><a>Register</a></div>
+			<div class="row">
+					<div style="margin-left: -180px;"><?php echo 'Welcome ' . htmlspecialchars($_GET["user"]) . '!';?><a style="margin-top: 10px; margin-left: 10px; font-size: 12px;" href="../index.html">logout</a></div>
+			</div>
 		</div>
 	</div>
 
@@ -101,69 +101,69 @@
 				</div>
 				<ul class="bxslider">
 					<div class="row" style="margin-left: 50px;">
-				  		<div class="four columns" style="margin-left: 0px;">
+				  		<div class="review four columns">
 							<h5><i class="icon-user"></i> User1: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 						</div>
-						<div class="four columns" style="margin-left: 0px;">
+						<div class="review four columns">
 							<h5><i class="icon-user"></i> User2: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 						</div>
-						<div class="four columns" style="margin-left: 0px;">
+						<div class="review four columns">
 							<h5><i class="icon-user"></i> User3: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 						</div>
 
 						<div class="row">
-					  		<div class="four columns" style="margin-left: 0px;">
+					  		<div class="review four columns">
 								<h5><i class="icon-user"></i> User4: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User5: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User6: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
 						</div>
 						<div class="row">
-					  		<div class="four columns" style="margin-left: 0px;">
+					  		<div class="review four columns">
 								<h5><i class="icon-user"></i> User7: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User8: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User9: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
 						</div>
 					</div>
 					<div class="row" style="margin-left: 50px;">
-				  		<div class="four columns" style="margin-left: 0px;">
+				  		<div class="review four columns">
 							<h5><i class="icon-user"></i> User10: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 						</div>
-						<div class="four columns" style="margin-left: 0px;">
+						<div class="review four columns">
 							<h5><i class="icon-user"></i> User11: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 						</div>
-						<div class="four columns" style="margin-left: 0px;">
+						<div class="review four columns">
 							<h5><i class="icon-user"></i> User12: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 						</div>
 
 						<div class="row">
-					  		<div class="four columns" style="margin-left: 0px;">
+					  		<div class="review four columns">
 								<h5><i class="icon-user"></i> User13: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User14: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User15: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
 						</div>
 						<div class="row">
-					  		<div class="four columns" style="margin-left: 0px;">
+					  		<div class="review four columns">
 								<h5><i class="icon-user"></i> User16: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User17: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
-							<div class="four columns" style="margin-left: 0px;">
+							<div class="review four columns">
 								<h5><i class="icon-user"></i> User18: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
 							</div>
 						</div>

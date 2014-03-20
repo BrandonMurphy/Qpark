@@ -10,6 +10,11 @@
 	left: 27%;
 }
 
+.review {
+	font-size: 12px;
+	margin-left: 0;
+}
+
 .payForParking:hover {
 	cursor: pointer;
 }
@@ -85,6 +90,15 @@ i:hover {
   position: absolute;
   z-index: -1;
 }
+
+
+.registerContent {
+	margin-left: 400px;
+}
+
+
+
+
 
 @media only screen and (max-width: 568px) {
 	.modalLogo {

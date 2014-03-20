@@ -71,8 +71,7 @@ $saltedPass = sha1($password . $salt);
 
 		if(isset($email))
 		{
-                $sessionData = array(True, $email);
-		        print_r($sessionData);
+                echo 'success';
 		}
 
 	}
@@ -94,36 +93,6 @@ else
 function Register($emailParam, $passwordParam, $fnameParam, $lnameParam, $pawprintParam, $makeParam, $modelParam, $yearParam, $licensePlate, $colorParam, $stateParam){
 
 //session_start();
-
-
-// if(isset($_POST['submit']))
-// {
-
-
-//     if(!$_POST['email'])
-//     {
-//             echo '<br/>';
-//             echo 'Error: Some data was invalid. Please try again.';
-//             echo '<br/>';
-//             exit;
-//     }
-//     if(!$_POST['password'])
-//     {
-//             echo '<br/>';
-//             echo 'Error: Some data was invalid. Please try again.';
-//             echo '<br/>';
-//             exit;
-//     }
-//     if(!$_POST['confirm-password'])
-//     {
-//             echo '<br/>';
-//             echo 'Error: Some data was invalid. Please try again.';
-//             echo '<br/>';
-//             exit;
-//     }
-//     //check if passwords match
-//     if(strcmp($_POST['password'], $_POST['confirm-password'])==0)
-//     {
 
 $query = sprintf("SELECT user_email from User WHERE user_email='%s'",
 mysql_real_escape_string($emailParam));
@@ -180,19 +149,7 @@ else
 
 	$veh = mysql_query("Insert into Vehicle VALUES(NULL, '$make', '$model', '$year', '$plate', '$color', '$state','$user_id')");
 
-	// echo $makeParam;
-	// echo "<br/>";
-	// echo $modelParam;
-	// echo "<br/>";
-	// echo $yearParam;
-	// echo "<br/>";
-	// echo $licensePlate;
-	// echo "<br/>";
-	// echo $colorParam;
-	// echo "<br/>";
-	// echo $stateParam;
-	// echo "<br/>";
-	echo $veh;
+	//echo $veh;
 
 	if(!$veh)
 	{
@@ -200,7 +157,7 @@ else
 	}
 	else
 	{
-	        echo "Sucessful";
+	        echo "success";
 	}
 
 	}
