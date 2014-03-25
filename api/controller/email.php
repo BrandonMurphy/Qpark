@@ -21,11 +21,13 @@ if(!empty($_GET)){
 
 if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'registerEmail'){
-		registerEmail($vars['email']);
+		registerEmail($vars['email'], $vars['user']);
 	}
     if($vars['action'] == 'loginEmail'){
         resetPasswordEmail($vars['email']);
     }
+} else{
+    echo "no action selected";
 }
 
 function resetPasswordEmail($email){
@@ -46,31 +48,40 @@ function resetPasswordEmail($email){
 
 
 }
-function registerEmail($email){
+function registerEmail($email, $user){
 
+    //echo $email;
     $salt = sha1($email);
     $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     $qrcode = $url . $salt;
 
-    $db_result = mysql_query("SELECT user_qrcode FROM User WHERE user_email = $email");
-    $row = mysql_fetch_array($db_result, MYSQL_NUM);
-    $qrcode = $row[0];
+    // $db_result = mysql_query("SELECT user_qrcode FROM User WHERE user_email = $email");
+    // $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    // $qrcode = $row[0];
 
+    $mgClient = new Mailgun('key-6s-9iaeib8sokcc3jbp99ixtnpkhi6y4');
+    $domain = "sandbox11344.mailgun.org";
 
-    $mgClient = new Mailgun('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
-    $domain = "samples.mailgun.org";
-
-    $result = $mgClient->sendMessage("$domain",
-    array('from'    => 'Enter QPark Email address here',
-        'to'      => $email,
+    $mgClient->sendMessage("$domain",
+    array('from'  => 'Qpark Crew <postmaster@sandbox11344.mailgun.org>',
+        'to'      => 'User <'.$email.'>',
         'subject' => 'Welcome to QPark!',
-        'text'    => "Thank you for registering with QPark!  You have chosen to login with 
-                        the email '.$email .'.  You can also find and print your personal QPark 
-                        Code at https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='.$qrcode\n.'
-                        Please attach your QPark Code to the lower lefthand side of the inside of your
-                        windshield.  For more questions or concerns, you can contact QPark at <Qpark email>.
-                        Thanks again for choosing QPark!    "));
+        'html'    => "<p>Thank you for registering with QPark!</p>
+                      <p>Confirm your email by clicking the link below</p>
+                      <p>http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/Views/home.php?user=".$user."</p>
+                        <p>
+                        You have chosen to login with the email qparkcrew@gmail.com 
+                        You can find and print your personal QPark QR Code at 
+                        ".$qrcode." 
+                        </p>
 
+                        <p>Please attach your QPark Code to the lower righthand side of the inside of your
+                        windshield.</p>
+                        <p>For more questions or concerns, you can contact QPark at qparkcrew@gmail.com.</p>
+                        <p>Thanks again for choosing QPark!</p>"));
+
+    //echo $email;
+    echo " Finished";
   
 
 }

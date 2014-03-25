@@ -41,7 +41,7 @@
 	<script src="js/libs/modernizr-2.6.2.min.js"></script>
 </head>
 
-<body>
+<body class="backgroundImage1">
 
 	<div class="row navbar" id="nav1" style="max-width: 100%;">
 		<!-- Toggle for mobile navigation, targeting the <ul> -->
@@ -62,42 +62,127 @@
 		<div class="loginOrRegister">
 			<div class="switch loginLink" gumby-trigger="#modal2"><a>Login</a></div>
 			<p style="float: left;">or</p>
-			<div class="switch registerLink" gumby-trigger="#modal1"><a>Register</a></div>
+			<div class="registerLink"><a href="Views/register.html">Register</a></div>
 		</div>
 	</div>
 
-	<div class="modal" id="modal1">
-		<div class="content">
-			<a class="close switch" gumby-trigger="|#modal1"><i class="icon-cancel" /></i></a>
+
+	<div class="mainContent">
+
+		<div class="carousel">
+			<ul class="bxslider">
+			  <li class="payForParking switch" gumby-trigger="#modal1"><img src="img/payForParking.png"/></li>
+			  <li><img src="img/campusMapBanner.png"/></li>
+			  <li style="width: 610px !important;"><img src="img/qrCodeBanner.png"/></li>
+			</ul>
+		</div>
+		<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
+		<div class="description">
 			<div class="row">
-				<div class="ten columns centered text-center">
-					<h3>Please Fill Out All Required Fields</h3>
+				<div class="twelve columns centered" style="margin-left: 20px;">
+					<h3>Description:</h3>
+				</div>
+				<div class="twelve columns centered">
+					<p>Qpark is a web application that allows users to pay for parking online via their mobile
+						device or computer.  Once a user is signed up, they are issued a QR code that they will print
+						out and display in their vehicle windshield.  The user may then pay for their parking online through
+						the Qpark web application after they have parked in a parking garage.  When paying for parking the user
+						will select a garage and choose the amount of time they would like to park for, then click 'pay for parking'.
+						Once the user has payed for parking they can add more time to their 'virtual meter' if they need to and will
+						be sent a reminder when their time is about to expire.</p>
 				</div>
 			</div>
+		</div>
+		<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
+		<div class="reviews">
 			<div class="row">
-				<div class="ten columns centered text-center">
-					* First Name<input id="fname"></input>
-					* Last Name<input id="lname"></input>
+				<div class="twelve columns centered" style="margin-left: 20px;">
+					<h3>Reviews:</h3>
 				</div>
-			</div>
-			<div class="row" style="margin-top: 20px;">
-				<div class="ten columns centered text-center">
-					* E-Mail<input id="reg_email" style="margin-right: 7px;"></input>
-					* Confirm E-Mail<input id="reg_email_conf"></input>
-				</div>
-			</div>
-			<div class="row" style="margin-top: 20px; margin-left: -20px;">
-				<div class="twelve columns centered text-center">
-					* Password<input type="password" name="password" id="reg_pass"></input>
-					* Confirm Password<input type="password" name="password" id="reg_pass_conf"></input>
-				</div>
-			</div>
-			<div class="row">
-				<div class="ten columns centered">
-					<p class="required" style="margin-top: 50px;">* Required Field</p>
-					<div class="medium primary btn" style="margin-top: -60px; float: right;">
-						<a href="#" onclick="register()">Register</a>
+				<ul class="bxslider">
+					<div class="row" style="margin-left: 50px;">
+				  		<div class="review four columns">
+							<h5><i class="icon-user"></i> User1: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+						</div>
+						<div class="review four columns">
+							<h5><i class="icon-user"></i> User2: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+						</div>
+						<div class="review four columns">
+							<h5><i class="icon-user"></i> User3: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+						</div>
+
+						<div class="row">
+					  		<div class="review four columns">
+								<h5><i class="icon-user"></i> User4: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User5: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User6: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+						</div>
+						<div class="row">
+					  		<div class="review four columns">
+								<h5><i class="icon-user"></i> User7: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User8: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User9: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+						</div>
 					</div>
+					<div class="row" style="margin-left: 50px;">
+				  		<div class="review four columns">
+							<h5><i class="icon-user"></i> User10: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+						</div>
+						<div class="review four columns">
+							<h5><i class="icon-user"></i> User11: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+						</div>
+						<div class="review four columns">
+							<h5><i class="icon-user"></i> User12: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+						</div>
+
+						<div class="row">
+					  		<div class="review four columns">
+								<h5><i class="icon-user"></i> User13: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User14: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User15: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+						</div>
+						<div class="row">
+					  		<div class="review four columns">
+								<h5><i class="icon-user"></i> User16: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User17: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+							<div class="review four columns">
+								<h5><i class="icon-user"></i> User18: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h5> "This App is amazing, would reccomend!"
+							</div>
+						</div>
+					</div>
+				</ul>
+			</div>
+		</div>
+		<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
+		<div class="footer" style="position: absolute; left: 36%; margin-bottom: 20px;">
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="#" style="margin-right: 5px;">Privacy Policy</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 12px;">Contact</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">Disclaimer</a>|</div>
+				</div>
+				<div class="twelve columns centered text-center" style="margin-left: 40px;">
+					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="#" style="margin-right: 4px;">Reviews</a> |</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">Features</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">About</a>|</div>
 				</div>
 			</div>
 		</div>
@@ -121,7 +206,7 @@
 					<input type="password" id="user_pass" style="width: 350px;"></input>
 				</div>
 				<div class="twelve columns" style="margin-top: 10px;">
-					<div class="medium default btn" onclick="login()">
+					<div class="medium default btn" onclick="login(1)">
 						<a href="#">Login</a>
 					</div>
 				</div>
@@ -167,30 +252,13 @@
 	<script src="js/libs/ui/jquery.validation.js"></script>
 	<script src="js/libs/gumby.init.js"></script>
 
-	<!--
-	Google's recommended deferred loading of JS
-	gumby.min.js contains gumby.js, all UI modules and gumby.init.js
+	<!-- bxSlider Javascript file -->
+	<script src="js/libs/jquery.bxslider.min.js"></script>
+	<!-- bxSlider CSS file -->
+	<link href="css/jquery.bxslider.css" rel="stylesheet" />
 
-	Note: If you opt to use this method of defered loading,
-	ensure that any javascript essential to the initial
-	display of the page is included separately in a normal
-	script tag.
-
-	<script type="text/javascript">
-	function downloadJSAtOnload() {
-	var element = document.createElement("script");
-	element.src = "js/libs/gumby.min.js";
-	document.body.appendChild(element);
-	}
-	if (window.addEventListener)
-	window.addEventListener("load", downloadJSAtOnload, false);
-	else if (window.attachEvent)
-	window.attachEvent("onload", downloadJSAtOnload);
-	else window.onload = downloadJSAtOnload;
-</script> -->
-
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

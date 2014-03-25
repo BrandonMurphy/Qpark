@@ -1,7 +1,24 @@
-/*
-We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
-However, this blank file is available if you prefer
-*/
+.registerFormInput {
+	float: left;
+	margin-left: 4px;
+}
+
+.carousel {
+	max-width: 600px;
+	max-height: 500px;
+	position: relative;
+	left: 27%;
+}
+
+.review {
+	font-size: 12px;
+	margin-left: 0;
+}
+
+.payForParking:hover {
+	cursor: pointer;
+}
+
 .loginOrRegister {
 	float: right;
 	margin-top: -40px;
@@ -49,6 +66,10 @@ However, this blank file is available if you prefer
 	margin-left: 8px !important;
 }
 
+.navbar {
+	background: #4B4B4B !important;
+}
+
 i {
 	color: #f0f0f0 !important;
 }
@@ -58,6 +79,27 @@ i:hover {
 	color: white !important;
 }
 
+.linkHover:hover {
+	color: #FFE000 !important;
+}
+
+.backgroundImage1 { 
+  background: url(../img/mochaGrunge.png) repeat top left fixed;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+
+.registerContent {
+	margin-left: 400px;
+}
+
+
+
+
+
 @media only screen and (max-width: 568px) {
 	.modalLogo {
 		height: 180px;
@@ -65,5 +107,44 @@ i:hover {
 
 	.emailRow {
 		margin-left: 0px !important;
+	}
+
+	.carousel {
+		left: 6%;
+		width: 90%;
+	}
+
+	.loginOrRegister {
+		margin-top: 16px;
+		margin-right: 50px;
+	}
+}
+
+@media only screen and (min-width: 568px) and (max-width: 768px) {
+	.modalLogo {
+		height: 180px;
+	}
+
+	.emailRow {
+		margin-left: 0px !important;
+	}
+
+	.carousel {
+		left: 11%;
+		width: 100%;
+	}
+
+	.loginOrRegister {
+		margin-top: 16px;
+		margin-right: 60px;
+	}
+
+	.loginModal {
+		min-height: 330px !important;
+		max-height: 330px !important;
+	}
+
+	.navbar a.toggle {
+		right: 2%;
 	}
 }
