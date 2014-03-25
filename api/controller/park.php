@@ -18,11 +18,9 @@ if(!empty($_GET)){
 }
 
 if(isset($vars['action']) && $vars['action'] != ''){
-	if($vars['action'] == 'getParkValidity'){
-		getParkValidity($vars['employeeGarage'], $vars['qrId']);
-	}
-    if($vars['action'] == 'getVehicleInfo'){
-        getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
+	if($vars['action'] == 'returnScanInfo'){
+        getParkValidity($vars['employeeGarage'], $vars['qrId']);
+	    getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
     }
 }
 function getVehicleInfo($employeeGarage, $qrId){
@@ -88,7 +86,7 @@ function getParkValidity($employeeGarage, $qrId){
    
     $timeValidity = json_encode($timeValidity);
 
-    echo $timeValidity;
+    //echo $timeValidity;
 
 	$db_result = mysql_query("SELECT park_garage FROM Park WHERE park_vehicleid = $vehicleId ORDER BY park_time ASC");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
@@ -101,13 +99,32 @@ function getParkValidity($employeeGarage, $qrId){
     $garageValidity = json_encode($garageValidity);
 
 
-    echo $garageValidity;
+    //echo $garageValidity;
 
     //$query = "UPDATE Park SET park_status=0 WHERE (park_time + park_duration) > NOW() AND park_status NOT LIKE 0";
 
 
     //"UPDATE Park SET park_status = 'false' WHERE (park_time + park_duration) <= NOW() AND park_status = 'true'"; //
 
+
+    if ($timeValidity == 1 && $garageValidity == 1) {
+        $violationCode = 0;
+        $violationMessage = 'No Violations';
+    }
+    else if ($timeValidity == 1 && $garageValidity == 0){
+        $violationCode = 1;
+        $violationMessage = 'Invalid Garage';
+    }
+    else if ($timeValidity = 0){
+        $violationCode = 2;
+        $violationMessage = 'Invalid Time';
+    }
+
+    $violationCode = json_encode($violationCode);
+    echo $violationCode;
+
+    $violationMessage = json_encode($violationMessage);
+    echo $violationMessage;
   
 
 }
