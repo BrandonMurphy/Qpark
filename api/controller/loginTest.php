@@ -34,7 +34,7 @@ if(isset($vars['action']) && $vars['action'] != ''){
 		viewticket($vars['email']);
 	}
     if($vars['action'] == 'addtime'){
-        addtime($vars['email'], $vars['duration'], $vars['price']);
+        addtime($vars['email'], $vars['duration']);
     }
 } else{
 	echo "no action selected";
@@ -71,7 +71,7 @@ $saltedPass = sha1($password . $salt);
 
 		if(isset($email))
 		{
-		        echo "Sucessful";
+                echo 'success';
 		}
 
 	}
@@ -93,36 +93,6 @@ else
 function Register($emailParam, $passwordParam, $fnameParam, $lnameParam, $pawprintParam, $makeParam, $modelParam, $yearParam, $licensePlate, $colorParam, $stateParam){
 
 //session_start();
-
-
-// if(isset($_POST['submit']))
-// {
-
-
-//     if(!$_POST['email'])
-//     {
-//             echo '<br/>';
-//             echo 'Error: Some data was invalid. Please try again.';
-//             echo '<br/>';
-//             exit;
-//     }
-//     if(!$_POST['password'])
-//     {
-//             echo '<br/>';
-//             echo 'Error: Some data was invalid. Please try again.';
-//             echo '<br/>';
-//             exit;
-//     }
-//     if(!$_POST['confirm-password'])
-//     {
-//             echo '<br/>';
-//             echo 'Error: Some data was invalid. Please try again.';
-//             echo '<br/>';
-//             exit;
-//     }
-//     //check if passwords match
-//     if(strcmp($_POST['password'], $_POST['confirm-password'])==0)
-//     {
 
 $query = sprintf("SELECT user_email from User WHERE user_email='%s'",
 mysql_real_escape_string($emailParam));
@@ -179,19 +149,7 @@ else
 
 	$veh = mysql_query("Insert into Vehicle VALUES(NULL, '$make', '$model', '$year', '$plate', '$color', '$state','$user_id')");
 
-	// echo $makeParam;
-	// echo "<br/>";
-	// echo $modelParam;
-	// echo "<br/>";
-	// echo $yearParam;
-	// echo "<br/>";
-	// echo $licensePlate;
-	// echo "<br/>";
-	// echo $colorParam;
-	// echo "<br/>";
-	// echo $stateParam;
-	// echo "<br/>";
-	echo $veh;
+	//echo $veh;
 
 	if(!$veh)
 	{
@@ -199,7 +157,7 @@ else
 	}
 	else
 	{
-	        echo "Sucessful";
+	        echo "success";
 	}
 
 	}
@@ -387,7 +345,15 @@ function addtime($emailParam, $timeToAdd, $priceParam)
     mysql_real_escape_string($timeToAdd), mysql_real_escape_string($parkvehicleid));
     $result5 = mysql_query($query5);
 
-    $query2 = sprintf("UPDATE Park SET `park_duration` = (park_duration + park_addtime) WHERE park_vehicleid = '%s'",
+    //$email = $emailParam;
+    //$duration = $parkduration;
+
+    echo $parkvehicleid;
+    echo '<br/>';
+    
+    $duration = New datetime();
+
+    $query3 = sprintf("SELECT park_duration from Park where park_vehicleid= '%s'", 
     mysql_real_escape_string($parkvehicleid));
     $result2 = mysql_query($query2);
 
@@ -396,6 +362,28 @@ function addtime($emailParam, $timeToAdd, $priceParam)
     //mysql_real_escape_string($parkvehicleid));
     //$result4 = mysql_query($query4);
 
+    
+
+    $duration->modify("+' . $timeToAdd . '");
+ 
+
+
+    /*echo $parkdurationold;
+    echo '<br/>';
+    echo $parkduration;
+    echo '<br/>';*/
+
+    
+
+    /*echo '<br/>';
+    $duration = $parkdurationold + $parkduration;
+    
+    $sumtime = date("H:i:s", $duration);
+    echo $sumtime;*/
+
+    $query2 = sprintf("UPDATE Park SET park_duration = '%s' WHERE park_vehicleid = '%s'",
+    mysql_real_escape_string($duration), mysql_real_escape_string($parkvehicleid));
+    $result2 = mysql_query($query2);
 
     if($result2)
     {
