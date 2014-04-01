@@ -51,12 +51,12 @@ function getParkValidity($employeeGarage, $qrId){
 	$timeValidity = $row[0];
 
 
-<<<<<<< HEAD
+
     return timevalidity;
     
-=======
+
     //echo $timeValidity;
->>>>>>> bc7145e06b424de02e27b7e3cafd3dceae6383e7
+
 
 	$db_result = mysql_query("SELECT park_garage FROM Park WHERE park_vehicleid = $vehicleId ORDER BY park_time ASC");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
@@ -66,14 +66,14 @@ function getParkValidity($employeeGarage, $qrId){
         $garageValidity = 1;
     }
 
-<<<<<<< HEAD
+
     return garageValidity;
-=======
+
     $garageValidity = json_encode($garageValidity);
 
 
     //echo $garageValidity;
->>>>>>> bc7145e06b424de02e27b7e3cafd3dceae6383e7
+
 
     //$query = "UPDATE Park SET park_status=0 WHERE (park_time + park_duration) > NOW() AND park_status NOT LIKE 0";
 
