@@ -36,8 +36,6 @@ function resetPasswordEmail($email){
     
     $query = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'", mysql_real_escape_string($tempPassword), mysql_real_escape_string($email));
 
-
-
     $result = $mgClient->sendMessage("$domain",
     array('from'    => 'Enter QPark Email address here',
         'to'      => $email,
@@ -45,8 +43,6 @@ function resetPasswordEmail($email){
         'text'    => "Hello '.$email'. Your temporary password is '.$tempPassword.'.  Please use this
                         to login to QPark.  You can then reset your password in your account settings.
                         Thanks!'\n'-QPark Team   "));
-
-
 
 
 }

@@ -73,7 +73,7 @@ else
 
 }
 
-function createticket($priceParam, $violationParam, $notesParam, $employeeIdParam, $parkIdParam) {
+function createticket($priceParam, $violationParam, $notesParam, $employeeIdParam, $qrcode, $violationCodeParam) {
 
 $date = date('Y/m/d');
 $time = date('g:i:s');
