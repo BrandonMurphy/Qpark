@@ -52,11 +52,11 @@
 			</a>
 		</h1>
 		<ul class="four columns">
-			<li><a href="#">Features</a></li>
+			<li><a href="#" onclick="loadPaymentPage()">Pay For Parking</a></li>
 			<li>
-				<a href="#">Reviews</a>
+				<a href="#">Maps</a>
 			</li>
-			<li><a href="#">Account</a></li>
+			<li><a href="#">My Account</a></li>
 		</ul>
 
 		<div class="loginOrRegister">

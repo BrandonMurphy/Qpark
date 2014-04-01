@@ -75,7 +75,7 @@ function registerEmail($email, $user){
                         ".$qrcode." 
                         </p>
 
-                        <p>Please attach your QPark Code to the lower righthand side of the inside of your
+                        <p>Please attach your QPark Code to the lower right hand side of the inside of your
                         windshield.</p>
                         <p>For more questions or concerns, you can contact QPark at qparkcrew@gmail.com.</p>
                         <p>Thanks again for choosing QPark!</p>"));

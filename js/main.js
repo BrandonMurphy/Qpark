@@ -27,6 +27,30 @@ $(document).ready(function(){
   $('.bxslider').bxSlider();
 });
 
+  // This is a functions that scrolls to #{blah}link
+function goToByScroll(id){
+      // Remove "link" from the ID
+    id = id.replace("link", "");
+      // Scroll
+    $('html,body').animate({
+        scrollTop: $("."+id).offset().top},
+        'slow');
+}
+
+$("#description").click(function(e) { 
+    // Prevent a page reload when a link is pressed
+    e.preventDefault(); 
+    // Call the scroll function
+    goToByScroll("description");        
+});
+
+$("#reviews").click(function(e) {
+    // Prevent a page reload when a link is pressed
+    e.preventDefault(); 
+    // Call the scroll function
+    goToByScroll("reviews");        
+});
+
 
 function login(page) {
 	var email = $( "#email" ).val();
@@ -80,6 +104,17 @@ function register() {
 					}
 				});
 			}
+		}
+	});
+}
+
+function loadPaymentPage() {
+	$.ajax({
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/payment.php?action=loadHtmlTemplate',
+		aysnc: false,
+		success: function(result){
+			$('.mainContent').html(result);
 		}
 	});
 }
