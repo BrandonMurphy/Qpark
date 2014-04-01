@@ -347,6 +347,7 @@ function addtime($emailParam, $timeToAdd)
     echo $parkvehicleid;
     echo '<br/>';
     
+    $duration = New datetime();
 
     $query3 = sprintf("SELECT park_duration from Park where park_vehicleid= '%s'", 
     mysql_real_escape_string($parkvehicleid));
@@ -355,10 +356,10 @@ function addtime($emailParam, $timeToAdd)
     $duration = $row3['park_duration'];
 
 
-    $duration = New datetime();
+    
 
-    $duration->modify("+'$timeToAdd'");
-
+    $duration->modify("+' . $timeToAdd . '");
+ 
 
 
     /*echo $parkdurationold;
