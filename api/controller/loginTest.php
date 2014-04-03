@@ -168,12 +168,28 @@ function updateaacountinfo($fname, $lname, $passwordParam, $emailParam){
 $email = $emailParam;
 $salt = sha1($emailParam);
 $password = sha1($passwordParam . $salt);
-$query = sprintf("UPDATE User SET user_firstname = '%s', user_lastname = '%s', user_password = '%s'  WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($lname), mysql_real_escape_string($password), mysql_real_escape_string($email));
 
+if($fname != null)
+{
+    $query = sprintf("UPDATE User SET user_firstname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($email));
+}
+if($lname != null)
+{
+    $query1 = sprintf("UPDATE User SET user_lastname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($lname), mysql_real_escape_string($email));
+}
+if($passwordParam != null)
+{
+    $query2 = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'",mysql_real_escape_string($password), mysql_real_escape_string($email));
+}
 
 $results = mysql_query($query);
+$results1 = mysql_query($query1);
+$results2 = mysql_query($query2);
 
 mysql_free_result($results);
+mysql_free_result($results1);
+mysql_free_result($results2);
+
 mysql_close($link);
 
 echo "function end";
