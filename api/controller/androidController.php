@@ -19,13 +19,11 @@ if(isset($vars['action']) && $vars['action'] != ''){
 		employeelogin($vars['email'], $vars['password']);
 	}
 	if($vars['action'] == 'createticket'){
-		createticket($vars['price'], $vars['violation'], $vars['notes'], $vars['employeeid'], $vars['parkid']);
+		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeIdParam'], $vars['violationCodeParam'], $vars['violationMessage']);
 	}
 } else{
 	echo "no action selected";
 }
-
-
 
 function employeelogin($email, $password) {
 
@@ -73,18 +71,37 @@ else
 
 }
 
-function createticket($priceParam, $violationParam, $notesParam, $employeeIdParam, $parkIdParam) {
+function createticket($qrcode, $notesParam, $employeeIdParam, $violationCodeParam, $violationMessage) {
 
 $date = date('Y/m/d');
 $time = date('g:i:s');
-$violation = $violationParam;
-$price = $priceParam;
+$violationId = $violationIdParam;
+$violationCode = $violationCodeParam;
+$violationMessageTicket = $violationMessage;
+$user_qrcodeid = $qrcode;
 $notes = $notesParam;
 $employeeid = $employeeIdParam;
 $isactive = "true";
-$parkid = $parkIdParam;
 
-mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violation', '$notes', '$employeeid','$isactive', '$parkid')");
+
+$query = sprintf("SELECT user_id from User WHERE user_qrcodeid='%s';",
+mysql_real_escape_string($user_qrcodeid));
+$results = mysql_query($query);
+$row = mysql_fetch_assoc($results);
+mysql_free_result($results);
+$userid = $row['user_id'];
+
+
+if($violationCode = 1)
+{
+	$price = '$15.00';
+}
+else if($violationCode = 2)
+{
+	$price = '$10.00';
+}
+
+mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$userid')");
 
 }
 ?>

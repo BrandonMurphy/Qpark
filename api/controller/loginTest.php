@@ -168,12 +168,28 @@ function updateaacountinfo($fname, $lname, $passwordParam, $emailParam){
 $email = $emailParam;
 $salt = sha1($emailParam);
 $password = sha1($passwordParam . $salt);
-$query = sprintf("UPDATE User SET user_firstname = '%s', user_lastname = '%s', user_password = '%s'  WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($lname), mysql_real_escape_string($password), mysql_real_escape_string($email));
 
+if($fname != null)
+{
+    $query = sprintf("UPDATE User SET user_firstname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($email));
+}
+if($lname != null)
+{
+    $query1 = sprintf("UPDATE User SET user_lastname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($lname), mysql_real_escape_string($email));
+}
+if($passwordParam != null)
+{
+    $query2 = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'",mysql_real_escape_string($password), mysql_real_escape_string($email));
+}
 
 $results = mysql_query($query);
+$results1 = mysql_query($query1);
+$results2 = mysql_query($query2);
 
 mysql_free_result($results);
+mysql_free_result($results1);
+mysql_free_result($results2);
+
 mysql_close($link);
 
 echo "function end";
@@ -326,7 +342,7 @@ function Logout(){
         echo "Logout";
 }
 
-function addtime($emailParam, $timeToAdd)
+function addtime($emailParam, $timeToAdd, $priceParam)
 {
 
     $query = sprintf("SELECT user_id from User WHERE user_email='%s'",
@@ -340,6 +356,10 @@ function addtime($emailParam, $timeToAdd)
     $result1 = mysql_query($query1);
     $row1 = mysql_fetch_assoc($result1);
     $parkvehicleid = $row1['vehicle_id'];
+      
+    $query5 = sprintf("UPDATE Park SET park_addtime = '%s' WHERE park_vehicleid = '%s'",
+    mysql_real_escape_string($timeToAdd), mysql_real_escape_string($parkvehicleid));
+    $result5 = mysql_query($query5);
 
     //$email = $emailParam;
     //$duration = $parkduration;
@@ -351,10 +371,12 @@ function addtime($emailParam, $timeToAdd)
 
     $query3 = sprintf("SELECT park_duration from Park where park_vehicleid= '%s'", 
     mysql_real_escape_string($parkvehicleid));
-    $result3 = mysql_query($query3);
-    $row3 = mysql_fetch_assoc($result3);
-    $duration = $row3['park_duration'];
+    $result2 = mysql_query($query2);
 
+     
+    //$query4 = sprintf("UPDATE Park SET park_price = (park_price + park_addprice) WHERE park_vehicleid = '%s'",
+    //mysql_real_escape_string($parkvehicleid));
+    //$result4 = mysql_query($query4);
 
     
 
@@ -381,13 +403,15 @@ function addtime($emailParam, $timeToAdd)
 
     if($result2)
     {
-        echo "success";
+        echo "successful";
     }
 
     mysql_free_result($results);
     mysql_free_result($result1);
     mysql_free_result($result2);
-    mysql_free_result($result3);
+    mysql_free_result($result5);
+    mysql_free_result($result4);
+
     mysql_close($link);
 
 }

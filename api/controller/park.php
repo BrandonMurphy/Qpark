@@ -10,17 +10,17 @@ if (!$link) {
 
 
 if(!empty($_GET)){
-	$vars = $_GET;
+    $vars = $_GET;
 }elseif(!empty($_POST)){
-	$vars = $_POST;
+    $vars = $_POST;
 }else{
-	$vars = null;
+    $vars = null;
 }
 
 if(isset($vars['action']) && $vars['action'] != ''){
-	if($vars['action'] == 'returnScanInfo'){
+    if($vars['action'] == 'returnScanInfo'){
         getParkValidity($vars['employeeGarage'], $vars['qrId']);
-	    getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
+        getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
     }
 }
 function getVehicleInfo($employeeGarage, $qrId){
@@ -67,20 +67,20 @@ function getParkValidity($employeeGarage, $qrId){
 
     $garageValidity = 0;
 
-	date_default_timezone_set('America/Chicago');
-	$currTime = date('m/d/Y h:i:s');
+    date_default_timezone_set('America/Chicago');
+    $currTime = date('m/d/Y h:i:s');
 
     $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $userId = $row[0];
 
-	$db_result = mysql_query("SELECT vehicle_id FROM Vehicle WHERE vehicle_userid = $userId");
-	$row = mysql_fetch_array($db_result, MYSQL_NUM);
-	$vehicleId = $row[0];
+    $db_result = mysql_query("SELECT vehicle_id FROM Vehicle WHERE vehicle_userid = $userId");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $vehicleId = $row[0];
 
-	$db_result = mysql_query("SELECT park_status, MAX(park_time) FROM Park WHERE park_vehicleid = $vehicleId");
-	$row = mysql_fetch_array($db_result, MYSQL_NUM);
-	$timeValidity = $row[0];
+    $db_result = mysql_query("SELECT park_status, MAX(park_time) FROM Park WHERE park_vehicleid = $vehicleId");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $timeValidity = $row[0];
 
     //select park_id, MAX(park_time) from Park where park_vehicleid = '24';
    
@@ -88,7 +88,7 @@ function getParkValidity($employeeGarage, $qrId){
 
     //echo $timeValidity;
 
-	$db_result = mysql_query("SELECT park_garage FROM Park WHERE park_vehicleid = $vehicleId ORDER BY park_time ASC");
+    $db_result = mysql_query("SELECT park_garage FROM Park WHERE park_vehicleid = $vehicleId ORDER BY park_time ASC");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $parkGarage = $row[0];
 
