@@ -96,6 +96,22 @@ i:hover {
 	margin-left: 400px;
 }
 
+.privacyPolicy {
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.footer {
+	position: absolute;
+	left: 36%;
+	margin-bottom: 20px;
+}
+
+.footerhr {
+	width: 100%; 
+	margin-top: 10px; 
+	margin-bottom: 10px;
+}
 
 
 
