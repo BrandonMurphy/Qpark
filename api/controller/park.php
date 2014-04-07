@@ -32,7 +32,8 @@ function flagTicket($qrId) {
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $userId = $row[0];
 
-    $query = sprintf("UPDATE Ticket SET ticket_is_flagged = true WHERE user_id = $userId");     
+    $query = sprintf("UPDATE Ticket SET ticket_is_flagged = true WHERE user_id = $userId");
+         
 
 }
 

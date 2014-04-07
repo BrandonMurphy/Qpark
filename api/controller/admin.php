@@ -43,17 +43,33 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'unflagTicket'){
 		unflagTicket($vars['email']);
 	}
+	if($vars['action'] == 'viewFlaggedTickets'){
+		viewFlaggedTickets();
+	}
 }
 
-	function unflagTicket($email) {
+function viewFlaggedTickets(){
 
-   		$db_result = mysql_query("SELECT user_id FROM User WHERE user_email = $email");
-    	$row = mysql_fetch_array($db_result, MYSQL_NUM);
-    	$userId = $row[0];
+	$query="SELECT * FROM Ticket ORDER BY ticket_date WHERE ticket_is_flagged = true";
+	$results = mysql_query($query);
 
-    	$query = sprintf("UPDATE Ticket SET ticket_is_flagged = false WHERE user_id = $userId");     
-
+	while ($row = mysql_fetch_array($results)) {
+    	foreach($row as $field) {
+		echo json_encode($field);    	
+		}
 	}
+
+}
+
+function unflagTicket($email) {
+
+   	$db_result = mysql_query("SELECT user_id FROM User WHERE user_email = $email");
+   	$row = mysql_fetch_array($db_result, MYSQL_NUM);
+   	$userId = $row[0];
+
+   	$query = sprintf("UPDATE Ticket SET ticket_is_flagged = false WHERE user_id = $userId");     
+
+}
 
 function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
 			
@@ -236,15 +252,14 @@ function editAccount($fname, $lname, $passwordParam, $emailParam, $permissionPar
 }
 
 function viewAllTickets(){
+	
 	$query="SELECT * FROM Ticket ORDER BY ticket_date";
 	$results = mysql_query($query);
 
 	while ($row = mysql_fetch_array($results)) {
-    	echo '<tr>';
     	foreach($row as $field) {
-       		echo '<td>' . htmlspecialchars($field) . '</td>';
-    	}
-    	echo '</tr>';
+		echo json_encode($field);    	
+		}
 	}
 }
 
