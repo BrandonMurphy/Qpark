@@ -40,7 +40,20 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'viewParks'){
 		viewParks($vars['email']);
 	}
+	if($vars['action'] == 'unflagTicket'){
+		unflagTicket($vars['email']);
+	}
 }
+
+	function unflagTicket($email) {
+
+   		$db_result = mysql_query("SELECT user_id FROM User WHERE user_email = $email");
+    	$row = mysql_fetch_array($db_result, MYSQL_NUM);
+    	$userId = $row[0];
+
+    	$query = sprintf("UPDATE Ticket SET ticket_is_flagged = false WHERE user_id = $userId");     
+
+	}
 
 function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
 			

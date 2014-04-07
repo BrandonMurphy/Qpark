@@ -42,7 +42,7 @@ function resetPasswordEmail($email){
     $query = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'", mysql_real_escape_string($tempPassword), mysql_real_escape_string($email));
     $mgClient = new Mailgun('key-6s-9iaeib8sokcc3jbp99ixtnpkhi6y4');
     $domain = "sandbox11344.mailgun.org";
-    
+
     $result = $mgClient->sendMessage("$domain",
     array('from'    => 'Qpark Crew <postmaster@sandbox11344.mailgun.org>',
         'to'      => 'User <'.$email.'>',
@@ -79,7 +79,7 @@ function registerEmail($email, $user){
                         You can find and print your personal QPark QR Code at 
                         ".$qrcode." 
                         </p>
-
+    
                         <p>Please attach your QPark Code to the lower right hand side of the inside of your
                         windshield.</p>
                         <p>For more questions or concerns, you can contact QPark at qparkcrew@gmail.com.</p>

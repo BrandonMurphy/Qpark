@@ -22,7 +22,20 @@ if(isset($vars['action']) && $vars['action'] != ''){
         getParkValidity($vars['employeeGarage'], $vars['qrId']);
 	    getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
     }
+    if($vars['action'] == 'flagTicket'){
+        flagticket($vars['qrId']);
+    }
 }
+function flagTicket($qrId) {
+
+    $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $userId = $row[0];
+
+    $query = sprintf("UPDATE Ticket SET ticket_is_flagged = true WHERE user_id = $userId");     
+
+}
+
 function getVehicleInfo($employeeGarage, $qrId){
 
     $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
