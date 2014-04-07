@@ -70,9 +70,9 @@ function registerEmail($email, $user){
                       <p>Confirm your email by clicking the link below</p>
                       <p>http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/Views/home.php?user=".$user."</p>
                         <p>
-                        You have chosen to login with the email qparkcrew@gmail.com 
+                        You have chosen to login with the email ".$email.".
                         You can find and print your personal QPark QR Code at 
-                        ".$qrcode." 
+                        ".$qrcode.". 
                         </p>
 
                         <p>Please attach your QPark Code to the lower right hand side of the inside of your

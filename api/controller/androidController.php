@@ -19,7 +19,7 @@ if(isset($vars['action']) && $vars['action'] != ''){
 		employeelogin($vars['email'], $vars['password']);
 	}
 	if($vars['action'] == 'createticket'){
-		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeIdParam'], $vars['violationCodeParam'], $vars['violationMessage']);
+		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeEmailParam'], $vars['violationCodeParam'], $vars['violationMessage']);
 	}
 } else{
 	echo "no action selected";
@@ -71,7 +71,7 @@ else
 
 }
 
-function createticket($qrcode, $notesParam, $employeeIdParam, $violationCodeParam, $violationMessage) {
+function createticket($qrcode, $notesParam, $employeeEmailParam, $violationCodeParam, $violationMessage) {
 
 $date = date('Y/m/d');
 $time = date('g:i:s');
@@ -80,7 +80,7 @@ $violationCode = $violationCodeParam;
 $violationMessageTicket = $violationMessage;
 $user_qrcodeid = $qrcode;
 $notes = $notesParam;
-$employeeid = $employeeIdParam;
+$employeeEmail = $employeeEmailParam;
 $isactive = "true";
 
 
@@ -90,6 +90,18 @@ $results = mysql_query($query);
 $row = mysql_fetch_assoc($results);
 mysql_free_result($results);
 $userid = $row['user_id'];
+
+$query1 = sprintf("SELECT user_id from User WHERE user_email='%s';",
+mysql_real_escape_string($employeeEmail));
+$results1 = mysql_query($query1);
+$row = mysql_fetch_assoc($results1);
+mysql_free_result($results1);
+$employeeid = $row['user_email'];
+
+if($notes == null)
+{
+	$notes = "No comment";
+}
 
 
 if($violationCode = 1)
@@ -101,7 +113,19 @@ else if($violationCode = 2)
 	$price = '$10.00';
 }
 
-mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$userid')");
+$createTicket = mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$userid')");
+
+
+if(!$createTicket)
+	{
+	    $validation = array('ticket_issued' => False);
+		echo json_encode($validation);
+	}
+	else
+	{
+	 	$validation = array('ticket_issued' => True);
+		echo json_encode($validation);
+	}
 
 }
 ?>

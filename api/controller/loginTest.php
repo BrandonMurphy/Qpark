@@ -36,6 +36,12 @@ if(isset($vars['action']) && $vars['action'] != ''){
     if($vars['action'] == 'addtime'){
         addtime($vars['email'], $vars['duration']);
     }
+    if($vars['action'] == 'readaccountinfo'){
+        readaccountinfo($vars['email']);
+    }
+    if($vars['action'] == 'readvehicleinformation'){
+        readvehicleinformation($vars['email']);
+    }
 } else{
 	echo "no action selected";
 }
@@ -413,6 +419,42 @@ function addtime($emailParam, $timeToAdd, $priceParam)
     mysql_free_result($result4);
 
     mysql_close($link);
+
+}
+
+function readaccountinfo($emailParam){
+
+$query = sprintf("Select user_email, user_firstname, user_lastname, user_pawprint, user_notification_time from User where user_email='%s'",
+                                mysql_real_escape_string($emailParam));
+$result = mysql_query($query);
+
+$accountInfo = array('user_email' => $result['user_email'], 'user_firstname' => $result['user_firstname'], 'user_lastname' => $result['user_lastname'], 
+    'user_pawprint' => $result['user_pawprint'], 'user_notification_time' => $result['user_notification_time']);
+        echo json_encode($accountInfo);
+
+
+mysql_free_result($result);
+mysql_close($link);
+
+}
+
+function readvehicleinformation($emailParam){
+
+$query = sprintf("Select user_id from User where user_email= '%s'", mysql_real_escape_string($emailParam));
+$result = mysql_query($query);
+$vehicle_userid = $result['user_id'];
+
+$query1 = sprintf("Select * from Vehicle where vehicle_userid = '%s'", mysql_real_escape_string($vehicle_userid));
+$result1 = mysql_query($query1);
+
+$vehicleInfo = array('vehicle_make' => $result1['vehicle_make'], 'vehicle_model' => $result1['vehicle_model'], 'vehicle_year' => $result1['vehicle_year'], 
+    'vehicle_color' => $result1['vehicle_color'], 'vehicle_state' => $result1['vehicle_state']);
+        echo json_encode($vehicleInfo);
+
+
+mysql_free_result($result);
+mysql_free_result($result1);
+mysql_close($link);
 
 }
 
