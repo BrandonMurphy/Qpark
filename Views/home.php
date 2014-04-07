@@ -171,11 +171,11 @@
 				</ul>
 			</div>
 		</div>
-		<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
-		<div class="footer" style="position: absolute; left: 36%; margin-bottom: 20px;">
+		<hr class="footerhr"/>
+		<div class="footer">
 			<div class="row" style="margin-top: 20px;">
 				<div class="twelve columns centered text-center">
-					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="#" style="margin-right: 5px;">Privacy Policy</a>|</div>
+					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.html" style="margin-right: 5px;">Privacy Policy</a>|</div>
 					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 12px;">Contact</a>|</div>
 					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">Disclaimer</a>|</div>
 				</div>

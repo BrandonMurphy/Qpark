@@ -26,6 +26,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
     if($vars['action'] == 'loginEmail'){
         resetPasswordEmail($vars['email']);
     }
+    if($vars['action'] == 'notifyUser'){
+        notifyUser($vars['email']);
+    }
 } else{
     echo "no action selected";
 }
@@ -83,6 +86,24 @@ function registerEmail($email, $user){
     //echo $email;
     echo " Finished";
   
+
+}
+function notifyUser($email) {
+
+    $db_result = mysql_query("SELECT user_notification_time FROM User WHERE user_email = '$email'");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $notifTime = $row[0];
+
+
+    $mgClient = new Mailgun('key-6s-9iaeib8sokcc3jbp99ixtnpkhi6y4');
+    $domain = "sandbox11344.mailgun.org";
+
+    $result = $mgClient->sendMessage("$domain",
+    array('from'    => 'Qpark Crew <postmaster@sandbox11344.mailgun.org>',
+        'to'      => $email,
+        'subject' => 'Your Parking Time is Almost Expired!',
+        'text'    => "Hello '.$email'. Your parking spot has ".$notifiTime." minutes left 
+            before expiration. Thank you for using Qpark!"));
 
 }
 
