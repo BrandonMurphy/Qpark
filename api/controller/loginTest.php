@@ -128,12 +128,13 @@ else
     $lname = $lnameParam;
     $permission = "a";
     $pawprint = $pawprintParam;
+    $user_notification_status = 0;
     $isactive = "true";
     $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     $qrcode = $url . $salt;
     $datetime = date('Y/m/d') . " " .date('g:i:s');
 
-	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$datetime')");
+	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$user_notification_status', NULL, '$datetime')");
 
 
 	// Query for user_id for user that was just created
@@ -427,9 +428,10 @@ function readaccountinfo($emailParam){
 $query = sprintf("Select user_email, user_firstname, user_lastname, user_pawprint, user_notification_time from User where user_email='%s'",
                                 mysql_real_escape_string($emailParam));
 $result = mysql_query($query);
+$row = mysql_fetch_assoc($result);
 
-$accountInfo = array('user_email' => $result['user_email'], 'user_firstname' => $result['user_firstname'], 'user_lastname' => $result['user_lastname'], 
-    'user_pawprint' => $result['user_pawprint'], 'user_notification_time' => $result['user_notification_time']);
+$accountInfo = array('user_email' => $row['user_email'], 'user_firstname' => $row['user_firstname'], 'user_lastname' => $row['user_lastname'], 
+    'user_pawprint' => $row['user_pawprint'], 'user_notification_time' => $row['user_notification_time']);
         echo json_encode($accountInfo);
 
 
@@ -442,13 +444,15 @@ function readvehicleinformation($emailParam){
 
 $query = sprintf("Select user_id from User where user_email= '%s'", mysql_real_escape_string($emailParam));
 $result = mysql_query($query);
-$vehicle_userid = $result['user_id'];
+$row = mysql_fetch_assoc($result);
+$vehicle_userid = $row['user_id'];
 
 $query1 = sprintf("Select * from Vehicle where vehicle_userid = '%s'", mysql_real_escape_string($vehicle_userid));
 $result1 = mysql_query($query1);
+$row1 = mysql_fetch_assoc($result1);
 
-$vehicleInfo = array('vehicle_make' => $result1['vehicle_make'], 'vehicle_model' => $result1['vehicle_model'], 'vehicle_year' => $result1['vehicle_year'], 
-    'vehicle_color' => $result1['vehicle_color'], 'vehicle_state' => $result1['vehicle_state']);
+$vehicleInfo = array('vehicle_make' => $row1['vehicle_make'], 'vehicle_model' => $row1['vehicle_model'], 'vehicle_year' => $row1['vehicle_year'], 
+    'vehicle_color' => $row1['vehicle_color'], 'vehicle_state' => $row1['vehicle_state'], 'vehicle_plate' => $row1['vehicle_plate']);
         echo json_encode($vehicleInfo);
 
 
