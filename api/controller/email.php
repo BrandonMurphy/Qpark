@@ -40,12 +40,14 @@ function resetPasswordEmail($email){
     $tempPassword = $temp . $salt;
     
     $query = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'", mysql_real_escape_string($tempPassword), mysql_real_escape_string($email));
-
+    $mgClient = new Mailgun('key-6s-9iaeib8sokcc3jbp99ixtnpkhi6y4');
+    $domain = "sandbox11344.mailgun.org";
+    
     $result = $mgClient->sendMessage("$domain",
-    array('from'    => 'Enter QPark Email address here',
-        'to'      => $email,
+    array('from'    => 'Qpark Crew <postmaster@sandbox11344.mailgun.org>',
+        'to'      => 'User <'.$email.'>',
         'subject' => 'QPark Login Information',
-        'text'    => "Hello '.$email'. Your temporary password is '.$tempPassword.'.  Please use this
+        'text'    => "Hello ".$email." Your temporary password is ".$tempPassword.".  Please use this
                         to login to QPark.  You can then reset your password in your account settings.
                         Thanks!'\n'-QPark Team   "));
 
