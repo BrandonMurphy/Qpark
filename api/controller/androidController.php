@@ -79,6 +79,7 @@ $violationId = $violationIdParam;
 $violationCode = $violationCodeParam;
 $violationMessageTicket = $violationMessage;
 $user_qrcodeid = $qrcode;
+$isflagged = 0;
 $notes = $notesParam;
 $employeeEmail = $employeeEmailParam;
 $isactive = "true";
@@ -113,7 +114,7 @@ else if($violationCode = 2)
 	$price = '$10.00';
 }
 
-$createTicket = mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$userid')");
+$createTicket = mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$isflagged','$userid')");
 
 
 if(!$createTicket)
