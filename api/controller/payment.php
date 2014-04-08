@@ -23,13 +23,7 @@ if(isset($vars['action']) && $vars['action'] != ''){
 }
 
 function loadHtmlTemplate() {
-	echo "
-	<div>
-	Test
-	</div>
-
-
-	";
+	include('../../Views/payment.php');
 }
 
 ?>

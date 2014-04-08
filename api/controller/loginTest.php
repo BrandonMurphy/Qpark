@@ -425,13 +425,13 @@ function addtime($emailParam, $timeToAdd, $priceParam)
 
 function readaccountinfo($emailParam){
 
-$query = sprintf("Select user_email, user_firstname, user_lastname, user_pawprint, user_notification_time from User where user_email='%s'",
+$query = sprintf("Select user_email, user_firstname, user_lastname, user_pawprint, user_notification_time, user_qrcode from User where user_email= '%s'",
                                 mysql_real_escape_string($emailParam));
 $result = mysql_query($query);
 $row = mysql_fetch_assoc($result);
 
 $accountInfo = array('user_email' => $row['user_email'], 'user_firstname' => $row['user_firstname'], 'user_lastname' => $row['user_lastname'], 
-    'user_pawprint' => $row['user_pawprint'], 'user_notification_time' => $row['user_notification_time']);
+    'user_pawprint' => $row['user_pawprint'], 'user_notification_time' => $row['user_notification_time'], 'user_qrcode' => $row['user_qrcode']);
         echo json_encode($accountInfo);
 
 

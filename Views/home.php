@@ -54,9 +54,9 @@
 		<ul class="four columns">
 			<li><a href="#" onclick="loadPaymentPage()">Pay For Parking</a></li>
 			<li>
-				<a href="#">Maps</a>
+				<a href="maps.html">Maps</a>
 			</li>
-			<li><a href="#">My Account</a></li>
+			<li><a href="myAccount.php?user=<?php echo htmlspecialchars($_GET["user"]);?>">My Account</a></li>
 		</ul>
 
 		<div class="loginOrRegister">
@@ -65,8 +65,7 @@
 			</div>
 		</div>
 	</div>
-
-
+	
 	<div class="mainContent">
 
 		<div class="carousel">
@@ -176,13 +175,8 @@
 			<div class="row" style="margin-top: 20px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.html" style="margin-right: 5px;">Privacy Policy</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 12px;">Contact</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">Disclaimer</a>|</div>
-				</div>
-				<div class="twelve columns centered text-center" style="margin-left: 40px;">
-					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="#" style="margin-right: 4px;">Reviews</a> |</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">Features</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" style="margin-right: 5px;">About</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.html" style="margin-right: 12px;">About</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.html" style="margin-right: 5px;">Disclaimer</a>|</div>
 				</div>
 			</div>
 		</div>

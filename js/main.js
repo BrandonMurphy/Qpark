@@ -129,3 +129,26 @@ function updateAccountInfo() {
 		}
 	});
 }
+
+function displayGarage(garage) {
+	
+	garage = document.getElementById(garage.value);
+	console.log(garage);
+	
+	if(garage === 1) {
+		$(".garageImage").attr("src", "../img/cag.png");
+	} else if(garage === 2) {
+		$(".garageImage").attr("src", "../img/hsg.png");
+	} else if(garage === 3) {
+		$(".garageImage").attr("src", "../img/taps.png");
+	} else if(garage === 4) {
+		$(".garageImage").attr("src", "../img/tag.png");
+	} else if(garage === 5) {
+		$(".garageImage").attr("src", "../img/uag.png");
+	} else if(garage === 6) {
+		$(".garageImage").attr("src", "../img/vag.png");
+	} else if(garage === 7) {
+		$(".garageImage").attr("src", "../img/ps7.png");
+	}
+	$('.garageImage').css( "display", "block");
+}
