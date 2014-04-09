@@ -66,7 +66,7 @@
 
 	<div class="mainContent">
 
-		<div id="tickets">
+		<div id="editTicket">
 
 		</div>
 
@@ -114,7 +114,7 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
-	<script src="../js/ticket.js"></script>
+	<script src="../js/editTicket.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

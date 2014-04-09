@@ -250,10 +250,27 @@ echo   '<th>Permission</th>';
 echo   '<th>Pawprint</th>';
 echo   '<th>Active</th>';
 echo   '<th>Edit</th>';
-echo   '<th>Delete</th>';
+echo   '<th>Deactivate/Reactivate</th>';
 echo '</tr>';
 
-foreach ($tickets as $value) { 
+foreach ($users as $value) { 
+	if ($value['user_isactive'] == "true") {
+
+    	echo '<div>';
+        echo '<tr>';
+        echo '<td>' . $value['user_email'] . '</td>';
+        echo '<td>' . $value['user_firstname'] . '</td>';
+        echo '<td>' . $value['user_lastname'] . '</td>';
+        echo '<td>' . $value['user_permission'] . '</td>';
+        echo '<td>' . $value['user_pawprint'] . '</td>';
+        echo '<td>' . $value['user_isactive'] . '</td>';
+        echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
+        echo '<td><a href=deactivateUser.php?id=' . $value['user_email'] . '>Deactivate</a></td>';
+        echo '</tr>';
+        echo '</div>';
+
+
+	}else {
     
     	echo '<div>';
         echo '<tr>';
@@ -263,11 +280,11 @@ foreach ($tickets as $value) {
         echo '<td>' . $value['user_permission'] . '</td>';
         echo '<td>' . $value['user_pawprint'] . '</td>';
         echo '<td>' . $value['user_isactive'] . '</td>';
-        echo '<td><a href=editTicket.php?id=' . $value['user_id'] . '>Edit</a></td>';
-        echo '<td><a href=deleteTicket.php?id=' . $value['user_id'] . '>Delete</a></td>';
+        echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
+        echo '<td><a href=reactivateUser.php?id=' . $value['user_email'] . '>Reactivate</a></td>';
         echo '</tr>';
         echo '</div>';
-    
+    }
     }
    echo '</table';
 	

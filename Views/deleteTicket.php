@@ -53,9 +53,6 @@
 		</h1>
 		<ul class="four columns">
 			<li><a href="viewTickets.php">View Tickets</a></li>
-			<li>
-				<a href="viewEmployees.php">View Employees</a>
-			</li>
 			<li><a href="viewAccounts.php">View Accounts</a></li>
 		</ul>
 
