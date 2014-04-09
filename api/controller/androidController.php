@@ -19,7 +19,7 @@ if(isset($vars['action']) && $vars['action'] != ''){
 		employeelogin($vars['email'], $vars['password']);
 	}
 	if($vars['action'] == 'createticket'){
-		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeEmailParam'], $vars['violationCodeParam'], $vars['violationMessage']);
+		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeEmailParam'], $vars['violationCodeParam']);
 	}
 } else{
 	echo "no action selected";
@@ -43,7 +43,7 @@ $email = $row['user_email'];
 
 if(strcmp($email, $row) == 0)
 {	
-$query1 = sprintf("SELECT user_password from User WHERE user_email='%s'",
+$query1 = sprintf("SELECT user_password, user_permission from User WHERE user_email='%s'",
 mysql_real_escape_string($email));
 $results1 = mysql_query($query1);
 $row1 = mysql_fetch_assoc($results1);
@@ -54,15 +54,25 @@ $salt = sha1($email);
     //comparing password in database with users input
     if(strcmp(sha1($password . $salt), $row1['user_password']) == 0)
     {
+    	if(strcmp($row1['user_permission'], "b") == 0)
+    	{
+
 		$validation = array('employee_login' => True);
 		echo json_encode($validation);	
+
+    	}
+    	else
+    	{
+    		$validation = array('employee_login' => False);
+			echo json_encode($validation); 
+    	}
 	}
     else
     {
         $validation = array('employee_login' => False);
 		echo json_encode($validation);  
     }
-}
+	}
 else
 {
         $validation = array('employee_login' => False);
@@ -71,7 +81,7 @@ else
 
 }
 
-function createticket($qrcode, $notesParam, $employeeEmailParam, $violationCodeParam, $violationMessage) {
+function createticket($qrcode, $notesParam, $employeeEmailParam, $violationCodeParam) {
 
 $date = date('Y/m/d');
 $time = date('g:i:s');
@@ -97,19 +107,18 @@ mysql_real_escape_string($employeeEmail));
 $results1 = mysql_query($query1);
 $row = mysql_fetch_assoc($results1);
 mysql_free_result($results1);
-$employeeid = $row['user_email'];
+$employeeid = $row['user_id'];
 
 if($notes == null)
 {
 	$notes = "No comment";
 }
 
-
-if($violationCode = 1)
+if($violationCode == 1)
 {
 	$price = '$15.00';
 }
-else if($violationCode = 2)
+else if($violationCode == 2)
 {
 	$price = '$10.00';
 }
