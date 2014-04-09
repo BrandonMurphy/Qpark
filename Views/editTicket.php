@@ -47,7 +47,7 @@
 		<!-- Toggle for mobile navigation, targeting the <ul> -->
 		<a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
 		<h1 class="one columns logo">
-			<a href="#">
+			<a href="admin.php">
 				<img src="../img/qpark_logo.png"/>
 			</a>
 		</h1>
