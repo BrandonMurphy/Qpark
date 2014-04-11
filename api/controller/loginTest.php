@@ -59,7 +59,7 @@ $email = $row['user_email'];
 
 if(strcmp($email, $row) == 0)
 {
-$query1 = sprintf("SELECT user_password from User WHERE user_email='%s'",
+$query1 = sprintf("SELECT user_password, user_permission from User WHERE user_email='%s'",
 mysql_real_escape_string($email));
 $results1 = mysql_query($query1);
 $row1 = mysql_fetch_assoc($results1);
@@ -72,14 +72,41 @@ $saltedPass = sha1($password . $salt);
     if(strcmp($saltedPass, $row1['user_password']) == 0)
     {
 
-            //create username session to be sent accross pages
-            //$_SESSION['email'] = $_POST['email'];
+        if(strcmp($row1['user_permission'], "a") == 0 || strcmp($row1['user_permission'], "c") == 0)
+        {
+            
+            if($row1['user_permission'] == 'a')
+            {
+                //create username session to be sent accross pages
+                //$_SESSION['email'] = $_POST['email'];
 
-		if(isset($email))
-		{
-                echo 'success';
-		}
+                 if(isset($email))
+                {
+                    $validation = array('user_permission' => $row1['user_permission']);
+                    echo json_encode($validation);
+                }
 
+            }
+            elseif($row1['user_permission'] == 'c')
+            {
+                //create username session to be sent accross pages
+                //$_SESSION['email'] = $_POST['email'];
+
+                 if(isset($email))
+                {
+                    $validation = array('user_permission' => $row1['user_permission']);
+                    echo json_encode($validation);
+                }
+
+            }
+		 
+        }
+        else
+        {
+            echo '<br/>';
+            echo"Incorrect permission";
+            echo '<br/>';
+        }
 	}
     else
     {
@@ -234,7 +261,7 @@ $row1 = mysql_fetch_assoc($results1);
  $price = $priceParam;
  $duration = $parkDurationParam;
 
- $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$garage', '$duration', '$price', '$isactive', '$vehicleId')");
+ $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', '$price', '$isactive', '$vehicleId')");
                 $results2 = mysql_query($query2);
 
 

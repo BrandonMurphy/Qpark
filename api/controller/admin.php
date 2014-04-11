@@ -40,6 +40,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'viewParks'){
 		viewParks($vars['email']);
 	}
+	if($vars['action'] == 'viewAllAccounts'){
+		viewAllAccounts();
+	}
 }
 
 function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
@@ -92,6 +95,10 @@ function reactivateUser($email){
 }
 
 function deleteTicket($ticketId){
+
+	echo $ticketId;
+	echo "test!";
+
 	if ($ticketId != NULL) {
    		$query = sprintf("DELETE Ticket WHERE ticket_id = '%s'", mysql_real_escape_string($ticketId));
    		
@@ -222,17 +229,127 @@ function editAccount($fname, $lname, $passwordParam, $emailParam, $permissionPar
 
 }
 
-function viewAllTickets(){
-	$query="SELECT * FROM Ticket ORDER BY ticket_date";
+function viewAllAccounts(){
+	$users = is_array();
+	$i=0;
+	$query="SELECT * FROM User ORDER BY user_id";
 	$results = mysql_query($query);
 
-	while ($row = mysql_fetch_array($results)) {
-    	echo '<tr>';
-    	foreach($row as $field) {
-       		echo '<td>' . htmlspecialchars($field) . '</td>';
-    	}
-    	echo '</tr>';
+	while ($row = mysql_fetch_assoc($results)) {
+ 		$users[$i] = $row;
+ 		$i++;
 	}
+	
+	
+echo '<table style="background:gray;">';
+echo '<tr>';
+echo   '<th>Email</th>';
+echo   '<th>First</th>';
+echo   '<th>Last</th>';
+echo   '<th>Permission</th>';
+echo   '<th>Pawprint</th>';
+echo   '<th>Active</th>';
+echo   '<th>Edit</th>';
+echo   '<th>Deactivate/Reactivate</th>';
+echo '</tr>';
+
+foreach ($users as $value) { 
+	if ($value['user_isactive'] == "true") {
+
+    	echo '<div>';
+        echo '<tr>';
+        echo '<td>' . $value['user_email'] . '</td>';
+        echo '<td>' . $value['user_firstname'] . '</td>';
+        echo '<td>' . $value['user_lastname'] . '</td>';
+        echo '<td>' . $value['user_permission'] . '</td>';
+        echo '<td>' . $value['user_pawprint'] . '</td>';
+        echo '<td>' . $value['user_isactive'] . '</td>';
+        echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
+        echo '<td><a href=deactivateUser.php?id=' . $value['user_email'] . '>Deactivate</a></td>';
+        echo '</tr>';
+        echo '</div>';
+
+
+	}else {
+    
+    	echo '<div>';
+        echo '<tr>';
+        echo '<td>' . $value['user_email'] . '</td>';
+        echo '<td>' . $value['user_firstname'] . '</td>';
+        echo '<td>' . $value['user_lastname'] . '</td>';
+        echo '<td>' . $value['user_permission'] . '</td>';
+        echo '<td>' . $value['user_pawprint'] . '</td>';
+        echo '<td>' . $value['user_isactive'] . '</td>';
+        echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
+        echo '<td><a href=reactivateUser.php?id=' . $value['user_email'] . '>Reactivate</a></td>';
+        echo '</tr>';
+        echo '</div>';
+    }
+    }
+   echo '</table';
+	
+}
+
+function viewAllTickets(){
+	$tickets = is_array();
+	$i=0;
+	$query="SELECT * FROM Ticket ORDER BY ticket_id";
+	$results = mysql_query($query);
+
+	while ($row = mysql_fetch_assoc($results)) {
+ 		$tickets[$i] = $row;
+ 		$i++;
+	}
+	
+	
+echo '<table style="background:gray;">';
+echo '<tr>';
+echo   '<th>Ticket ID</th>';
+echo   '<th>Price</th>';
+echo   '<th>Date</th>';
+echo   '<th>Time</th>';
+echo   '<th>Violation</th>';
+echo   '<th>Employee ID</th>';
+echo   '<th>User ID</th>';
+echo   '<th>Edit</th>';
+echo   '<th>Delete</th>';
+echo '</tr>';
+
+foreach ($tickets as $value) { 
+    if ($value['ticket_is_flagged'] == 1) {
+
+    	echo '<div>';
+        echo '<tr style="background: red;">';
+        echo '<td>' . $value['ticket_id'] . '</td>';
+        echo '<td>' . $value['ticket_price'] . '</td>';
+        echo '<td>' . $value['ticket_date'] . '</td>';
+        echo '<td>' . $value['ticket_time'] . '</td>';
+        echo '<td>' . $value['ticket_violation'] . '</td>';
+        echo '<td>' . $value['ticket_employee_id'] . '</td>';
+        echo '<td>' . $value['ticket_userid'] . '</td>';
+        echo '<td><a href=editTicket.php?id=' . $value['ticket_id'] . '>Edit</a></td>';
+        echo '<td><a href=deleteTicket.php?id=' . $value['ticket_id'] . '>Delete</a></td>';
+        echo '</tr>';
+        echo '</div>';
+
+
+	}else {
+    	echo '<div>';
+        echo '<tr>';
+        echo '<td>' . $value['ticket_id'] . '</td>';
+        echo '<td>' . $value['ticket_price'] . '</td>';
+        echo '<td>' . $value['ticket_date'] . '</td>';
+        echo '<td>' . $value['ticket_time'] . '</td>';
+        echo '<td>' . $value['ticket_violation'] . '</td>';
+        echo '<td>' . $value['ticket_employee_id'] . '</td>';
+        echo '<td>' . $value['ticket_userid'] . '</td>';
+        echo '<td><a href=editTicket.php?id=' . $value['ticket_id'] . '>Edit</a></td>';
+        echo '<td><a href=deleteTicket.php?id=' . $value['ticket_id'] . '>Delete</a></td>';
+        echo '</tr>';
+        echo '</div>';
+    }
+    }
+   echo '</table>';
 }
 
 function viewParks($emailParam){
