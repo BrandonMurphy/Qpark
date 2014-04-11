@@ -72,6 +72,9 @@
 
 	  <option value="10:00:00">10 hours</option>
 	</select>
+
+	<i class="clock icon-clock"></i>
+	<h3 class="time">15 Minutes</h3>
 </div>
 
 <div class="orderSummary">

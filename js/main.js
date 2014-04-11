@@ -61,7 +61,9 @@ function login(page) {
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
 		success: function(result){
-			console.log(result);
+			
+			var user_permission = JSON.parse(result);
+			console.log(user_permission);
 			if(result == 'success') {
 				console.log("login was successful");
 				if(page == 1){
@@ -131,23 +133,28 @@ function updateAccountInfo() {
 }
 
 function displayGarage(garage) {
+	console.log(garage.value);
 	
-	garage = document.getElementById(garage.value);
-	console.log(garage);
-	
-	if(garage === 1) {
+	if(garage.value === '1') {
+		console.log("hit 1");
 		$(".garageImage").attr("src", "../img/cag.png");
-	} else if(garage === 2) {
+	} else if(garage.value === '2') {
+		console.log("hit 2");
 		$(".garageImage").attr("src", "../img/hsg.png");
-	} else if(garage === 3) {
+	} else if(garage.value === '3') {
+		console.log("hit 3");
 		$(".garageImage").attr("src", "../img/taps.png");
-	} else if(garage === 4) {
+	} else if(garage.value === '4') {
+		console.log("hit 4");
 		$(".garageImage").attr("src", "../img/tag.png");
-	} else if(garage === 5) {
+	} else if(garage.value === '5') {
+		console.log("hit 5");
 		$(".garageImage").attr("src", "../img/uag.png");
-	} else if(garage === 6) {
+	} else if(garage.value === '6') {
+		console.log("hit 6");
 		$(".garageImage").attr("src", "../img/vag.png");
-	} else if(garage === 7) {
+	} else if(garage.value === '7') {
+		console.log("hit 7");
 		$(".garageImage").attr("src", "../img/ps7.png");
 	}
 	$('.garageImage').css( "display", "block");
