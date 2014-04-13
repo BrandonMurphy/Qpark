@@ -16,7 +16,7 @@ if(!empty($_GET)){
 }
 
 if(isset($vars['action']) && $vars['action'] != ''){
-	if($vars['action'] == 'login'){
+	if($vars['action'] == 'deleteTicket'){
 		deleteTicket($vars['ticketId']);
 	}
 	if($vars['action'] == 'editTicket'){
@@ -96,11 +96,14 @@ function reactivateUser($email){
 
 function deleteTicket($ticketId){
 
-	echo $ticketId;
-	echo "test!";
+	if ($ticketId != null) {
+		
+		$query1 = sprintf("SELECT ticket_userid FROM Ticket WHERE ticket_id = '%s'", mysql_real_escape_string($ticketId));
+		$result1 = mysql_query($query1);
+		$userId = mysql_fetch_assoc($result1);
+		echo $userId['ticket_userid'];
 
-	if ($ticketId != NULL) {
-   		$query = sprintf("DELETE Ticket WHERE ticket_id = '%s'", mysql_real_escape_string($ticketId));
+   		$query = sprintf("DELETE FROM Ticket WHERE ticket_id = '%s' AND ticket_userid = " . $userId['ticket_userid'] . "", mysql_real_escape_string($ticketId));
    		
    		$results = mysql_query($query);
 		mysql_free_result($results);
@@ -109,16 +112,10 @@ function deleteTicket($ticketId){
 	}
 }
 
-function editTicket($date, $time, $price, $violation, $employee, $isActive, $notes, $ticketId){
-	if ($ticketId != NULL) {
-		$query = sprintf("UPDATE Ticket SET ticket_date = '%s', ticket_time = '%s', ticket_price = '%s', ticket_violation = '%s', ticket_employee_id = '%s', ticket_isactive = '%s', ticket_notes = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($date), mysql_real_escape_string($time), mysql_real_escape_string($price), mysql_real_escape_string($violation), mysql_real_escape_string($employee), mysql_real_escape_string($isActive), mysql_real_escape_string($notes), mysql_real_escape_string($ticketId));			
+function editTicket($ticketId, $date, $time, $price, $violation, $employee, $isActive, $notes){
+	if ($ticketId != null) {
 		
-		$results = mysql_query($query);
-		mysql_free_result($results);
-		mysql_close($link);
-
-
-		if ($date != NULL) {
+		if ($date != null && isset($date)) {
 			$query = sprintf("UPDATE Ticket SET ticket_date = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($date), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -126,7 +123,7 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-		if ($time != NULL) {
+		if ($time != null && $time != "") {
 			$query = sprintf("UPDATE Ticket SET ticket_time = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($time), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -134,7 +131,7 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-		if ($price != NULL) {
+		if ($price != null && isset($price)) {
 			$query = sprintf("UPDATE Ticket SET ticket_price = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($price), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -142,7 +139,7 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-		if ($violation != NULL) {
+		if ($violation != null && isset($violation)) {
 			$query = sprintf("UPDATE Ticket SET ticket_violation = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($violation), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -150,7 +147,7 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-		if ($employee != NULL) {
+		if ($employee != null && isset($employee)) {
 			$query = sprintf("UPDATE Ticket SET ticket_employee_id = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($employee), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -158,7 +155,7 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-		if ($isActive != NULL) {
+		if ($isActive != null && isset($isActive)) {
 			$query = sprintf("UPDATE Ticket SET ticket_isactive = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($isActive), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -166,7 +163,7 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-		if ($notes != NULL) {
+		if ($notes != null && isset($notes)) {
 			$query = sprintf("UPDATE Ticket SET ticket_notes = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($notes), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -174,7 +171,13 @@ function editTicket($date, $time, $price, $violation, $employee, $isActive, $not
 			mysql_close($link);
 
 		}
-	}
+	}	
+	if (!$ticketId) {
+			echo "failed" . $ticketId;
+		}
+		else {
+			echo "success";
+		}
 }
 
 function editAccount($fname, $lname, $passwordParam, $emailParam, $permissionParam){
@@ -232,7 +235,7 @@ function editAccount($fname, $lname, $passwordParam, $emailParam, $permissionPar
 function viewAllAccounts(){
 	$users = is_array();
 	$i=0;
-	$query="SELECT * FROM User ORDER BY user_id";
+	$query="SELECT * FROM User ORDER BY user_email";
 	$results = mysql_query($query);
 
 	while ($row = mysql_fetch_assoc($results)) {
@@ -265,10 +268,9 @@ foreach ($users as $value) {
         echo '<td>' . $value['user_pawprint'] . '</td>';
         echo '<td>' . $value['user_isactive'] . '</td>';
         echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
-        echo '<td><a href=deactivateUser.php?id=' . $value['user_email'] . '>Deactivate</a></td>';
+        echo '<td><a href=viewAccounts.php?action=deactivateUser&email=' . $value['user_email'] . '>Deactivate</a></td>';
         echo '</tr>';
         echo '</div>';
-
 
 	}else {
     
@@ -281,7 +283,7 @@ foreach ($users as $value) {
         echo '<td>' . $value['user_pawprint'] . '</td>';
         echo '<td>' . $value['user_isactive'] . '</td>';
         echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
-        echo '<td><a href=reactivateUser.php?id=' . $value['user_email'] . '>Reactivate</a></td>';
+        echo '<td><a href=viewAccounts.php?action=reactivateUser&email=' . $value['user_email'] . '>Reactivate</a></td>';
         echo '</tr>';
         echo '</div>';
     }
@@ -344,7 +346,7 @@ foreach ($tickets as $value) {
         echo '<td>' . $value['ticket_employee_id'] . '</td>';
         echo '<td>' . $value['ticket_userid'] . '</td>';
         echo '<td><a href=editTicket.php?id=' . $value['ticket_id'] . '>Edit</a></td>';
-        echo '<td><a href=deleteTicket.php?id=' . $value['ticket_id'] . '>Delete</a></td>';
+        echo '<td><a id=ticket' . $value['ticket_id'] . ' onclick="deleteTicket(' . $value['ticket_id'] . ')">Delete</a></td>';
         echo '</tr>';
         echo '</div>';
     }

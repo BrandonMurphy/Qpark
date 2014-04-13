@@ -63,7 +63,7 @@
 		</div>
 	</div>
 
-
+	<form><input type="button" value="Create Account" onClick="window.location.href='http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/Views/register.html'"></form>
 	<div class="mainContent">
 
 		<div id="accounts">
