@@ -105,7 +105,8 @@ function getParkValidity($employeeGarage, $qrId){
 
 
     //"UPDATE Park SET park_status = 'false' WHERE (park_time + park_duration) <= NOW() AND park_status = 'true'"; //
-
+    //CREATE DEFINER = CURRENT_USER() EVENT updateUserPermisions ON SCHEDULE EVERY 1 MINUTE DO UPDATE user_table INNER JOIN schedule ON (user_table.idUser = 
+    //schedule.assigned_proctor) SET user_table.user_type = IF(start_time < CURTIME() AND end_time > CURTIME(), user_table.user_type_hold, 1) WHERE user_type_hold = 2;
 
     if ($timeValidity == 1 && $garageValidity == 1) {
         $violationCode = 0;
