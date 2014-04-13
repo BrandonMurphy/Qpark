@@ -66,6 +66,23 @@
 
 	<div class="mainContent">
 
+
+		<div class="editTicketContent">
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Date:</div><div class="registerFormInput"><input id="date"></input></div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Time</div><div class="registerFormInput"><input id="time"></input></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			 <div>
+			  
+    		</div>
+
+			</div>
+			<div class="medium primary btn" onclick="editTicket(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
 		<div id="editTicket">
 
 		</div>
