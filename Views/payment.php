@@ -60,5 +60,19 @@
 
 <div class="orderSummary">
 	<h5 style="margin-left: 50px;">Review Your Order:</h5>
+	
+	<div class="row" style="margin-top: 40px;">
+		<div class="twelve columns centered">
+			<h6 class="garageText">Garage: </h3>
+			<h6 class="garage">No Garage Selected</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="twelve columns centered">
+			<h6 class="totalDurationText">Duration: </h3>
+			<h6 class="totalDuration">30 minutes</h3>
+		</div>
+	</div>
 
 </div>

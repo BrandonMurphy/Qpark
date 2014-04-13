@@ -216,6 +216,28 @@ i:hover {
 	margin-left: -68px;
 }
 
+.garageText {
+	float: left;
+	width: 60px;
+}
+
+.garage {
+	float: left;
+	margin-left: 2px;
+	width: 150px;
+}
+
+.totalDurationText {
+	float: left;
+	width: 60px;
+}
+
+.totalDuration {
+	float: left;
+	margin-left: 14px;
+	width: 150px;
+}
+
 
 @media only screen and (max-width: 568px) {
 	.modalLogo {

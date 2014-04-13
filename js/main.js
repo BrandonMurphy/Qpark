@@ -62,7 +62,7 @@ function login(page) {
 		aysnc: false,
 		dataType: 'json',
 		success: function(result){
-			
+			console.log("test");
 			var user_object = result;
 			console.log(user);
 			if(user_object.login_success == true) {
