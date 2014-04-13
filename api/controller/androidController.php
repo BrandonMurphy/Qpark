@@ -21,6 +21,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'createticket'){
 		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeEmailParam'], $vars['violationCodeParam']);
 	}
+	if($vars['action'] == 'getTickets'){
+		getTickets($vars['emailParam']);
+	}
 } else{
 	echo "no action selected";
 }
@@ -138,5 +141,36 @@ if(!$createTicket)
 	}
 
 }
+
+function getTickets($emailParam)
+{
+
+$query = sprintf("Select user_id from User where user_email= '%s'", mysql_real_escape_string($emailParam));
+$result = mysql_query($query);
+$row = mysql_fetch_assoc($result);
+$emplyeeUserId = $row['user_id'];
+
+$query1 = sprintf("SELECT a.ticket_date, b.vehicle_plate, b.vehicle_state, 
+	b.vehicle_state, b.vehicle_make, b.vehicle_model, b.vehicle_color 
+	FROM Ticket a join Vehicle b ON a.ticket_userid = b.vehicle_userid 
+	WHERE a.ticket_employee_id ='%s' ORDER BY a.ticket_date ASC LIMIT 15;", 
+	mysql_real_escape_string($emplyeeUserId));
+
+$result1 = mysql_query($query1);
+
+while ($row1 = mysql_fetch_assoc($result1)) {
+    
+$TicketInfo = array('ticket_date' => $row1['ticket_date'], 'vehicle_plate' => $row1['vehicle_plate'], 'vehicle_state' => $row1['vehicle_state'], 
+'vehicle_make' => $row1['vehicle_make'], 'vehicle_model' => $row1['vehicle_model'], 'vehicle_color' => $row1['vehicle_color']);
+echo json_encode($TicketInfo);
+echo "<br/>";
+}
+
+mysql_free_result($result);
+mysql_free_result($result1);
+mysql_close($link);
+
+}
+
 ?>
 
