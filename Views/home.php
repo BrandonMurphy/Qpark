@@ -56,7 +56,7 @@
 			<li>
 				<a href="maps.html">Maps</a>
 			</li>
-			<li><a href="myAccount.php?user=<?php echo htmlspecialchars($_GET["user"]);?>">My Account</a></li>
+			<li><a href="#" onclick="loadMyAccountPage('<?php echo htmlspecialchars($_GET["user"]);?>')">My Account</a></li>
 		</ul>
 
 		<div class="loginOrRegister">
@@ -224,6 +224,7 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/myAccount.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

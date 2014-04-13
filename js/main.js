@@ -60,16 +60,17 @@ function login(page) {
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
+		dataType: 'json',
 		success: function(result){
 			
-			var user_permission = JSON.parse(result);
-			console.log(user_permission);
-			if(result == 'success') {
+			var user_object = result;
+			console.log(user);
+			if(user_object.login_success == true) {
 				console.log("login was successful");
 				if(page == 1){
-					window.location.href = "Views/home.php?user="+user;
+					window.location.href = "Views/home.php?user="+user_object.user;
 				} else if (page == 2) {
-					window.location.href = "home.php?user="+user;
+					window.location.href = "home.php?user="+user_object.user;
 				}
 			}
 		}

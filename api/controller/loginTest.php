@@ -82,7 +82,7 @@ $saltedPass = sha1($password . $salt);
 
                  if(isset($email))
                 {
-                    $validation = array('user_permission' => $row1['user_permission']);
+                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => true);
                     echo json_encode($validation);
                 }
 
@@ -94,7 +94,7 @@ $saltedPass = sha1($password . $salt);
 
                  if(isset($email))
                 {
-                    $validation = array('user_permission' => $row1['user_permission']);
+                    $validation = array('user' => $email, 'user_permission' => $row1['user_permission'], 'login_success' => true);
                     echo json_encode($validation);
                 }
 
