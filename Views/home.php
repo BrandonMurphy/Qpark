@@ -70,8 +70,8 @@
 
 		<div class="carousel">
 			<ul class="bxslider">
-			  <li class="payForParking switch" gumby-trigger="#modal1"><img src="../img/payForParking.png"/></li>
-			  <li><img src="../img/campusMapBanner.png"/></li>
+			 <!--  <li class="payForParking switch" gumby-trigger="#modal1"><img src="../img/payForParking.png"/></li>
+ -->			  <li><img src="../img/campusMapBanner.png"/></li>
 			  <li style="width: 610px !important;"><img src="../img/qrCodeBanner.png"/></li>
 			</ul>
 		</div>

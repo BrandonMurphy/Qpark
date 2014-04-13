@@ -160,3 +160,25 @@ function displayGarage(garage) {
 	}
 	$('.garageImage').css( "display", "block");
 }
+
+function displayTime(time) {
+	console.log(time.value);
+
+	if(time.value === '00:30:00') {
+		$(".time").html('<h3 class="mins">30 Minutes</h3>');
+	} else if(time.value === '01:00:00') {
+		$(".time").html('<h3 class="hours">1 Hour</h3>');
+	} else if(time.value === '01:30:00') {
+		$(".time").html('<h3 class="hoursAndMinutes">1 Hour </br>30 Minutes</h3>');
+	} else if(time.value === '02:00:00') {
+		$(".time").html('<h3 class="hours">2 Hours</h3>');
+	} else if(time.value === '02:30:00') {
+		$(".time").html('<h3 class="hoursAndMinutes">2 Hours </br>30 Minutes</h3>');
+	} else if(time.value === '03:00:00') {
+		$(".time").html('<h3 class="hours">3 Hours</h3>');
+	} else if(time.value === '03:30:00') {
+		$(".time").html('<h3 class="hoursAndMinutes">3 Hours </br>30 Minutes</h3>');
+	} else if(time.value === '04:00:00') {
+		$(".time").html('<h3 class="hours">4 Hours</h3>');
+	}
+}

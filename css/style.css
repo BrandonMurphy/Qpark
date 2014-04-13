@@ -206,6 +206,15 @@ i:hover {
 	margin-left: 65px;
 }
 
+.hours {
+	margin-left: 25px;
+}
+
+.hoursAndMinutes {
+	text-align: center;
+	margin-top: -15px;
+	margin-left: -68px;
+}
 
 
 @media only screen and (max-width: 568px) {
