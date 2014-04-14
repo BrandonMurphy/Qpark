@@ -21,8 +21,8 @@ if(!empty($_GET)){
 
 if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'returnScanInfo'){
-        getParkValidity($vars['employeeGarage'], $vars['qrId'], $vars['result']);
-	    getVehicleInfo($vars['employeeGarage'], $vars['qrId'], $vars['result']);
+        $result = getVehicleInfo($vars['employeeGarage'], $vars['qrId'], $result);
+        getParkValidity($vars['employeeGarage'], $vars['qrId'], $result);
     }
     if($vars['action'] == 'flagTicket'){
         flagticket($vars['qrId']);
@@ -74,6 +74,7 @@ function getVehicleInfo($employeeGarage, $qrId, $result){
     $color = $row[0];
     array_push($result, array("color"=>$color));
 
+    return $result;
 }
 
 function getParkValidity($employeeGarage, $qrId, $result){
@@ -117,6 +118,7 @@ function getParkValidity($employeeGarage, $qrId, $result){
         $violationMessage = 'Invalid Time';
     }
 
+    array_push($result, array($violationCode));
     echo json_encode($result);
 
     /*$violationCode = json_encode($violationCode);
