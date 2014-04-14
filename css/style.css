@@ -228,7 +228,8 @@ i:hover {
 .garage {
 	float: left;
 	margin-left: 2px;
-	width: 150px;
+	width: 210px;
+	margin-top: -2px;
 }
 
 .totalDurationText {
@@ -239,6 +240,7 @@ i:hover {
 .totalDuration {
 	float: left;
 	margin-left: 14px;
+	margin-top: -2px;
 	width: 150px;
 }
 
@@ -258,6 +260,7 @@ i:hover {
 .totalPrice {
 	float: left;
 	margin-left: 4px;
+	margin-top: -2px;
 }
 
 .payForParking {
