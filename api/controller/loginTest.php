@@ -161,13 +161,14 @@ else
     $lname = $lnameParam;
     $permission = "a";
     $pawprint = $pawprintParam;
-    $user_notification_status = 0;
+    $user_notification_time = 15;
+    $user_notification_status = 1;
     $isactive = "true";
     $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     $qrcode = $url . $salt;
     $datetime = date('Y/m/d') . " " .date('g:i:s');
 
-	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$user_notification_status', NULL, '$datetime')");
+	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$user_notification_status', '$user_notification_time', '$datetime')");
 
 
 	// Query for user_id for user that was just created
@@ -241,7 +242,7 @@ echo "function end";
 function payment($emailParam, $garageParam, $parkDurationParam, $priceParam){
 
 
-$query = sprintf("SELECT user_id from User WHERE user_email='%s'",
+$query = sprintf("SELECT user_id, user_notification_time from User WHERE user_email='%s'",
 mysql_real_escape_string($emailParam));
 
 $results = mysql_query($query);
@@ -251,6 +252,7 @@ $row = mysql_fetch_assoc($results);
 //echo $row['user_id'];
 
 $vehicleUserID = $row['user_id'];
+$notification_time = $row['user_notification_time'];
 
 $query1 = sprintf("SELECT vehicle_id from Vehicle WHERE vehicle_userid ='%s'", mysql_real_escape_string($vehicleUserID));
 
@@ -262,12 +264,23 @@ $row1 = mysql_fetch_assoc($results1);
 
  $vehicleId = $row1['vehicle_id'];
  $garage = $garageParam;
- $datetime = date('Y/m/d') . " " .date('g:i:s');
+ $datetime = date('Y/m/d') . " " .date('G:i:s');
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
+ $isNotified = 0;
 
- $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', '$price', '$isactive', '$vehicleId')");
+
+if($notification_time == 15)
+{
+    $notificationTime = 15;
+}
+elseif($notification_time == 30)
+{
+    $notificationTime = 30;
+}
+
+ $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', '$price', '$isactive', '$notificationTime', '$isNotified', '$vehicleId')");
                 $results2 = mysql_query($query2);
 
 
