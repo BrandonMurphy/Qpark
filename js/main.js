@@ -135,51 +135,157 @@ function updateAccountInfo() {
 
 function displayGarage(garage) {
 	console.log(garage.value);
-	
+	var totalPrice = 0.00;
+
 	if(garage.value === '1') {
 		console.log("hit 1");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/cag.png");
-		$(".garage").html('<h3 class="mins">30 Minutes</h3>');
+		$(".garage").html('<h6 class="garage">Conley Avenue Garage</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '2') {
 		console.log("hit 2");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/hsg.png");
+		$(".garage").html('<h6 class="garage">Hitt Street Garage</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '3') {
 		console.log("hit 3");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/taps.png");
+		$(".garage").html('<h6 class="garage">Tiger Avenue Parking Structure</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '4') {
 		console.log("hit 4");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/tag.png");
+		$(".garage").html('<h6 class="garage">Turner Avenue Garage</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '5') {
 		console.log("hit 5");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/uag.png");
+		$(".garage").html('<h6 class="garage">University Avenue Garage</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '6') {
 		console.log("hit 6");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/vag.png");
+		$(".garage").html('<h6 class="garage">Virginia Avenue Garage</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '7') {
 		console.log("hit 7");
+		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/ps7.png");
+		$(".garage").html('<h6 class="garage">Parking Structure #7</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	}
 	$('.garageImage').css( "display", "block");
 }
 
 function displayTime(time) {
 	console.log(time.value);
+	var totalPrice = 0.00;
 
 	if(time.value === '00:30:00') {
+		totalPrice = (0.50 * 0.60);
 		$(".time").html('<h3 class="mins">30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '01:00:00') {
+		totalPrice = (1.00 * 0.60);
 		$(".time").html('<h3 class="hours">1 Hour</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">1 Hour</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '01:30:00') {
+		totalPrice = (1.50 * 0.60);
 		$(".time").html('<h3 class="hoursAndMinutes">1 Hour </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">1 Hour 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '02:00:00') {
+		totalPrice = (2.00 * 0.60);
 		$(".time").html('<h3 class="hours">2 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">2 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '02:30:00') {
+		totalPrice = (2.50 * 0.60);
 		$(".time").html('<h3 class="hoursAndMinutes">2 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">2 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '03:00:00') {
+		totalPrice = (3.00 * 0.60);
 		$(".time").html('<h3 class="hours">3 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">3 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '03:30:00') {
+		totalPrice = (3.50 * 0.60);
 		$(".time").html('<h3 class="hoursAndMinutes">3 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">3 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(time.value === '04:00:00') {
+		totalPrice = (4.00 * 0.60);
 		$(".time").html('<h3 class="hours">4 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">4 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '04:30:00') {
+		totalPrice = (4.50 * 0.60);
+		$(".time").html('<h3 class="hoursAndMinutes">4 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">4 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '05:00:00') {
+		totalPrice = (5.00 * 0.60);
+		$(".time").html('<h3 class="hours">5 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">5 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '05:30:00') {
+		totalPrice = (5.50 * 0.60);
+		$(".time").html('<h3 class="hoursAndMinutes">5 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">5 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '06:00:00') {
+		totalPrice = (6.00 * 0.60);
+		$(".time").html('<h3 class="hours">6 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">6 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '06:30:00') {
+		totalPrice = (6.50 * 0.60);
+		$(".time").html('<h3 class="hoursAndMinutes">6 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">6 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '07:00:00') {
+		totalPrice = (7.00 * 0.60);
+		$(".time").html('<h3 class="hours">7 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">7 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '07:30:00') {
+		totalPrice = (7.50 * 0.60);
+		$(".time").html('<h3 class="hoursAndMinutes">7 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">7 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '08:00:00') {
+		totalPrice = (8.00 * 0.60);
+		$(".time").html('<h3 class="hours">8 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">8 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '08:30:00') {
+		totalPrice = (8.50 * 0.60);
+		$(".time").html('<h3 class="hoursAndMinutes">8 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">8 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '09:00:00') {
+		totalPrice = (9.00 * 0.60);
+		$(".time").html('<h3 class="hours">9 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">9 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '09:30:00') {
+		totalPrice = (9.50 * 0.60);
+		$(".time").html('<h3 class="hoursAndMinutes">9 Hours </br>30 Minutes</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">9 Hours 30 Minutes</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
+	} else if(time.value === '10:00:00') {
+		totalPrice = (10.00 * 0.60);
+		$(".time").html('<h3 class="hours">10 Hours</h3>');
+		$(".totalDuration").html('<h6 class="totalDuration">10 Hours</h3>');
+		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	}
 }
