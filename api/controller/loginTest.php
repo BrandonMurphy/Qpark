@@ -241,7 +241,6 @@ echo "function end";
 
 function payment($emailParam, $garageParam, $parkDurationParam, $priceParam){
 
-
 $query = sprintf("SELECT user_id, user_notification_time from User WHERE user_email='%s'",
 mysql_real_escape_string($emailParam));
 
@@ -250,9 +249,10 @@ $results = mysql_query($query);
 $row = mysql_fetch_assoc($results);
 
 //echo $row['user_id'];
+//echo $row['user_notification_time'];
 
 $vehicleUserID = $row['user_id'];
-$notification_time = $row['user_notification_time'];
+//$notification_time = $row['user_notification_time'];
 
 $query1 = sprintf("SELECT vehicle_id from Vehicle WHERE vehicle_userid ='%s'", mysql_real_escape_string($vehicleUserID));
 
@@ -264,11 +264,19 @@ $row1 = mysql_fetch_assoc($results1);
 
  $vehicleId = $row1['vehicle_id'];
  $garage = $garageParam;
- $datetime = date('Y/m/d') . " " .date('G:i:s');
+ $datetime = date('Y/m/d') . " " .date('g:i:s');
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
  $isNotified = 0;
+
+echo $datetime;
+echo $garage;
+echo $isNotified;
+echo $vehicleId;
+echo $isactive;
+echo $duration;
+echo $price;
 
 
 if($notification_time == 15)
@@ -279,8 +287,14 @@ elseif($notification_time == 30)
 {
     $notificationTime = 30;
 }
+elseif($notification_time == null)
+{
+    $notificationTime = 15;
+}
 
- $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', '$price', '$isactive', '$notificationTime', '$isNotified', '$vehicleId')");
+echo $notificationTime;
+
+ $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', NULL, '$price', NULL, '$isactive', '$notificationTime', '$isNotified', '$vehicleId')");
                 $results2 = mysql_query($query2);
 
 
