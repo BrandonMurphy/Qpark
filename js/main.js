@@ -139,6 +139,7 @@ function displayGarage(garage) {
 	if(garage.value === '1') {
 		console.log("hit 1");
 		$(".garageImage").attr("src", "../img/cag.png");
+		$(".garage").html('<h3 class="mins">30 Minutes</h3>');
 	} else if(garage.value === '2') {
 		console.log("hit 2");
 		$(".garageImage").attr("src", "../img/hsg.png");

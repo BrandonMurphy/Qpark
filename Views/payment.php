@@ -61,18 +61,47 @@
 <div class="orderSummary">
 	<h5 style="margin-left: 50px;">Review Your Order:</h5>
 	
-	<div class="row" style="margin-top: 40px;">
+	<div class="row" style="margin-top: 10px;">
 		<div class="twelve columns centered">
 			<h6 class="garageText">Garage: </h3>
 			<h6 class="garage">No Garage Selected</h3>
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row" style="margin-top: 10px;">
 		<div class="twelve columns centered">
 			<h6 class="totalDurationText">Duration: </h3>
 			<h6 class="totalDuration">30 minutes</h3>
 		</div>
 	</div>
 
+	<div class="row" style="margin-top: 10px;">
+		<div class="twelve columns centered">
+			<h6 class="priceText">Price: </h3>
+			<h6 class="price">$0.60 (Per Hour)</h3>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 10px;">
+		<div class="twelve columns centered">
+			<h6 class="totalPriceText">Total Price: </h3>
+			<h6 class="totalPrice">N/A</h3>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 10px;">
+		<div class="twelve columns centered">
+			<div class="payForParking medium btn">Pay For Parking</div>
+		</div>
+	</div>
+</div>
+	<hr class="footerhr"/>
+	<div class="footer">
+		<div class="row" style="margin-top: 20px;">
+			<div class="twelve columns centered text-center">
+				<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.html" style="margin-right: 5px;">Privacy Policy</a>|</div>
+				<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.html" style="margin-right: 12px;">About</a>|</div>
+				<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.html" style="margin-right: 5px;">Disclaimer</a>|</div>
+			</div>
+	</div>
 </div>
