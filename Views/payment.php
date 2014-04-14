@@ -68,7 +68,7 @@
 		</div>
 	</div>
 
-	<div class="row" style="margin-top: 10px;">
+	<div class="totalDurationRow row">
 		<div class="twelve columns centered">
 			<h6 class="totalDurationText">Duration: </h3>
 			<h6 class="totalDuration">30 minutes</h3>

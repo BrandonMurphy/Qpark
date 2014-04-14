@@ -271,6 +271,10 @@ i:hover {
 	margin-top: 10px;
 }
 
+.totalDurationRow {
+	margin-top: 10px;
+}
+
 
 @media only screen and (max-width: 568px) {
 	.modalLogo {

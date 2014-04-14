@@ -154,6 +154,9 @@ function displayGarage(garage) {
 		totalPrice = (0.50 * 0.60);
 		$(".garageImage").attr("src", "../img/taps.png");
 		$(".garage").html('<h6 class="garage">Tiger Avenue Parking Structure</h3>');
+		$(".totalDurationRow").css( "margin-top", "0px");
+		$(".totalDurationText").css( "margin-top", "-2px");
+		$(".payForParking").css( "margin-top", "0px");
 		$(".totalPrice").html('<h6 class="totalPrice">$'+totalPrice.toFixed(2)+'</h3>');
 	} else if(garage.value === '4') {
 		console.log("hit 4");
