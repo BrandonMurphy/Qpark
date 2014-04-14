@@ -8,6 +8,8 @@ if (!$link) {
     die('Could not connect: ' . mysql_error());
 }
 
+$result = array();
+
 
 if(!empty($_GET)){
 	$vars = $_GET;
@@ -19,8 +21,8 @@ if(!empty($_GET)){
 
 if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'returnScanInfo'){
-        getParkValidity($vars['employeeGarage'], $vars['qrId']);
-	    getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
+        getParkValidity($vars['employeeGarage'], $vars['qrId'], $vars['result']);
+	    getVehicleInfo($vars['employeeGarage'], $vars['qrId'], $vars['result']);
     }
     if($vars['action'] == 'flagTicket'){
         flagticket($vars['qrId']);
@@ -37,7 +39,7 @@ function flagTicket($qrId) {
 
 }
 
-function getVehicleInfo($employeeGarage, $qrId){
+function getVehicleInfo($employeeGarage, $qrId, $result){
 
     $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = '$qrId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
@@ -50,34 +52,31 @@ function getVehicleInfo($employeeGarage, $qrId){
     $db_result = mysql_query("SELECT vehicle_make FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $make = $row[0];
-
-    $make = json_encode($make);
-    echo $make;
+    array_push($result, array("make"=>$make));
 
     $db_result = mysql_query("SELECT vehicle_model FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $model = $row[0];
-
-    $model = json_encode($model);
-    echo $model;
-
+    array_push($result, array("model"=>$model));
+    
     $db_result = mysql_query("SELECT vehicle_year FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $year = $row[0];
-
-    $year = json_encode($year);
-    echo $year;
+    array_push($result, array("year"=>$year));
 
     $db_result = mysql_query("SELECT vehicle_plate FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $plate = $row[0];
+    array_push($result, array("plate"=>$plate));
 
-    $plate = json_encode($plate);
-    echo $plate;
+    $db_result = mysql_query("SELECT vehicle_color FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $color = $row[0];
+    array_push($result, array("color"=>$color));
 
 }
 
-function getParkValidity($employeeGarage, $qrId){
+function getParkValidity($employeeGarage, $qrId, $result){
 
     $garageValidity = 0;
 
@@ -92,8 +91,7 @@ function getParkValidity($employeeGarage, $qrId){
 	$db_result = mysql_query("SELECT park_status, MAX(park_time) FROM Park WHERE park_vehicleid = '$vehicleId'");
 	$row = mysql_fetch_array($db_result, MYSQL_NUM);
 	$timeValidity = $row[0];
-   
-    $timeValidity = json_encode($timeValidity);
+    array_push($result, array("timeValidity"=>$timeValidity));
 
 	$db_result = mysql_query("SELECT park_garage FROM Park WHERE park_vehicleid = '$vehicleId' ORDER BY park_time ASC");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
@@ -103,15 +101,7 @@ function getParkValidity($employeeGarage, $qrId){
         $garageValidity = 1;
     }
 
-    $garageValidity = json_encode($garageValidity);
-
-
-    //echo $garageValidity;
-
-    //$query = "UPDATE Park SET park_status=0 WHERE (park_time + park_duration) > NOW() AND park_status NOT LIKE 0";
-
-
-    //"UPDATE Park SET park_status = 'false' WHERE (park_time + park_duration) <= NOW() AND park_status = 'true'"; //
+    array_push($result, array("garageValidity"=>$garageValidity));
 
 
     if ($timeValidity == 1 && $garageValidity == 1) {
@@ -127,11 +117,13 @@ function getParkValidity($employeeGarage, $qrId){
         $violationMessage = 'Invalid Time';
     }
 
-    $violationCode = json_encode($violationCode);
+    echo json_encode($result);
+
+    /*$violationCode = json_encode($violationCode);
     echo $violationCode;
 
     $violationMessage = json_encode($violationMessage);
-    echo $violationMessage;
+    echo $violationMessage;*/
   
 
 }
