@@ -22,7 +22,21 @@ if(isset($vars['action']) && $vars['action'] != ''){
         getParkValidity($vars['employeeGarage'], $vars['qrId']);
         getVehicleInfo($vars['employeeGarage'], $vars['qrId']);
     }
+    if($vars['action'] == 'flagTicket'){
+        flagticket($vars['qrId']);
+    }
 }
+function flagTicket($qrId) {
+
+    $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
+    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    $userId = $row[0];
+
+    $query = sprintf("UPDATE Ticket SET ticket_is_flagged = true WHERE user_id = $userId");
+         
+
+}
+
 function getVehicleInfo($employeeGarage, $qrId){
 
     $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
@@ -65,22 +79,40 @@ function getVehicleInfo($employeeGarage, $qrId){
 
 function getParkValidity($employeeGarage, $qrId){
 
+    $query1 = sprintf("SELECT user_id FROM User WHERE user_qrcodeid = '%s'",
+    mysql_real_escape_string($qrId));
     $garageValidity = 0;
 
     date_default_timezone_set('America/Chicago');
     $currTime = date('m/d/Y h:i:s');
 
-    $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = $qrId");
+    $db_result = mysql_query($query1);
+    if (!$db_result) {
+        die('Invalid query: ' . mysql_error());
+    }
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $userId = $row[0];
+    echo "UserId is: " . $userId . "</br> ";
 
-    $db_result = mysql_query("SELECT vehicle_id FROM Vehicle WHERE vehicle_userid = $userId");
+    $query2 = sprintf("SELECT vehicle_id FROM Vehicle WHERE vehicle_userid = '%s'",
+    mysql_real_escape_string($userId));
+    $db_result = mysql_query($query2);
+    if (!$db_result) {
+        die('Invalid query: ' . mysql_error());
+    }
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $vehicleId = $row[0];
+    echo "VehicleID is: " . $vehicleId . "</br> ";
 
-    $db_result = mysql_query("SELECT park_status, MAX(park_time) FROM Park WHERE park_vehicleid = $vehicleId");
+    $query3 = sprintf("SELECT park_status, MAX(park_time) FROM Park WHERE park_vehicleid  = '%s'",
+    mysql_real_escape_string($vehicleId));
+    $db_result = mysql_query($query3);
+    if (!$db_result) {
+        die('Invalid query: ' . mysql_error());
+    }
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $timeValidity = $row[0];
+    echo "TimeValidity is: " . $timeValidity . "</br> ";
 
     //select park_id, MAX(park_time) from Park where park_vehicleid = '24';
    
@@ -88,7 +120,12 @@ function getParkValidity($employeeGarage, $qrId){
 
     //echo $timeValidity;
 
-    $db_result = mysql_query("SELECT park_garage FROM Park WHERE park_vehicleid = $vehicleId ORDER BY park_time ASC");
+    $query4 = sprintf("SELECT park_garage FROM Park WHERE park_vehicleid = '%s' ORDER BY park_time ASC",
+    mysql_real_escape_string($vehicleId));
+    $db_result = mysql_query($query4);
+    if (!$db_result) {
+        die('Invalid query: ' . mysql_error());
+    }
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $parkGarage = $row[0];
 

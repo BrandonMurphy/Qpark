@@ -40,9 +40,41 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'viewParks'){
 		viewParks($vars['email']);
 	}
+<<<<<<< HEAD
 	if($vars['action'] == 'viewAllAccounts'){
 		viewAllAccounts();
 	}
+=======
+	if($vars['action'] == 'unflagTicket'){
+		unflagTicket($vars['email']);
+	}
+	if($vars['action'] == 'viewFlaggedTickets'){
+		viewFlaggedTickets();
+	}
+}
+
+function viewFlaggedTickets(){
+
+	$query="SELECT * FROM Ticket ORDER BY ticket_date WHERE ticket_is_flagged = true";
+	$results = mysql_query($query);
+
+	while ($row = mysql_fetch_array($results)) {
+    	foreach($row as $field) {
+		echo json_encode($field);    	
+		}
+	}
+
+}
+
+function unflagTicket($email) {
+
+   	$db_result = mysql_query("SELECT user_id FROM User WHERE user_email = $email");
+   	$row = mysql_fetch_array($db_result, MYSQL_NUM);
+   	$userId = $row[0];
+
+   	$query = sprintf("UPDATE Ticket SET ticket_is_flagged = false WHERE user_id = $userId");     
+
+>>>>>>> be0bfe3409f96fa7fbbdfa8dcab18a8ff033c4d1
 }
 
 function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
@@ -293,6 +325,7 @@ foreach ($users as $value) {
 }
 
 function viewAllTickets(){
+<<<<<<< HEAD
 	$tickets = is_array();
 	$i=0;
 	$query="SELECT * FROM Ticket ORDER BY ticket_id";
@@ -301,6 +334,16 @@ function viewAllTickets(){
 	while ($row = mysql_fetch_assoc($results)) {
  		$tickets[$i] = $row;
  		$i++;
+=======
+	
+	$query="SELECT * FROM Ticket ORDER BY ticket_date";
+	$results = mysql_query($query);
+
+	while ($row = mysql_fetch_array($results)) {
+    	foreach($row as $field) {
+		echo json_encode($field);    	
+		}
+>>>>>>> be0bfe3409f96fa7fbbdfa8dcab18a8ff033c4d1
 	}
 	
 	

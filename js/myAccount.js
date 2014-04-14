@@ -1,10 +1,19 @@
-$(document).ready(function(){
-  getAccountInfo();
-  getVehicleInfo();
-});
+function loadMyAccountPage(email) {
+	//console.log(email);
+	$.ajax({
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/myAccount.php?action=loadHtmlTemplate',
+		aysnc: false,
+		success: function(result){
+			$('.mainContent').html(result);
+			getAccountInfo(email);
+			getVehicleInfo(email)
+		}
+	});
+}
 
-function getAccountInfo() {
-	var email = "brandon@thatbmurphy.com";
+function getAccountInfo(email) {
+	console.log(email);
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=readaccountinfo&email=' + email,
@@ -27,8 +36,8 @@ function getAccountInfo() {
 	});
 }
 
-function getVehicleInfo() {
-	var email = "brandon@thatbmurphy.com";
+function getVehicleInfo(email) {
+	console.log(email);
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=readvehicleinformation&email=' + email,

@@ -60,14 +60,17 @@ function login(page) {
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
+		dataType: 'json',
 		success: function(result){
-			console.log(result);
-			if(result == 'success') {
+			console.log("test");
+			var user_object = result;
+			console.log(user);
+			if(user_object.login_success == true) {
 				console.log("login was successful");
 				if(page == 1){
-					window.location.href = "Views/home.php?user="+user;
+					window.location.href = "Views/home.php?user="+user_object.user;
 				} else if (page == 2) {
-					window.location.href = "home.php?user="+user;
+					window.location.href = "home.php?user="+user_object.user;
 				}
 			}
 		}
@@ -131,24 +134,52 @@ function updateAccountInfo() {
 }
 
 function displayGarage(garage) {
+	console.log(garage.value);
 	
-	garage = document.getElementById(garage.value);
-	console.log(garage);
-	
-	if(garage === 1) {
+	if(garage.value === '1') {
+		console.log("hit 1");
 		$(".garageImage").attr("src", "../img/cag.png");
-	} else if(garage === 2) {
+		$(".garage").html('<h3 class="mins">30 Minutes</h3>');
+	} else if(garage.value === '2') {
+		console.log("hit 2");
 		$(".garageImage").attr("src", "../img/hsg.png");
-	} else if(garage === 3) {
+	} else if(garage.value === '3') {
+		console.log("hit 3");
 		$(".garageImage").attr("src", "../img/taps.png");
-	} else if(garage === 4) {
+	} else if(garage.value === '4') {
+		console.log("hit 4");
 		$(".garageImage").attr("src", "../img/tag.png");
-	} else if(garage === 5) {
+	} else if(garage.value === '5') {
+		console.log("hit 5");
 		$(".garageImage").attr("src", "../img/uag.png");
-	} else if(garage === 6) {
+	} else if(garage.value === '6') {
+		console.log("hit 6");
 		$(".garageImage").attr("src", "../img/vag.png");
-	} else if(garage === 7) {
+	} else if(garage.value === '7') {
+		console.log("hit 7");
 		$(".garageImage").attr("src", "../img/ps7.png");
 	}
 	$('.garageImage').css( "display", "block");
+}
+
+function displayTime(time) {
+	console.log(time.value);
+
+	if(time.value === '00:30:00') {
+		$(".time").html('<h3 class="mins">30 Minutes</h3>');
+	} else if(time.value === '01:00:00') {
+		$(".time").html('<h3 class="hours">1 Hour</h3>');
+	} else if(time.value === '01:30:00') {
+		$(".time").html('<h3 class="hoursAndMinutes">1 Hour </br>30 Minutes</h3>');
+	} else if(time.value === '02:00:00') {
+		$(".time").html('<h3 class="hours">2 Hours</h3>');
+	} else if(time.value === '02:30:00') {
+		$(".time").html('<h3 class="hoursAndMinutes">2 Hours </br>30 Minutes</h3>');
+	} else if(time.value === '03:00:00') {
+		$(".time").html('<h3 class="hours">3 Hours</h3>');
+	} else if(time.value === '03:30:00') {
+		$(".time").html('<h3 class="hoursAndMinutes">3 Hours </br>30 Minutes</h3>');
+	} else if(time.value === '04:00:00') {
+		$(".time").html('<h3 class="hours">4 Hours</h3>');
+	}
 }
