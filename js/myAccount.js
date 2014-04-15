@@ -1,10 +1,20 @@
-$(document).ready(function(){
-  getAccountInfo();
-  getVehicleInfo();
-});
+function loadMyAccountPage(email) {
+	//console.log(email);
+	$.ajax({
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/myAccount.php?action=loadHtmlTemplate',
+		aysnc: false,
+		success: function(result){
+			$('.mainContent').html(result);
+			getAccountInfo(email);
+			getVehicleInfo(email)
+			getTickets(email);
+		}
+	});
+}
 
-function getAccountInfo() {
-	var email = "brandon@thatbmurphy.com";
+function getAccountInfo(email) {
+	//console.log(email);
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=readaccountinfo&email=' + email,
@@ -27,8 +37,8 @@ function getAccountInfo() {
 	});
 }
 
-function getVehicleInfo() {
-	var email = "brandon@thatbmurphy.com";
+function getVehicleInfo(email) {
+	//console.log(email);
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=readvehicleinformation&email=' + email,
@@ -48,6 +58,24 @@ function getVehicleInfo() {
 			model_elem.innerHTML = 'Model: ' + vehicle.vehicle_model;
 			plate_elem.innerHTML = 'License Plate: ' + vehicle.vehicle_plate;
 			state_elem.innerHTML = 'State: ' + vehicle.vehicle_state;
+		}
+	});
+}
+
+function getTickets(email) {
+	
+	email = 'frontesideflip05@yahoo.com';
+	var allTickets = [];
+	var i = 0;
+	//console.log(email);
+	$.ajax({
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=viewticket&email=' + email,
+		aysnc: false,
+		success: function(result){
+			console.log(result);
+				console.log(result.length);
+			console.log(allTickets);
 		}
 	});
 }

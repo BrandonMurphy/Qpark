@@ -49,6 +49,9 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'viewAllAccounts'){
 		viewAllAccounts();
 	}
+	if($vars['action'] == 'unflagTicket'){
+		unflagTicket($vars['email']);
+	}
 	if($vars['action'] == 'viewFlaggedTickets'){
 		viewFlaggedTickets();
 	}
@@ -124,6 +127,7 @@ function unflagTicket($ticketId) {
 		mysql_free_result($results);
 		mysql_close($link);	
 	}
+
 }
 
 function createAccount($emailParam, $fnameParam, $lnameParam, $passwordParam, $permissionParam, $pawprintParam){

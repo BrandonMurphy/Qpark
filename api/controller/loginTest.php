@@ -82,7 +82,10 @@ $saltedPass = sha1($password . $salt);
 
                  if(isset($email))
                 {
-                    $validation = array('user_permission' => $row1['user_permission']);
+                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => true);
+                    echo json_encode($validation);
+                } else {
+                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => false);
                     echo json_encode($validation);
                 }
 
@@ -94,7 +97,10 @@ $saltedPass = sha1($password . $salt);
 
                  if(isset($email))
                 {
-                    $validation = array('user_permission' => $row1['user_permission']);
+                    $validation = array('user' => $email, 'user_permission' => $row1['user_permission'], 'login_success' => true);
+                    echo json_encode($validation);
+                } else {
+                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => false);
                     echo json_encode($validation);
                 }
 
@@ -155,13 +161,14 @@ else
     $lname = $lnameParam;
     $permission = "a";
     $pawprint = $pawprintParam;
-    $user_notification_status = 0;
+    $user_notification_time = 15;
+    $user_notification_status = 1;
     $isactive = "true";
     $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     $qrcode = $url . $salt;
     $datetime = date('Y/m/d') . " " .date('g:i:s');
 
-	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$user_notification_status', NULL, '$datetime')");
+	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', '$qrcode', '$user_notification_status', '$user_notification_time', '$datetime')");
 
 
 	// Query for user_id for user that was just created
@@ -234,8 +241,7 @@ echo "function end";
 
 function payment($emailParam, $garageParam, $parkDurationParam, $priceParam){
 
-
-$query = sprintf("SELECT user_id from User WHERE user_email='%s'",
+$query = sprintf("SELECT user_id, user_notification_time from User WHERE user_email='%s'",
 mysql_real_escape_string($emailParam));
 
 $results = mysql_query($query);
@@ -243,8 +249,10 @@ $results = mysql_query($query);
 $row = mysql_fetch_assoc($results);
 
 //echo $row['user_id'];
+//echo $row['user_notification_time'];
 
 $vehicleUserID = $row['user_id'];
+//$notification_time = $row['user_notification_time'];
 
 $query1 = sprintf("SELECT vehicle_id from Vehicle WHERE vehicle_userid ='%s'", mysql_real_escape_string($vehicleUserID));
 
@@ -260,8 +268,33 @@ $row1 = mysql_fetch_assoc($results1);
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
+ $isNotified = 0;
 
- $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', '$price', '$isactive', '$vehicleId')");
+echo $datetime;
+echo $garage;
+echo $isNotified;
+echo $vehicleId;
+echo $isactive;
+echo $duration;
+echo $price;
+
+
+if($notification_time == 15)
+{
+    $notificationTime = 15;
+}
+elseif($notification_time == 30)
+{
+    $notificationTime = 30;
+}
+elseif($notification_time == null)
+{
+    $notificationTime = 15;
+}
+
+echo $notificationTime;
+
+ $query2 = mysql_query("Insert into Park VALUES(NULL, '$datetime', '$duration', '$garage', NULL, '$price', NULL, '$isactive', '$notificationTime', '$isNotified', '$vehicleId')");
                 $results2 = mysql_query($query2);
 
 
@@ -280,90 +313,31 @@ mysql_close($link);
 
 
 function viewticket($emailParam){
-        session_start();
 
-//$email = $_SESSION['email'];
-
-
-$query = sprintf("Select user_id from User where user_email='%s'", mysql_real_escape_string($email));
+$query = sprintf("Select user_id from User where user_email='%s'", mysql_real_escape_string($emailParam));
 
 $result = mysql_query($query);
 
-$userid = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result);
 
-//echo $userid['user_id'];
-
-$query1 = sprintf("Select vehicle_id from Vehicle where vehicle_userid='%s'", mysql_real_escape_string($userid['user_id']));
-
-$result1 = mysql_query($query1);
-
-$vehicleid = mysql_fetch_assoc($result1);
-
-//echo $vehicleid['vehicle_id'];
-
-$query2 = sprintf("Select park_id from Park where park_vehicleid='%s'", mysql_real_escape_string($vehicleid['vehicle_id']));
-
-$result2 = mysql_query($query2);
-
-//$parkid = mysql_fetch_assoc($result2);
-
-
-while ($row = mysql_fetch_array($result2, MYSQL_ASSOC)) {
-
-$query3 = sprintf("Select * from Ticket where ticket_parkid='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($row['park_id']));
+$query3 = sprintf("Select * from Ticket where ticket_userid ='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($row['user_id']));
 
 $result3 = mysql_query($query3);
-write_results_to_table($result3);
 
-echo '<br/>';
+$allTickets = is_array();
 
+while($row3 = mysql_fetch_assoc($result3)) {
+
+    $ticketInfo = array('ticket_date' => $row3['ticket_date'], 'ticket_time' => $row3['ticket_time'], 'ticket_price' => $row3['ticket_price'], 
+    'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);
+    
+    $allTickets[$i] = json_encode($ticketInfo);
+    $i++;
 }
 
-//$result3 = mysql_query($query3);
-
-//write_results_to_table($result3);
-
+print_r($allTickets);
 mysql_free_result($result);
 mysql_close($link);
-
-function write_results_to_table($result)
-{
-
-        $row = mysql_fetch_assoc($result);
-
-
-        echo '<table border = "1">';
-        echo "<tr>";
-        foreach($row as $key => $value)
-        {
-                echo "<th>$key</th>";
-        }
-
-        echo "</tr>";
-
-        echo "<tr>";
-        foreach($row as $res)
-        {
-                echo "<td>$res</td>";
-        }
-
-        echo "</tr>";
-
-         while($row = mysql_fetch_assoc($result))
-        {
-                //print_r($row);
-
-                echo "<tr>";
-
-                foreach($row as $res)
-                {
-                        echo "<td>$res</td>";
-                }
-
-         }
-        echo "</table>\n";
-
-}
    
 }
 

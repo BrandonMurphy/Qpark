@@ -54,9 +54,9 @@
 		<ul class="four columns">
 			<li><a href="#" onclick="loadPaymentPage()">Pay For Parking</a></li>
 			<li>
-				<a href="maps.html">Maps</a>
+				<a href="maps.php">Maps</a>
 			</li>
-			<li><a href="myAccount.php?user=<?php echo htmlspecialchars($_GET["user"]);?>">My Account</a></li>
+			<li><a href="#" onclick="loadMyAccountPage('<?php echo htmlspecialchars($_GET["user"]);?>')">My Account</a></li>
 		</ul>
 
 		<div class="loginOrRegister">
@@ -70,8 +70,8 @@
 
 		<div class="carousel">
 			<ul class="bxslider">
-			  <li class="payForParking switch" gumby-trigger="#modal1"><img src="../img/payForParking.png"/></li>
-			  <li><img src="../img/campusMapBanner.png"/></li>
+			 <!--  <li class="payForParking switch" gumby-trigger="#modal1"><img src="../img/payForParking.png"/></li>
+ -->			  <li><img src="../img/campusMapBanner.png"/></li>
 			  <li style="width: 610px !important;"><img src="../img/qrCodeBanner.png"/></li>
 			</ul>
 		</div>
@@ -174,9 +174,9 @@
 		<div class="footer">
 			<div class="row" style="margin-top: 20px;">
 				<div class="twelve columns centered text-center">
-					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.html" style="margin-right: 5px;">Privacy Policy</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.html" style="margin-right: 12px;">About</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.html" style="margin-right: 5px;">Disclaimer</a>|</div>
+					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.php" style="margin-right: 5px;">Privacy Policy</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.php" style="margin-right: 12px;">About</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.php" style="margin-right: 5px;">Disclaimer</a>|</div>
 				</div>
 			</div>
 		</div>
@@ -224,6 +224,7 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/myAccount.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>
