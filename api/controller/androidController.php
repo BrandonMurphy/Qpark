@@ -158,14 +158,18 @@ $query1 = sprintf("SELECT a.ticket_date, b.vehicle_plate, b.vehicle_state,
 
 $result1 = mysql_query($query1);
 
+$allTickets = is_array();
+
 while ($row1 = mysql_fetch_assoc($result1)) {
     
 $TicketInfo = array('ticket_date' => $row1['ticket_date'], 'vehicle_plate' => $row1['vehicle_plate'], 'vehicle_state' => $row1['vehicle_state'], 
 'vehicle_make' => $row1['vehicle_make'], 'vehicle_model' => $row1['vehicle_model'], 'vehicle_color' => $row1['vehicle_color']);
-echo json_encode($TicketInfo);
-echo "<br/>";
+$allTickets[$i] = json_encode($TicketInfo);
+$i++;
+
 }
 
+print_r($allTickets);
 mysql_free_result($result);
 mysql_free_result($result1);
 mysql_close($link);
