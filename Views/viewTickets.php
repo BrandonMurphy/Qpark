@@ -67,9 +67,15 @@
 
 	<div class="mainContent" style="margin-left: 50px; margin-right: 50px">
 
+		<div align="right">
+			Flagged Tickets Shown in Red
+		</div>
+
 		<div id="tickets">
 
 		</div>
+
+		
 
 	</div>
 

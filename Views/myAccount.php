@@ -8,7 +8,7 @@
 			<div class="row">
 		  		<div class="twelve columns">
 					<h5>User Info</h5>
-					<hr style="width: 98%; margin-top: 5px; margin-bottom: 5px;"/>
+					<hr style="width: 98%; margin-top: 5px; margin-left: -6px; margin-bottom: 5px;"/>
 				</div>
 			</div>
 			<div class="row">
@@ -47,7 +47,7 @@
 			<div class="row">
 		  		<div class="twelve columns">
 					<h5>Vehicle Info</h5>
-					<hr style="width: 98%; margin-top: 5px; margin-bottom: 5px;"/>
+					<hr style="width: 98%; margin-top: 5px; margin-left: -6px; margin-bottom: 5px;"/>
 				</div>
 			</div>
 			<div class="row">
@@ -90,8 +90,8 @@
 		<div class="ticketInfo">
 			<div class="row">
 		  		<div class="twelve columns">
-					<h5>Ticket Info</h5>
-					<hr style="width: 98%; margin-top: 5px; margin-bottom: 5px;"/>
+					<h5>Pending Tickets</h5>
+					<hr style="width: 98%; margin-top: 5px; margin-left: -6px; margin-bottom: 5px;"/>
 				</div>
 			</div>
 			<div class="row">

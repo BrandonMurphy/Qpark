@@ -16,14 +16,26 @@ if(!empty($_GET)){
 
 if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'loadHtmlTemplate'){
-		loadHtmlTemplate();
+		loadHtmlTemplate($vars['page']);
 	}
 } else{
 	echo "no action selected";
 }
 
-function loadHtmlTemplate() {
-	include('../../Views/payment.php');
+function loadHtmlTemplate($page) {
+	if($page == 'payment') {
+		include('../../Views/payment.php');
+	} else if($page == 'about') {
+		include('../../Views/about.php');
+	} else if($page == 'disclaimer') {
+		include('../../Views/disclaimer.php');
+	} else if($page == 'maps') {
+		include('../../Views/maps.php');
+	} else if($page == 'myAccount') {
+		include('../../Views/myAccount.php');
+	} else if($page == 'privacyPolicy') {
+		include('../../Views/privacypolicy.php');
+	}
 }
 
 ?>
