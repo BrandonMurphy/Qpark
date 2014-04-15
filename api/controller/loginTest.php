@@ -325,6 +325,7 @@ $query3 = sprintf("Select * from Ticket where ticket_userid ='%s' AND ticket_isa
 $result3 = mysql_query($query3);
 
 $allTickets = is_array();
+$i = 0;
 
 while($row3 = mysql_fetch_assoc($result3)) {
 
@@ -335,7 +336,7 @@ while($row3 = mysql_fetch_assoc($result3)) {
     $i++;
 }
 
-print_r($allTickets);
+echo json_encode($allTickets);
 mysql_free_result($result);
 mysql_close($link);
    

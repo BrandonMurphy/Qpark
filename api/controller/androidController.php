@@ -159,6 +159,7 @@ $query1 = sprintf("SELECT a.ticket_date, b.vehicle_plate, b.vehicle_state,
 $result1 = mysql_query($query1);
 
 $allTickets = is_array();
+$i=0;
 
 while ($row1 = mysql_fetch_assoc($result1)) {
     
@@ -169,7 +170,7 @@ $i++;
 
 }
 
-print_r($allTickets);
+echo json_encode($allTickets);
 mysql_free_result($result);
 mysql_free_result($result1);
 mysql_close($link);

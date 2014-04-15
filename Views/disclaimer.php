@@ -69,7 +69,7 @@
 
 	<div class="mainContent">
 		<div class="disclaimer">
-			<iframe style="margin-left: 40px; background: white;"src ="http://ourdisclaimer.com/?i=QPark" width="96%" height="2000"></iframe>
+			<iframe class="disclaimerIframe"src ="http://ourdisclaimer.com/?i=QPark" width="100%" height="2000"></iframe>
 		</div>
 		<hr class="footerhr"/>
 		<div class="footer">
