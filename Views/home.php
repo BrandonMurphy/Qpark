@@ -47,14 +47,14 @@
 		<!-- Toggle for mobile navigation, targeting the <ul> -->
 		<a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
 		<h1 class="one columns logo">
-			<a href="#">
+			<a href="home.php?user=<?php echo htmlspecialchars($_GET["user"]);?>">
 				<img src="../img/qpark_logo.png"/>
 			</a>
 		</h1>
 		<ul class="four columns">
-			<li><a href="#" onclick="loadPaymentPage()">Pay For Parking</a></li>
+			<li><a href="#" onclick="loadPage('payment')">Pay For Parking</a></li>
 			<li>
-				<a href="maps.php">Maps</a>
+				<a href="#" onclick="loadPage('maps')">Maps</a>
 			</li>
 			<li><a href="#" onclick="loadMyAccountPage('<?php echo htmlspecialchars($_GET["user"]);?>')">My Account</a></li>
 		</ul>
@@ -174,9 +174,9 @@
 		<div class="footer">
 			<div class="row" style="margin-top: 20px;">
 				<div class="twelve columns centered text-center">
-					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.php" style="margin-right: 5px;">Privacy Policy</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.php" style="margin-right: 12px;">About</a>|</div>
-					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.php" style="margin-right: 5px;">Disclaimer</a>|</div>
+					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="#" onclick="loadPage('privacyPolicy')" style="margin-right: 5px;">Privacy Policy</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" onclick="loadPage('about')" style="margin-right: 12px;">About</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" onclick="loadPage('disclaimer')" style="margin-right: 5px;">Disclaimer</a>|</div>
 				</div>
 			</div>
 		</div>

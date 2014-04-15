@@ -34,16 +34,16 @@
 		<!-- Toggle for mobile navigation, targeting the <ul> -->
 		<a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
 		<h1 class="one columns logo">
-			<a href="#">
+			<a href="../index.html">
 				<img src="../img/qpark_logo.png"/>
 			</a>
 		</h1>
 		<ul class="four columns">
-			<li><a href="#">Features</a></li>
+			<li><a id="descriptionRegPage" href="#">Description</a></li>
 			<li>
-				<a href="#">Reviews</a>
+				<a id="reviewsRegPage" href="#">Reviews</a>
 			</li>
-			<li><a href="#">Account</a></li>
+			<li><a id="account" class="switch" gumby-trigger="#modal2" href="#">Account</a></li>
 		</ul>
 
 		<div class="loginOrRegister">
@@ -55,12 +55,14 @@
 
 
 	<div class="mainContent">
-
-		<div class="registerContent">
-			<div class="row" style="margin-left: -140px;">
+		<h3 class="needAllFields danger label">Please Fill Out All Required Fields</h3>
+		<div class="RegisterContent">
+		<div class="row" style="margin-left: 340px; width: 50%; margin-top: 20px;">
+			<div class="row" style="margin-left: -50px;">
 				<div class="twelve columns centered text-center">
-					<h3>Please Fill Out All Required Fields</h3>
+					<h4>User Info</h4>
 				</div>
+				<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
 			</div>
 			<div class="row" style="margin-top: 20px;">
 				<div class="twelve columns centered text-center">
@@ -80,31 +82,40 @@
 					<div style="float: left; margin-left: 18px;">* Confirm Password</div><div class="registerFormInput"><input type="password" name="password" id="reg_pass_conf"></input></div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 40px;">
+		</div>	
+		<div class="row" style="margin-left: 340px; width: 50%; margin-top: 20px;">
+			<div class="row" style="margin-left: -50px;">
 				<div class="twelve columns centered text-center">
-					<div style="float: left; margin-right: 38px;">* Make</div><div class="registerFormInput"><input id="reg_make" style="margin-right: 7px;"></input></div>
-					<div style="float: left; margin-left: 13px; margin-right: 29px;">* Model</div><div class="registerFormInput"><input id="reg_model"></input></div>
+					<h4>Vehicle Info</h4>
+				</div>
+				<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
+			</div>
+			<div class="row" style="margin-top: 20px; margin-left: 70px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left; margin-right: 38px;">* Make</div><div class="registerFormInput" style="margin-left: -30px;"><input id="reg_make" style="margin-right: 7px;"></input></div>
+					<div style="float: left; margin-left: 13px; margin-right: 29px;">* Model</div><div class="registerFormInput" style="margin-left: -4px;"><input id="reg_model"></input></div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 40px; margin-left: -20px;">
+			<div class="row" style="margin-top: 40px; margin-left: 50px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left; margin-left: 20px; margin-right: 10px;">* Year</div><div class="registerFormInput"><input id="reg_year"></input></div>
-					<div style="float: left; margin-left: 18px;">* License Plate</div><div class="registerFormInput"><input id="reg_plate"></input></div>
+					<div style="float: left; margin-left: 7px; width: 90px; margin-top: -10px;">* License Plate</div><div class="registerFormInput"><input id="reg_plate"></input></div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 40px; margin-left: -20px;">
+			<div class="row" style="margin-top: 23px; margin-left: 50px;">
 				<div class="twelve columns centered text-center">
-					<div style="float: left; margin-left: 20px; margin-right: 10px;">* Color</div><div class="registerFormInput"><input id="reg_color"></input></div>
-					<div style="float: left; margin-left: 18px;">* State</div><div class="registerFormInput"><input id="reg_state"></input></div>
+					<div style="float: left; margin-left: 20px; margin-right: 10px;">* Color</div><div class="registerFormInput" style="margin-left: -4px;"><input id="reg_color"></input></div>
+					<div style="float: left; margin-left: 18px;">* State</div><div class="registerFormInput" style="margin-left: 30px;"><input id="reg_state"></input></div>
 				</div>
 			</div>
+		</div>
 
 			<div class="row">
-				<div class="twelve columns" style="margin-top: 10px;">
-					<div class="medium primary btn" style="margin-top: 20px; margin-left: 400px;">
+				<div class="twelve columns" style="margin-left: 290px;">
+					<div class="medium primary btn" style="margin-top: 30px; margin-left: 220px;">
 						<a href="#" onclick="register()">Register</a>
 					</div>
-					<p class="required" style="margin-top: -20px;">* Required Field</p>
+					<p class="required" style="margin-top: -30px;">* Required Field</p>
 				</div>
 			</div>
 		</div>

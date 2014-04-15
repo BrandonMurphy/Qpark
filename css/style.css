@@ -309,6 +309,10 @@ i:hover {
 	margin-bottom: -20px;
 }
 
+.needAllFields {
+	display: none;
+}
+
 @media only screen and (max-width: 568px) {
 	.modalLogo {
 		height: 180px;

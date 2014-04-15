@@ -37,6 +37,16 @@ function goToByScroll(id){
         'slow');
 }
 
+$("#descriptionRegPage").click(function(e) { 
+	window.location.href = 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/index.html';
+   	$('#description').click();    
+});
+
+$("#reviewsRegPage").click(function(e) { 
+	window.location.href = 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/index.html';
+   	$('#description').click();    
+});
+
 $("#description").click(function(e) { 
     // Prevent a page reload when a link is pressed
     e.preventDefault(); 
@@ -89,32 +99,38 @@ function register() {
 	var reg_color = $( "#reg_color" ).val();
 	var reg_state = $( "#reg_state" ).val();
 
-	$.ajax({
-		type: "POST",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=temp&make=' + reg_make + '&model=' + reg_model + '&year=' + reg_year + '&plate=' + reg_plate + '&color=' + reg_color + '&state=' + reg_state,
-		aysnc: false,
-		success: function(result){
-			console.log(result);
-			if(result == 'success') {
-				var user = reg_email.substring(0, reg_email.indexOf("@"));
-				$.ajax({
-					type: "POST",
-					url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/email.php?action=registerEmail&email=' + reg_email + '&user=' + user,
-					aysnc: false,
-					success: function(result){
-						console.log(result);
-						$('.registerContent').html('<h4 style="margin-left: -40px !important;">Please check your email to confirm your email address and login.</h4>');
-					}
-				});
+
+	if(fname === '' || lname === '' || reg_email === '' || reg_pass === '' || reg_make === '' || reg_model === '' || reg_year === '' || reg_plate === '' || reg_color === '' || reg_state === '') {
+		$('.needAllFields').css( "display", "block");
+	}
+	else {
+		$.ajax({
+			type: "POST",
+			url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=register&email=' + reg_email + '&password=' + reg_pass + '&fname=' + fname + '&lname=' + lname + '&pawprint=temp&make=' + reg_make + '&model=' + reg_model + '&year=' + reg_year + '&plate=' + reg_plate + '&color=' + reg_color + '&state=' + reg_state,
+			aysnc: false,
+			success: function(result){
+				console.log(result);
+				if(result == 'success') {
+					// var user = reg_email.substring(0, reg_email.indexOf("@"));
+					$.ajax({
+						type: "POST",
+						url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/email.php?action=registerEmail&email=' + reg_email + '&user=' + reg_email,
+						aysnc: false,
+						success: function(result){
+							console.log(result);
+							$('.RegisterContent').html('<h4 style="margin-left: 210px !important;">Please check your email to confirm your email address and login.</h4>');
+						}
+					});
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
-function loadPaymentPage() {
+function loadPage(page) {
 	$.ajax({
 		type: "POST",
-		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/payment.php?action=loadHtmlTemplate',
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/payment.php?action=loadHtmlTemplate&page='+page,
 		aysnc: false,
 		success: function(result){
 			$('.mainContent').html(result);
