@@ -264,7 +264,7 @@ $row1 = mysql_fetch_assoc($results1);
 
  $vehicleId = $row1['vehicle_id'];
  $garage = $garageParam;
- $datetime = date('g:i:s'); //date('Y/m/d') . " " .
+ $datetime = date('Y/m/d') . " " .date('g:i:s');
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
@@ -324,15 +324,18 @@ $query3 = sprintf("Select * from Ticket where ticket_userid ='%s' AND ticket_isa
 
 $result3 = mysql_query($query3);
 
+$allTickets = is_array();
+
 while($row3 = mysql_fetch_assoc($result3)) {
 
-$ticketInfo = array('ticket_date' => $row3['ticket_date'], 'ticket_time' => $row3['ticket_time'], 'ticket_price' => $row3['ticket_price'], 
-'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);
-echo json_encode($ticketInfo);
-echo '<br/>';
-
+    $ticketInfo = array('ticket_date' => $row3['ticket_date'], 'ticket_time' => $row3['ticket_time'], 'ticket_price' => $row3['ticket_price'], 
+    'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);
+    
+    $allTickets[$i] = json_encode($ticketInfo);
+    $i++;
 }
 
+print_r($allTickets);
 mysql_free_result($result);
 mysql_close($link);
    
