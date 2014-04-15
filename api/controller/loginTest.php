@@ -264,7 +264,7 @@ $row1 = mysql_fetch_assoc($results1);
 
  $vehicleId = $row1['vehicle_id'];
  $garage = $garageParam;
- $datetime = date('Y/m/d') . " " .date('g:i:s');
+ $datetime = date('g:i:s'); //date('Y/m/d') . " " .
  $isactive = "true";
  $price = $priceParam;
  $duration = $parkDurationParam;
@@ -313,90 +313,28 @@ mysql_close($link);
 
 
 function viewticket($emailParam){
-        session_start();
 
-//$email = $_SESSION['email'];
-
-
-$query = sprintf("Select user_id from User where user_email='%s'", mysql_real_escape_string($email));
+$query = sprintf("Select user_id from User where user_email='%s'", mysql_real_escape_string($emailParam));
 
 $result = mysql_query($query);
 
-$userid = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result);
 
-//echo $userid['user_id'];
-
-$query1 = sprintf("Select vehicle_id from Vehicle where vehicle_userid='%s'", mysql_real_escape_string($userid['user_id']));
-
-$result1 = mysql_query($query1);
-
-$vehicleid = mysql_fetch_assoc($result1);
-
-//echo $vehicleid['vehicle_id'];
-
-$query2 = sprintf("Select park_id from Park where park_vehicleid='%s'", mysql_real_escape_string($vehicleid['vehicle_id']));
-
-$result2 = mysql_query($query2);
-
-//$parkid = mysql_fetch_assoc($result2);
-
-
-while ($row = mysql_fetch_array($result2, MYSQL_ASSOC)) {
-
-$query3 = sprintf("Select * from Ticket where ticket_parkid='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($row['park_id']));
+$query3 = sprintf("Select * from Ticket where ticket_userid ='%s' AND ticket_isactive = 'true'", mysql_real_escape_string($row['user_id']));
 
 $result3 = mysql_query($query3);
-write_results_to_table($result3);
 
+while($row3 = mysql_fetch_assoc($result3)) {
+
+$ticketInfo = array('ticket_date' => $row3['ticket_date'], 'ticket_time' => $row3['ticket_time'], 'ticket_price' => $row3['ticket_price'], 
+'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);
+echo json_encode($ticketInfo);
 echo '<br/>';
 
 }
 
-//$result3 = mysql_query($query3);
-
-//write_results_to_table($result3);
-
 mysql_free_result($result);
 mysql_close($link);
-
-function write_results_to_table($result)
-{
-
-        $row = mysql_fetch_assoc($result);
-
-
-        echo '<table border = "1">';
-        echo "<tr>";
-        foreach($row as $key => $value)
-        {
-                echo "<th>$key</th>";
-        }
-
-        echo "</tr>";
-
-        echo "<tr>";
-        foreach($row as $res)
-        {
-                echo "<td>$res</td>";
-        }
-
-        echo "</tr>";
-
-         while($row = mysql_fetch_assoc($result))
-        {
-                //print_r($row);
-
-                echo "<tr>";
-
-                foreach($row as $res)
-                {
-                        echo "<td>$res</td>";
-                }
-
-         }
-        echo "</table>\n";
-
-}
    
 }
 
