@@ -63,8 +63,8 @@
 		</div>
 	</div>
 
-	<form><input type="button" value="Create Account" onClick="window.location.href='http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/Views/register.html'"></form>
-	<div class="mainContent">
+	<form><input type="button" value="Create Account" style="margin-left: 50px;" onClick="window.location.href='http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/Views/createAccount.php'"></form>
+	<div class="mainContent" style="margin-left: 50px; margin-right: 50px">
 
 		<div id="accounts">
 
@@ -112,7 +112,11 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/editAccount.js"></script>
 	<script src="../js/accounts.js"></script>
+	
+
+
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

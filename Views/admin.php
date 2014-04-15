@@ -64,7 +64,11 @@
 	</div>
 
 
-	<div class="mainContent">
+	<div class="mainContent" style="margin-top: 100px; margin-left: 100px; margin-right: 100px">
+
+		<div id="flaggedTickets">
+
+		</div>
 
 
 	</div>
@@ -111,6 +115,8 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/editTicket.js"></script>
+	<script src="../js/flaggedTicket.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>
