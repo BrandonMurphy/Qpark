@@ -8,7 +8,6 @@ function viewAllAccounts() {
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/admin.php?action=viewAllAccounts',
 		aysnc: false,
 		success: function(result){
-			console.log(result);
 			var account_elem = document.getElementById("accounts");
 			
 			

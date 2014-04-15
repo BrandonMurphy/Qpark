@@ -16,23 +16,29 @@ if(!empty($_GET)){
 }
 
 if(isset($vars['action']) && $vars['action'] != ''){
+	if($vars['action'] == 'unflagTicket'){
+		unflagTicket($vars['ticketId']);
+	}
+	if($vars['action'] == 'flagTicket'){
+		flagTicket($vars['ticketId']);
+	}
 	if($vars['action'] == 'deleteTicket'){
 		deleteTicket($vars['ticketId']);
 	}
 	if($vars['action'] == 'editTicket'){
 		editTicket($vars['ticketId'], $vars['date'], $vars['time'], $vars['price'], $vars['violation'], $vars['employee'], $vars['isActive'],$vars['notes']);
 	}
-	if($vars['action'] == 'deactivate'){
-		deactivateUser($vars['email']);
+	if($vars['action'] == 'deactivateAccount'){
+		deactivateAccount($vars['userId']);
 	}
-	if($vars['action'] == 'reactivate'){
-		reactivateUser($vars['email']);
+	if($vars['action'] == 'reactivateAccount'){
+		reactivateAccount($vars['userId']);
 	}
 	if($vars['action'] == 'createAccount'){
-		createAccount($vars['email']);
+		createAccount($vars['email'], $vars['fname'], $vars['lname'], $vars['password'], $vars['permission'], $vars['pawprint']);
 	}
 	if($vars['action'] == 'editAccount'){
-		editAccount($vars['fname'], $vars['lname'], $vars['password'], $vars['email'], $vars['permission']);
+		editAccount($vars['userId'], $vars['fname'], $vars['lname'], $vars['permission'], $vars['pawprint']);
 	}
 	if($vars['action'] == 'viewAllTickets'){
 		viewAllTickets();
@@ -51,59 +57,61 @@ if(isset($vars['action']) && $vars['action'] != ''){
 	}
 }
 
-function viewFlaggedTickets(){
-
-	$query="SELECT * FROM Ticket ORDER BY ticket_date WHERE ticket_is_flagged = true";
+function viewFlaggedTickets() {
+	$tickets = is_array();
+	$i=0;
+	$query="SELECT * FROM Ticket WHERE ticket_is_flagged = 1 ORDER BY ticket_id";
 	$results = mysql_query($query);
 
-	while ($row = mysql_fetch_array($results)) {
-    	foreach($row as $field) {
-		echo json_encode($field);    	
-		}
+	while ($row = mysql_fetch_assoc($results)) {
+ 		$tickets[$i] = $row;
+ 		$i++;
 	}
+
+	if ($i != 0) {
+	echo "Currently Flagged Tickets";
+	echo '<table style="background:gray;">';
+	echo '<tr>';
+	echo   '<th>Ticket ID</th>';
+	echo   '<th>Price</th>';
+	echo   '<th>Date</th>';
+	echo   '<th>Time</th>';
+	echo   '<th>Violation</th>';
+	echo   '<th>Employee ID</th>';
+	echo   '<th>User ID</th>';
+	echo   '<th>isActive</th>';
+	echo   '<th>Edit</th>';
+	echo   '<th>Delete</th>';
+	echo   '<th>Unflag</th>';
+	echo '</tr>';
+
+foreach ($tickets as $value) { 
+    	echo '<div id=ticketRow' . $value['ticket_id'] . '>';
+        echo '<tr>';
+        echo '<td>' . $value['ticket_id'] . '</td>';
+        echo '<td>' . $value['ticket_price'] . '</td>';
+        echo '<td>' . $value['ticket_date'] . '</td>';
+        echo '<td>' . $value['ticket_time'] . '</td>';
+        echo '<td>' . $value['ticket_violation'] . '</td>';
+        echo '<td>' . $value['ticket_employee_id'] . '</td>';
+        echo '<td>' . $value['ticket_userid'] . '</td>';
+        echo '<td>' . $value['ticket_isactive'] . '</td>';
+        echo '<td><a href=editFlaggedTicket.php?id=' . $value['ticket_id'] . '>Edit</a></td>';
+        echo '<td><a id=ticket' . $value['ticket_id'] . ' onclick="deleteFlaggedTicket(' . $value['ticket_id'] . ')">Delete</a></td>';
+        echo '<td><a id=ticket' . $value['ticket_id'] . ' onclick="unflagTicket(' . $value['ticket_id'] . ')">Unflag</a></td>';
+        echo '</tr>';
+        echo '</div>';
+    }
+   echo '</table>';
+	} else {
+		echo "No flagged tickets at this time.";
+	}
+
 }
 
-function unflagTicket($email) {
-
-   	$db_result = mysql_query("SELECT user_id FROM User WHERE user_email = $email");
-   	$row = mysql_fetch_array($db_result, MYSQL_NUM);
-   	$userId = $row[0];
-
-   	$query = sprintf("UPDATE Ticket SET ticket_is_flagged = false WHERE user_id = $userId");     
-}
-
-function createAccount($emailParam, $passwordParam, $fnameParam, $lnameParam, $permissionParam){
-			
-	$query = sprintf("SELECT user_email from User WHERE user_email='%s'",
-	mysql_real_escape_string($emailParam));
-	$results = mysql_query($query);
-	$row = mysql_fetch_assoc($results);
-
-  	if(strcmp($row, $emailParam)==0) {
-        echo "Username already taken.";
-	}
-	else {
-    $email = $emailParam;
-    $salt = sha1($emailParam);
-    $password = sha1($passwordParam . $salt);
-    $fname = $fnameParam;
-    $lname = $lnameParam;
-    $permission = $permissionParam;
-    $isactive = "true";
-    $datetime = $_SERVER['REQUEST_TIME'];
-
-	mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$fname', '$lname', '$permission', '$isactive', '$datetime')");
-	
-	$query = sprintf("SELECT user_id from User WHERE user_email='%s'",
-	mysql_real_escape_string($emailParam));
-	$results = mysql_query($query);
-	$row = mysql_fetch_assoc($results);
-	}
-}
-
-function deactivateUser($email){
-	if ($email != NULL) {
-   		$query = sprintf("UPDATE User SET user_isactive = false WHERE user_email = '%s'", mysql_real_escape_string($email));
+function flagTicket($ticketId) {
+	if ($ticketId != null) {
+		$query = sprintf("UPDATE Ticket SET ticket_is_flagged = 1 WHERE ticket_id = '%s'", mysql_real_escape_string($ticketId));
    		
    		$results = mysql_query($query);
 		mysql_free_result($results);
@@ -111,9 +119,68 @@ function deactivateUser($email){
 	}
 }
 
-function reactivateUser($email){
-	if ($email != NULL) {
-   		$query = sprintf("UPDATE User SET user_isactive = true WHERE user_email = '%s'", mysql_real_escape_string($email));
+function unflagTicket($ticketId) {
+	if ($ticketId != null) {
+		$query = sprintf("UPDATE Ticket SET ticket_is_flagged = 0 WHERE ticket_id = '%s'", mysql_real_escape_string($ticketId));
+   		
+   		$results = mysql_query($query);
+		mysql_free_result($results);
+		mysql_close($link);	
+	}
+
+}
+
+function createAccount($emailParam, $fnameParam, $lnameParam, $passwordParam, $permissionParam, $pawprintParam){
+			
+	$query = sprintf("SELECT user_email from User WHERE user_email='%s'",
+	mysql_real_escape_string($emailParam));
+	$results = mysql_query($query);
+	$row = mysql_fetch_assoc($results);
+
+	//check if username exists
+  	if(strcmp($row, $emailParam)==0) {
+        echo "Username already taken.";
+	}
+	else {
+
+    //Set and Insert User Info
+    $email = $emailParam;
+    $salt = sha1($emailParam);
+    $password = sha1($passwordParam . $salt);
+    $fname = $fnameParam;
+    $lname = $lnameParam;
+    $permission = $permissionParam;
+    $pawprint = $pawprintParam;
+    $isactive = "true";
+    $datetime = date('Y/m/d') . " " .date('g:i:s');
+
+	$newUser = mysql_query("Insert INTO User VALUES (NULL, '$email', '$password', '$salt', '$fname', '$lname', '$permission', '$pawprint', '$isactive', NULL, NULL, NULL, '$datetime')");
+	
+	if(!$newUser)
+	{
+	       echo "failed";;
+	}
+	else
+	{
+	        echo "success";
+	}
+	
+	}
+}
+
+function deactivateAccount($userId){
+	if ($userId != null) {
+   		$query = sprintf("UPDATE User SET user_isactive = 'false' WHERE user_id = '%s'", mysql_real_escape_string($userId));
+   		
+   		$results = mysql_query($query);
+		mysql_free_result($results);
+		mysql_close($link);	
+	}
+}
+
+function reactivateAccount($userId){
+	if ($userId != null) {
+   		$query = sprintf("UPDATE User SET user_isactive = 'true' WHERE user_id = '%s'", mysql_real_escape_string($userId));
    		
    		$results = mysql_query($query);
 		mysql_free_result($results);
@@ -150,7 +217,7 @@ function editTicket($ticketId, $date, $time, $price, $violation, $employee, $isA
 			mysql_close($link);
 
 		}
-		if ($time != null && $time != "") {
+		if ($time != null && isset($time)) {
 			$query = sprintf("UPDATE Ticket SET ticket_time = '%s' WHERE ticket_id = '%s'", mysql_real_escape_string($time), mysql_real_escape_string($ticketId));			
 		
 			$results = mysql_query($query);
@@ -207,47 +274,35 @@ function editTicket($ticketId, $date, $time, $price, $violation, $employee, $isA
 		}
 }
 
-function editAccount($fname, $lname, $passwordParam, $emailParam, $permissionParam){
+function editAccount($userId, $fname, $lname, $permission, $pawprint){
+	if($userId != null){
 
-	$email = $emailParam;
-	$salt = sha1($emailParam);
-	$password = sha1($passwordParam . $salt);
-	$permission = $permissionParam;
-
-	$query = sprintf("UPDATE User SET user_firstname = '%s', user_lastname = '%s', user_password = '%s', user_permission = '%s'  WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($lname), mysql_real_escape_string($password),mysql_real_escape_string($permission), mysql_real_escape_string($email));
-
-	$results = mysql_query($query);
-	mysql_free_result($results);
-	mysql_close($link);
-
-	if($email != NULL){
-
-		if ($fname != NULL){
-		$query = sprintf("UPDATE User SET user_firstname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($email));
+		if ($fname != null && isset($fname)){
+		$query = sprintf("UPDATE User SET user_firstname = '%s' WHERE user_id = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($userId));
 
 		$results = mysql_query($query);
 		mysql_free_result($results);
 		mysql_close($link);
 		}
 
-		if ($lname != NULL){
-		$query = sprintf("UPDATE User SET user_lastname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($lname), mysql_real_escape_string($email));
+		if ($lname != null && isset($lname)){
+		$query = sprintf("UPDATE User SET user_lastname = '%s' WHERE user_id = '%s'",mysql_real_escape_string($lname), mysql_real_escape_string($userId));
 
 		$results = mysql_query($query);
 		mysql_free_result($results);
 		mysql_close($link);
 		}
 
-		if ($passwordParam != NULL){
-		$query = sprintf("UPDATE User SET user_password = '%s' WHERE user_email = '%s'",mysql_real_escape_string($password), mysql_real_escape_string($email));
+		if ($permission != null && isset($permission)){
+		$query = sprintf("UPDATE User SET user_permission = '%s' WHERE user_id = '%s'",mysql_real_escape_string($permission), mysql_real_escape_string($userId));
 
 		$results = mysql_query($query);
 		mysql_free_result($results);
 		mysql_close($link);
 		}
 
-		if ($permission != NULL){
-		$query = sprintf("UPDATE User SET user_permission = '%s' WHERE user_email = '%s'",mysql_real_escape_string($permission), mysql_real_escape_string($email));
+		if ($pawprint != null && isset($pawprint)){
+		$query = sprintf("UPDATE User SET user_pawprint = '%s' WHERE user_id = '%s'",mysql_real_escape_string($pawprint), mysql_real_escape_string($userId));
 
 		$results = mysql_query($query);
 		mysql_free_result($results);
@@ -277,7 +332,6 @@ echo   '<th>Email</th>';
 echo   '<th>First</th>';
 echo   '<th>Last</th>';
 echo   '<th>Permission</th>';
-echo   '<th>Pawprint</th>';
 echo   '<th>Active</th>';
 echo   '<th>Edit</th>';
 echo   '<th>Deactivate/Reactivate</th>';
@@ -292,10 +346,9 @@ foreach ($users as $value) {
         echo '<td>' . $value['user_firstname'] . '</td>';
         echo '<td>' . $value['user_lastname'] . '</td>';
         echo '<td>' . $value['user_permission'] . '</td>';
-        echo '<td>' . $value['user_pawprint'] . '</td>';
         echo '<td>' . $value['user_isactive'] . '</td>';
-        echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
-        echo '<td><a href=viewAccounts.php?action=deactivateUser&email=' . $value['user_email'] . '>Deactivate</a></td>';
+        echo '<td><a href=editAccount.php?id=' . $value['user_id'] . '>Edit</a></td>';
+        echo '<td><a onclick="deactivateAccount(' . $value['user_id'] . ')">Deactivate</a></td>';
         echo '</tr>';
         echo '</div>';
 
@@ -307,10 +360,9 @@ foreach ($users as $value) {
         echo '<td>' . $value['user_firstname'] . '</td>';
         echo '<td>' . $value['user_lastname'] . '</td>';
         echo '<td>' . $value['user_permission'] . '</td>';
-        echo '<td>' . $value['user_pawprint'] . '</td>';
         echo '<td>' . $value['user_isactive'] . '</td>';
-        echo '<td><a href=editAccount.php?id=' . $value['user_email'] . '>Edit</a></td>';
-        echo '<td><a href=viewAccounts.php?action=reactivateUser&email=' . $value['user_email'] . '>Reactivate</a></td>';
+        echo '<td><a href=editAccount.php?id=' . $value['user_id'] . '>Edit</a></td>';
+        echo '<td><a onclick="reactivateAccount(' . $value['user_id'] . ')">Reactivate</a></td>';
         echo '</tr>';
         echo '</div>';
     }
@@ -340,6 +392,7 @@ echo   '<th>Time</th>';
 echo   '<th>Violation</th>';
 echo   '<th>Employee ID</th>';
 echo   '<th>User ID</th>';
+echo   '<th>isActive</th>';
 echo   '<th>Edit</th>';
 echo   '<th>Delete</th>';
 echo '</tr>';
@@ -356,6 +409,7 @@ foreach ($tickets as $value) {
         echo '<td>' . $value['ticket_violation'] . '</td>';
         echo '<td>' . $value['ticket_employee_id'] . '</td>';
         echo '<td>' . $value['ticket_userid'] . '</td>';
+        echo '<td>' . $value['ticket_isactive'] . '</td>';
         echo '<td><a href=editTicket.php?id=' . $value['ticket_id'] . '>Edit</a></td>';
         echo '<td><a href=deleteTicket.php?id=' . $value['ticket_id'] . '>Delete</a></td>';
         echo '</tr>';
@@ -363,7 +417,7 @@ foreach ($tickets as $value) {
 
 
 	}else {
-    	echo '<div>';
+    	echo '<div id=ticketRow' . $value['ticket_id'] . '>';
         echo '<tr>';
         echo '<td>' . $value['ticket_id'] . '</td>';
         echo '<td>' . $value['ticket_price'] . '</td>';
@@ -372,6 +426,7 @@ foreach ($tickets as $value) {
         echo '<td>' . $value['ticket_violation'] . '</td>';
         echo '<td>' . $value['ticket_employee_id'] . '</td>';
         echo '<td>' . $value['ticket_userid'] . '</td>';
+        echo '<td>' . $value['ticket_isactive'] . '</td>';
         echo '<td><a href=editTicket.php?id=' . $value['ticket_id'] . '>Edit</a></td>';
         echo '<td><a id=ticket' . $value['ticket_id'] . ' onclick="deleteTicket(' . $value['ticket_id'] . ')">Delete</a></td>';
         echo '</tr>';
