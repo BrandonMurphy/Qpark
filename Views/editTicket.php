@@ -67,17 +67,18 @@
 	<div class="mainContent">
 
 
-		<div class="editTicketContent">
+		<div class="editTicketContent" style="margin-left: 110px;">
 			<div class="row" style="margin-left: -140px;">
 				<div class="twelve columns centered text-center">
 					<h3>Only Enter Fields You Wish To Edit</h3>
+					<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row" style="margin-top: 30px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left;">Date:</div>
 						<div class="registerFormInput">
-							<input type="date" id="date">
+							<input type="date" id="date" style="width: 123px; margin-left: 39px">
 							</input>
 						</div>
 					<div style="float: left; margin-left: 19px; margin-right: 58px;">Time:</div>
@@ -87,12 +88,16 @@
 						</div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row" style="margin-top: 30px;">
 				<div class="twelve columns centered text-center">
-					<div style="float: left;">Price:</div><div class="registerFormInput"><input id="price"></input></div>
+					<div style="float: left;">Price:</div>
+						<div class="registerFormInput">
+							<input id="price" style="margin-left: 38px;">
+							</input>
+						</div>
 					<div style="float: left; margin-left: 19px; margin-right: 58px;">Violation:</div>
 						<div class="registerFormInput">
-							<select id="violation">
+							<select id="violation" style="width: 99px; margin-left: -32px;">
 								<option value=""></option>
   								<option value="1">Invalid Garage</option>
   								<option value="2">Invalid Time</option>
@@ -100,12 +105,12 @@
 						</div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row" style="margin-top: 30px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left;">Employee:</div><div class="registerFormInput"><input id="employee"></input></div>
 					<div style="float: left; margin-left: 19px; margin-right: 58px;">isActive:</div>
 					<div class="registerFormInput">
-						<select id="isActive">
+						<select id="isActive" style="margin-left: -22px; width: 99px;">
 							<option value=""></option>
   							<option value="true">Active</option>
   							<option value="false">Inactive</option>
@@ -113,11 +118,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row" style="margin-top: 30px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left;">Notes:</div>
 					<div class="registerFormInput">
-						<textarea id="notes" style="width: 370px; height: 70px;">
+						<textarea id="notes" style="width: 343px; height: 70px; margin-left: 30px;">
 						</textarea>
 					</div>
 				</div>
@@ -130,7 +135,7 @@
     		</div>
 
 			</div>
-			<div class="medium primary btn" onclick="editTicket(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
+			<div class="medium primary btn" style="margin-left: 535px; margin-top: 30px;" onclick="editTicket(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
 		<div id="editTicket">
 
 		</div>
