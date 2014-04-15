@@ -67,6 +67,74 @@
 	<div class="mainContent">
 
 
+		<div class="editTicketContent">
+			<div class="row" style="margin-left: -140px;">
+				<div class="twelve columns centered text-center">
+					<h3>Only Enter Fields You Wish To Edit</h3>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Date:</div>
+						<div class="registerFormInput">
+							<input type="date" id="date">
+							</input>
+						</div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Time:</div>
+						<div class="registerFormInput">
+							<input type="time" id="time">
+							</input>
+						</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Price:</div><div class="registerFormInput"><input id="price"></input></div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Violation:</div>
+						<div class="registerFormInput">
+							<select id="violation">
+								<option value=""></option>
+  								<option value="1">Invalid Garage</option>
+  								<option value="2">Invalid Time</option>
+							</select>
+						</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Employee:</div><div class="registerFormInput"><input id="employee"></input></div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">isActive:</div>
+					<div class="registerFormInput">
+						<select id="isActive">
+							<option value=""></option>
+  							<option value="true">Active</option>
+  							<option value="false">Inactive</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Notes:</div>
+					<div class="registerFormInput">
+						<textarea id="notes" style="width: 370px; height: 70px;">
+						</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			 <div>
+			  
+    		</div>
+
+			</div>
+			<div class="medium primary btn" onclick="editFlaggedTicket(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
+		<div id="editTicket">
+
+		</div>
+
 	</div>
 
 	<!-- Grab Google CDN's jQuery, fall back to local if offline -->
@@ -111,6 +179,7 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/editTicket.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

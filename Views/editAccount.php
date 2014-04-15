@@ -67,6 +67,42 @@
 	<div class="mainContent">
 
 
+		<div class="editAccountContent">
+			<div class="row" style="margin-left: -140px;">
+				<div class="twelve columns centered text-center">
+					<h3>Only Enter Fields You Wish To Edit</h3>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">First Name:</div><div class="registerFormInput"><input id="fname"></input></div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Last Name:</div><div class="registerFormInput"><input id="lname"></input></div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Permission:</div>
+						<div class="registerFormInput">
+							<select id="permission">
+								<option value=""></option>
+  								<option value="b">Employee</option>
+  								<option value="c">Admin</option>
+							</select>
+						</div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Pawprint:</div><div class="registerFormInput"><input id="pawprint"></input></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div> 
+    		</div>
+
+		</div>
+			<div class="medium primary btn" onclick="editAccount(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
+		<div id="editAccount">
+
+		</div>
+
 	</div>
 
 	<!-- Grab Google CDN's jQuery, fall back to local if offline -->
@@ -111,6 +147,7 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/editAccount.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

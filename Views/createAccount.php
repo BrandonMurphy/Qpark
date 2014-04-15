@@ -63,9 +63,58 @@
 		</div>
 	</div>
 
-
+	
 	<div class="mainContent">
 
+		<div class="registerContent">
+			<div class="row" style="margin-left: -140px;">
+				<div class="twelve columns centered text-center">
+					<h3>Please Fill Out All Required Fields</h3>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 40px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left; margin-right: 38px;">E-Mail</div><div class="registerFormInput"><input id="email" style="margin-right: 7px;"></input></div>
+					<div style="float: left; margin-left: 13px; margin-right: 29px;">Confirm E-Mail</div><div class="registerFormInput"><input id="email_conf"></input></div>
+				</div>
+			</div>
+			<div class="row" id="email_error" style="color:red" >
+			</div>
+			<div class="row" style="margin-top: 40px; margin-left: -20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left; margin-left: 20px; margin-right: 10px;">Password</div><div class="registerFormInput"><input type="password" name="password" id="pass"></input></div>
+					<div style="float: left; margin-left: 18px;">Confirm Password</div><div class="registerFormInput"><input type="password" name="password" id="pass_conf"></input></div>
+				</div>
+			</div>
+			<div class="row" id="pass_error" style="color:red">
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">First Name</div><div class="registerFormInput"><input id="fname"></input></div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Last Name</div><div class="registerFormInput"><input id="lname"></input></div>
+				</div>
+			</div>
+			<div class="row" id="name_error" style="color:red">
+			</div>
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left;">Permission</div>
+						<div class="registerFormInput">
+							<select id="permission">
+  								<option value="b">Employee</option>
+  								<option value="c">Admin</option>
+							</select>
+						</div>
+					<div style="float: left; margin-left: 19px; margin-right: 58px;">Pawprint</div><div class="registerFormInput"><input id="pawprint"></input></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="twelve columns" style="margin-top: 10px;">
+					<div class="medium primary btn" style="margin-top: 20px; margin-left: 400px;">
+						<a href="#" onclick="createAccount()">Submit</a>
+					</div>
+				</div>
+			</div>
 
 	</div>
 
@@ -111,6 +160,10 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/createAccount.js"></script>
+	
+
+
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>

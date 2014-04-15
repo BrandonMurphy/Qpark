@@ -65,7 +65,7 @@
 
 	
 
-	<div class="mainContent">
+	<div class="mainContent" style="margin-left: 50px; margin-right: 50px">
 
 		<div id="tickets">
 
