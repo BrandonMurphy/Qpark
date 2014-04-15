@@ -47,13 +47,16 @@
 		<!-- Toggle for mobile navigation, targeting the <ul> -->
 		<a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
 		<h1 class="one columns logo">
-			<a href="admin.php">
+			<a href="#">
 				<img src="../img/qpark_logo.png"/>
 			</a>
 		</h1>
 		<ul class="four columns">
-			<li><a href="viewTickets.php">View Tickets</a></li>
-			<li><a href="viewAccounts.php">View Accounts</a></li>
+			<li><a href="#" onclick="loadPaymentPage()">Pay For Parking</a></li>
+			<li>
+				<a href="maps.php">Maps</a>
+			</li>
+			<li><a href="#" onclick="loadMyAccountPage('<?php echo htmlspecialchars($_GET["user"]);?>')">My Account</a></li>
 		</ul>
 
 		<div class="loginOrRegister">
@@ -63,11 +66,21 @@
 		</div>
 	</div>
 
-	<form><input type="button" value="Create Account" onClick="window.location.href='http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/Views/register.php'"></form>
+
 	<div class="mainContent">
-
-		<div id="accounts">
-
+		<div class="disclaimer">
+			<iframe style="margin-top: -20px; margin-bottom: -18px;"src="http://map.missouri.edu/" width="100%" height="500"></iframe>
+		</div>
+		<hr class="footerhr"/>
+		<div class="footer">
+			<div class="row" style="margin-top: 20px;">
+				<div class="twelve columns centered text-center">
+					<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.php" style="margin-right: 5px;">Privacy Policy</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.php" style="margin-right: 12px;">About</a>|</div>
+					<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.php" style="margin-right: 5px;">Disclaimer</a>|</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Grab Google CDN's jQuery, fall back to local if offline -->
@@ -112,7 +125,7 @@
 
 	<script src="../js/plugins.js"></script>
 	<script src="../js/main.js"></script>
-	<script src="../js/accounts.js"></script>
+	<script src="../js/myAccount.js"></script>
 
 <!-- Change UA-XXXXX-X to be your site's ID -->
 	<!--<script>
