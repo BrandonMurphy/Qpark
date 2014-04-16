@@ -164,8 +164,10 @@ $i=0;
 while ($row1 = mysql_fetch_assoc($result1)) {
     
 $TicketInfo = array('ticket_id' => $row1['ticket_id'],'ticket_date' => $row1['ticket_date'], 'vehicle_plate' => $row1['vehicle_plate'], 'vehicle_state' => $row1['vehicle_state'], 
+
 'vehicle_make' => $row1['vehicle_make'], 'vehicle_model' => $row1['vehicle_model'], 'vehicle_color' => $row1['vehicle_color']);
-$allTickets[$i] = json_encode($TicketInfo);
+$allTickets[$i] = $TicketInfo;
+
 $i++;
 
 }

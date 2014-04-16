@@ -42,10 +42,12 @@ if(isset($vars['action']) && $vars['action'] != ''){
     if($vars['action'] == 'readvehicleinformation'){
         readvehicleinformation($vars['email']);
     }
+    if($vars['action'] == 'updateVehicleInfo'){
+        updateVehicleInfo($vars['emailParam'], $vars['make'],$vars['model'],$vars['year'],$vars['plate'],$vars['color'],$vars['state']);
+    }
 } else{
 	echo "no action selected";
 }
-
 
 function login($email, $password) {
 //echo $password;
@@ -211,6 +213,35 @@ else
 	}
 
 }
+
+function updateVehicleInfo($emailParam, $make, $model, $year, $plate, $color, $state){
+
+$email = $emailParam;
+
+$query = sprintf("SELECT user_id from User WHERE user_email='%s'",
+mysql_real_escape_string($email));
+$results = mysql_query($query);
+$row = mysql_fetch_assoc($results);
+$vehicleUserID = $row['user_id'];
+
+$query1 = sprintf("UPDATE Vehicle SET vehicle_make = '%s', vehicle_model = '%s', vehicle_year = '%s', 
+    vehicle_plate = '%s', vehicle_color = '%s', vehicle_state = '%s' WHERE user_email = '%s'",
+    mysql_real_escape_string($make), 
+    mysql_real_escape_string($model), 
+    mysql_real_escape_string($year),
+    mysql_real_escape_string($plate), 
+    mysql_real_escape_string($color), 
+    mysql_real_escape_string($state),
+    mysql_real_escape_string($vehicleUserID));
+
+$results1 = mysql_query($query1);
+
+mysql_free_result($results1);
+
+mysql_close($link);
+
+}
+
 function updateaacountinfo($fname, $lname, $passwordParam, $emailParam){
 
 $email = $emailParam;
@@ -321,14 +352,10 @@ $i = 0;
 while($row3 = mysql_fetch_assoc($result3)) {
 
     $ticketInfo = array('ticket_date' => $row3['ticket_date'], 'ticket_time' => $row3['ticket_time'], 'ticket_price' => $row3['ticket_price'], 
-<<<<<<< HEAD
-    'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);  
-    $allTickets[$i] = json_encode($ticketInfo);
-=======
     'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);
     
     $allTickets[$i] = $ticketInfo;
->>>>>>> ad22e6ccfd009c5bcbd5c54c6cc117265df7c166
+
     $i++;
 }
 
