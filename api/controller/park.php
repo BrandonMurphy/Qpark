@@ -100,6 +100,12 @@ function getParkValidity($employeeGarage, $qrId, $result){
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $parkGarage = $row[0];
 
+    if ($parkGarage == null) {
+        $parkGarage = "N/A";
+    }
+
+    $result["parkGarage"] = $parkGarage;
+
     if ($timeValidity == null) {
         $timeValidity = "false";
     }
@@ -118,7 +124,6 @@ function getParkValidity($employeeGarage, $qrId, $result){
         $violationCode = 2;
     }
 
-    //array_push($result, array("violationCode"=>$violationCode));
     $result["violationCode"] = $violationCode;
 
     echo json_encode($result);
