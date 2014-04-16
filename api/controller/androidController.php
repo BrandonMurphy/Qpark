@@ -46,14 +46,17 @@ $email = $row['user_email'];
 
 if(strcmp($email, $row) == 0)
 {	
-$query1 = sprintf("SELECT user_password, user_permission from User WHERE user_email='%s'",
+$query1 = sprintf("SELECT user_password, user_permission, user_isactive from User WHERE user_email='%s'",
 mysql_real_escape_string($email));
 $results1 = mysql_query($query1);
 $row1 = mysql_fetch_assoc($results1);
 mysql_free_result($results1);
 mysql_close($link);
 $salt = sha1($email);
-      
+     
+	if(strcmp($row1['user_isactive'], "true") == 0)
+	{
+
     //comparing password in database with users input
     if(strcmp(sha1($password . $salt), $row1['user_password']) == 0)
     {
@@ -76,6 +79,12 @@ $salt = sha1($email);
 		echo json_encode($validation);  
     }
 	}
+	else
+	{
+		$validation = array('employee_login' => False);
+		echo json_encode($validation);
+	}
+}
 else
 {
         $validation = array('employee_login' => False);
