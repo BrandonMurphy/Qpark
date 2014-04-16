@@ -336,7 +336,11 @@ while($row3 = mysql_fetch_assoc($result3)) {
     $i++;
 }
 
-echo json_encode($allTickets);
+if(empty($allTickets)) {
+    echo "No Ticket";
+} else {
+    echo json_encode($allTickets);
+}
 mysql_free_result($result);
 mysql_close($link);
    

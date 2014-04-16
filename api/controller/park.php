@@ -22,6 +22,7 @@ if(!empty($_GET)){
 if(isset($vars['action']) && $vars['action'] != ''){
 	if($vars['action'] == 'returnScanInfo'){
         $result = getVehicleInfo($vars['employeeGarage'], $vars['qrId'], $result);
+        //echo $result;
         getParkValidity($vars['employeeGarage'], $vars['qrId'], $result);
     }
     if($vars['action'] == 'flagTicket'){
@@ -44,34 +45,41 @@ function getVehicleInfo($employeeGarage, $qrId, $result){
     $db_result = mysql_query("SELECT user_id FROM User WHERE user_qrcodeid = '$qrId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $userId = $row[0];
+    echo "userid is: " . $userId . '</br>';
 
     $db_result = mysql_query("SELECT vehicle_id FROM Vehicle WHERE vehicle_userid = '$userId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $vehicleId = $row[0];
-
-    $db_result = mysql_query("SELECT vehicle_make FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
-    $row = mysql_fetch_array($db_result, MYSQL_NUM);
+    echo "vehicleId is: " . $vehicleId . '</br>';
+    $db_result = mysql_query("SELECT vehicle_make FROM Vehicle WHERE vehicle_id = '%s'",
+    mysql_real_escape_string($vehicle_id));
+    $row = mysql_fetch_assoc($db_result);
     $make = $row[0];
     array_push($result, array("make"=>$make));
+    echo "make is: " . $make . '</br>';
 
     $db_result = mysql_query("SELECT vehicle_model FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $model = $row[0];
     array_push($result, array("model"=>$model));
+    echo "model is: " . $model . '</br>';
     
     $db_result = mysql_query("SELECT vehicle_year FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $year = $row[0];
     array_push($result, array("year"=>$year));
+    echo "year is: " . $year . '</br>';
 
     $db_result = mysql_query("SELECT vehicle_plate FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $plate = $row[0];
     array_push($result, array("plate"=>$plate));
+    echo "plate is: " . $plate . '</br>';
 
     $db_result = mysql_query("SELECT vehicle_color FROM Vehicle WHERE vehicle_id = '$vehicle_id'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $color = $row[0];
+    echo "color is: " . $color . '</br>';
     array_push($result, array("color"=>$color));
 
     return $result;

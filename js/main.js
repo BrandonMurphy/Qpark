@@ -65,22 +65,30 @@ $("#reviews").click(function(e) {
 function login(page) {
 	var email = $( "#email" ).val();
 	var user_pass = $( "#user_pass" ).val();
-	var user = email.substring(0, email.indexOf("@"));
+	//var user = email.substring(0, email.indexOf("@"));
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=login&email=' + email + '&password=' + user_pass,
 		aysnc: false,
 		dataType: 'json',
 		success: function(result){
+			console.log("Result is: ");
 			console.log(result);
 			var user_object = result;
-			console.log(user);
-			if(user_object.login_success == true) {
-				console.log("login was successful");
+			
+			if(user_object.login_success == true && user_object.user_permission === 'a') {
+				console.log("login as user was successful");
 				if(page == 1){
 					window.location.href = "Views/home.php?user="+user_object.user;
 				} else if (page == 2) {
 					window.location.href = "home.php?user="+user_object.user;
+				}
+			} else {
+				console.log("login as admin was successful");
+				if(page == 1){
+					window.location.href = "Views/admin.php?user="+user_object.user;
+				} else if (page == 2) {
+					window.location.href = "admin.php?user="+user_object.user;
 				}
 			}
 		}

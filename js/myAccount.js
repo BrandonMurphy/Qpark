@@ -63,31 +63,32 @@ function getVehicleInfo(email) {
 }
 
 function getTickets(email) {
-	
-	email = 'frontesideflip05@yahoo.com';
 	var allTickets = [];
 	var i = 0;
-	//console.log(email);
+	console.log("getTickets called");
 	$.ajax({
 		type: "POST",
 		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/loginTest.php?action=viewticket&email=' + email,
 		aysnc: false,
 		dataType: 'json',
 		success: function(result){
-			$('#ticket').html('<ul class="tickets"></ul>')
+			console.log("Result is: ");
+			console.log(result);
 
-			while (i < result.length) {
-				var d = new Date(result[i].ticket_date);
-				if(result[i].ticket_violation === '1') {
-					var violation = 'Parking Meter Expired';
-				} else if(result[i].ticket_violation === '2') {
-					var violation = 'Invalid Parking Garage';
+				$('#ticket').html('<ul class="tickets"></ul>')
+
+				while (i < result.length) {
+					var d = new Date(result[i].ticket_date);
+					if(result[i].ticket_violation === '1') {
+						var violation = 'Parking Meter Expired';
+					} else if(result[i].ticket_violation === '2') {
+						var violation = 'Invalid Parking Garage';
+					}
+
+					$('.tickets').append('<li class="singleTicket">Date: ' + d.toDateString() + '</br>' + 'Price: ' + result[i].ticket_price + '<i class="ticketDetails icon-newspaper"></i></br>' + 'Violation: ' + violation +'</li>');
+
+					i++;
 				}
-
-				$('.tickets').append('<li class="singleTicket">Date: ' + d.toDateString() + '</br>' + 'Price: ' + result[i].ticket_price + '<i class="ticketDetails icon-newspaper"></i></br>' + 'Violation: ' + violation +'</li>');
-
-				i++;
-			}
 		}
 	});
 }
