@@ -42,10 +42,12 @@ if(isset($vars['action']) && $vars['action'] != ''){
     if($vars['action'] == 'readvehicleinformation'){
         readvehicleinformation($vars['email']);
     }
+    if($vars['action'] == 'updateVehicleInfo'){
+        updateVehicleInfo($vars['emailParam'], $vars['make'],$vars['model'],$vars['year'],$vars['plate'],$vars['color'],$vars['state']);
+    }
 } else{
 	echo "no action selected";
 }
-
 
 function login($email, $password) {
 //echo $password;
@@ -59,7 +61,7 @@ $email = $row['user_email'];
 
 if(strcmp($email, $row) == 0)
 {
-$query1 = sprintf("SELECT user_password, user_permission from User WHERE user_email='%s'",
+$query1 = sprintf("SELECT user_password, user_permission, user_isactive from User WHERE user_email='%s'",
 mysql_real_escape_string($email));
 $results1 = mysql_query($query1);
 $row1 = mysql_fetch_assoc($results1);
@@ -68,57 +70,64 @@ mysql_close($link);
 $salt = sha1($email);
 $saltedPass = sha1($password . $salt);
 
+
+if(strcmp($row1['user_isactive'], "true") == 0)
+{
+
     //comparing password in database with users input
-    if(strcmp($saltedPass, $row1['user_password']) == 0)
-    {
-
-        if(strcmp($row1['user_permission'], "a") == 0 || strcmp($row1['user_permission'], "c") == 0)
+        if(strcmp($saltedPass, $row1['user_password']) == 0)
         {
+
+            if(strcmp($row1['user_permission'], "a") == 0 || strcmp($row1['user_permission'], "c") == 0)
+            {
             
-            if($row1['user_permission'] == 'a')
-            {
-                //create username session to be sent accross pages
-                //$_SESSION['email'] = $_POST['email'];
-
-                 if(isset($email))
+                if($row1['user_permission'] == 'a')
                 {
-                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => true);
-                    echo json_encode($validation);
-                } else {
-                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => false);
-                    echo json_encode($validation);
+
+                    if(isset($email))
+                    {
+                        $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => true);
+                        echo json_encode($validation);
+                    } else {
+                        $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => false);
+                        echo json_encode($validation);
+                    }
+
                 }
-
-            }
-            elseif($row1['user_permission'] == 'c')
-            {
-                //create username session to be sent accross pages
-                //$_SESSION['email'] = $_POST['email'];
-
-                 if(isset($email))
+                elseif($row1['user_permission'] == 'c')
                 {
-                    $validation = array('user' => $email, 'user_permission' => $row1['user_permission'], 'login_success' => true);
-                    echo json_encode($validation);
-                } else {
-                    $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => false);
-                    echo json_encode($validation);
-                }
+            
+                    if(isset($email))
+                    {
+                        $validation = array('user' => $email, 'user_permission' => $row1['user_permission'], 'login_success' => true);
+                        echo json_encode($validation);
+                    } else {
+                        $validation = array('user' => $email,'user_permission' => $row1['user_permission'], 'login_success' => false);
+                        echo json_encode($validation);
+                    }
 
-            }
+                }
 		 
-        }
+            }
+            else
+            {
+                echo '<br/>';
+                echo"Incorrect permission";
+                echo '<br/>';
+            }
+	   }
         else
         {
             echo '<br/>';
-            echo"Incorrect permission";
-            echo '<br/>';
-        }
-	}
-    else
-    {
-            echo '<br/>';
             echo"Invalid password";
             echo '<br/>';
+        }
+    }
+    else
+    {
+        echo '<br/>';
+        echo"Banned Account";
+        echo '<br/>';
     }
 }
 else
@@ -204,37 +213,50 @@ else
 	}
 
 }
+
+function updateVehicleInfo($emailParam, $make, $model, $year, $plate, $color, $state){
+
+$email = $emailParam;
+
+$query = sprintf("SELECT user_id from User WHERE user_email='%s'",
+mysql_real_escape_string($email));
+$results = mysql_query($query);
+$row = mysql_fetch_assoc($results);
+$vehicleUserID = $row['user_id'];
+
+$query1 = sprintf("UPDATE Vehicle SET vehicle_make = '%s', vehicle_model = '%s', vehicle_year = '%s', 
+    vehicle_plate = '%s', vehicle_color = '%s', vehicle_state = '%s' WHERE user_email = '%s'",
+    mysql_real_escape_string($make), 
+    mysql_real_escape_string($model), 
+    mysql_real_escape_string($year),
+    mysql_real_escape_string($plate), 
+    mysql_real_escape_string($color), 
+    mysql_real_escape_string($state),
+    mysql_real_escape_string($vehicleUserID));
+
+$results1 = mysql_query($query1);
+
+mysql_free_result($results1);
+
+mysql_close($link);
+
+}
+
 function updateaacountinfo($fname, $lname, $passwordParam, $emailParam){
 
 $email = $emailParam;
 $salt = sha1($emailParam);
 $password = sha1($passwordParam . $salt);
 
-if($fname != null)
-{
-    $query = sprintf("UPDATE User SET user_firstname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($fname), mysql_real_escape_string($email));
-}
-if($lname != null)
-{
-    $query1 = sprintf("UPDATE User SET user_lastname = '%s' WHERE user_email = '%s'",mysql_real_escape_string($lname), mysql_real_escape_string($email));
-}
-if($passwordParam != null)
-{
-    $query2 = sprintf("UPDATE User SET user_password = '%s'  WHERE user_email = '%s'",mysql_real_escape_string($password), mysql_real_escape_string($email));
-}
+
+    $query = sprintf("UPDATE User SET user_firstname = '%s', user_lastname = '%s', user_password = '%s' WHERE user_email = '%s'",mysql_real_escape_string($fname), 
+        mysql_real_escape_string($lname), mysql_real_escape_string($password), mysql_real_escape_string($email));
 
 $results = mysql_query($query);
-$results1 = mysql_query($query1);
-$results2 = mysql_query($query2);
 
 mysql_free_result($results);
-mysql_free_result($results1);
-mysql_free_result($results2);
 
 mysql_close($link);
-
-echo "function end";
-
 
 
 }
@@ -333,6 +355,7 @@ while($row3 = mysql_fetch_assoc($result3)) {
     'ticket_violation' => $row3['ticket_violation'], 'ticket_notes' => $row3['ticket_notes'], 'ticket_employee_id' => $row3['ticket_employee_id']);
     
     $allTickets[$i] = $ticketInfo;
+
     $i++;
 }
 

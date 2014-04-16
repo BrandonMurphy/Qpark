@@ -67,29 +67,30 @@
 	<div class="mainContent">
 
 
-		<div class="editAccountContent">
+		<div class="editAccountContent" style="margin-left: 154px;">
 			<div class="row" style="margin-left: -140px;">
 				<div class="twelve columns centered text-center">
 					<h3>Only Enter Fields You Wish To Edit</h3>
+					<hr style="width: 96%; margin-left: 26px; margin-top: 10px; margin-bottom: 10px;"/>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row" style="margin-top: 30px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left;">First Name:</div><div class="registerFormInput"><input id="fname"></input></div>
 					<div style="float: left; margin-left: 19px; margin-right: 58px;">Last Name:</div><div class="registerFormInput"><input id="lname"></input></div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row" style="margin-top: 30px;">
 				<div class="twelve columns centered text-center">
 					<div style="float: left;">Permission:</div>
 						<div class="registerFormInput">
-							<select id="permission">
+							<select id="permission" style="width: 124px;">
 								<option value=""></option>
   								<option value="b">Employee</option>
   								<option value="c">Admin</option>
 							</select>
 						</div>
-					<div style="float: left; margin-left: 19px; margin-right: 58px;">Pawprint:</div><div class="registerFormInput"><input id="pawprint"></input></div>
+					<div style="float: left; margin-left: 31px; margin-right: 58px;">Pawprint:</div><div class="registerFormInput"><input id="pawprint"></input></div>
 				</div>
 			</div>
 		</div>
@@ -98,7 +99,7 @@
     		</div>
 
 		</div>
-			<div class="medium primary btn" onclick="editAccount(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
+			<div class="medium primary btn" style="margin-left: 623px; margin-top: 30px;" onclick="editAccount(<?php echo htmlspecialchars($_GET["id"]);?>)">Submit Edit</div>
 		<div id="editAccount">
 
 		</div>
