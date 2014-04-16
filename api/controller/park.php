@@ -52,27 +52,27 @@ function getVehicleInfo($employeeGarage, $qrId, $result){
     $db_result = mysql_query("SELECT vehicle_make FROM Vehicle WHERE vehicle_userid = '$userId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $make = $row[0];
-    array_push($result, array("make"=>$make));
+    $result["make"] = $make;
 
     $db_result = mysql_query("SELECT vehicle_model FROM Vehicle WHERE vehicle_userid = '$userId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $model = $row[0];
-    array_push($result, array("model"=>$model));
+    $result["model"] = $model;
     
     $db_result = mysql_query("SELECT vehicle_year FROM Vehicle WHERE vehicle_userid = '$userId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $year = $row[0];
-    array_push($result, array("year"=>$year));
+    $result["year"] = $year;
 
     $db_result = mysql_query("SELECT vehicle_plate FROM Vehicle WHERE vehicle_userid = '$userId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $plate = $row[0];
-    array_push($result, array("plate"=>$plate));
+    $result["plate"] = $plate;
 
     $db_result = mysql_query("SELECT vehicle_color FROM Vehicle WHERE vehicle_userid = '$userId'");
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $color = $row[0];
-    array_push($result, array("color"=>$color));
+    $result["color"] = $color;
 
     return $result;
 }
@@ -100,6 +100,10 @@ function getParkValidity($employeeGarage, $qrId, $result){
     $row = mysql_fetch_array($db_result, MYSQL_NUM);
     $parkGarage = $row[0];
 
+    if ($timeValidity == null) {
+        $timeValidity = "false";
+    }
+
     if ($employeeGarage == $parkGarage){
         $garageValidity = 1;
     }
@@ -114,7 +118,8 @@ function getParkValidity($employeeGarage, $qrId, $result){
         $violationCode = 2;
     }
 
-    array_push($result, array("violationCode"=>$violationCode));
+    //array_push($result, array("violationCode"=>$violationCode));
+    $result["violationCode"] = $violationCode;
 
     echo json_encode($result);
 
