@@ -141,31 +141,31 @@ else if($violationCode == 2)
 //Garage
 if($employeeGarage == 1)
 {
-	$garage = 'teste';
+	$garage = 'Conley';
 }
 else if($employeeGarage == 2)
 {
-	$garage = '$10.00';
+	$garage = 'Hitt';
 }
 else if($employeeGarage == 3)
 {
-	$garage = '$10.00';
+	$garage = 'Tiger';
 }
 else if($employeeGarage == 4)
 {
-	$garage = '$10.00';
+	$garage = 'Turner';
 }
 else if($employeeGarage == 5)
 {
-	$garage = '$10.00';
+	$garage = 'UAG';
 }
 else if($employeeGarage == 6)
 {
-	$garage = '$10.00';
+	$garage = 'Virginia';
 }
 else if($employeeGarage == 7)
 {
-	$garage = '$10.00';
+	$garage = 'Structure';
 }
 
 $createTicket = mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$isflagged','$userid')");
