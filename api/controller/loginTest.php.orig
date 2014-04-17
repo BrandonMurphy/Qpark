@@ -329,12 +329,12 @@ $allTickets = is_array();
 while($row3 = mysql_fetch_assoc($result3)) {
 
     $ticketInfo = array('ticket_date' => $row3['ticket_date'], 
-    'ticket_time' => $row3['ticket_time'],
-    'ticket_garage' => $row3['ticket_garage'],  
+    'ticket_time' => $row3['ticket_time'],  
     'ticket_price' => $row3['ticket_price'], 
     'ticket_violation' => $row3['ticket_violation'], 
     'ticket_notes' => $row3['ticket_notes'], 
-    'ticket_employee_id' => $row3['ticket_employee_id']);
+    'ticket_employee_id' => $row3['ticket_employee_id']),
+    'ticket_garage' => $row3['ticket_garage'];
     
     $allTickets[$i] = json_encode($ticketInfo);
     $i++;
