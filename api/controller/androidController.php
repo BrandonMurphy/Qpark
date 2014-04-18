@@ -19,7 +19,7 @@ if(isset($vars['action']) && $vars['action'] != ''){
 		employeelogin($vars['email'], $vars['password']);
 	}
 	if($vars['action'] == 'createticket'){
-		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeEmailParam'], $vars['violationCodeParam']);
+		createticket($vars['qrcode'], $vars['notesParam'], $vars['employeeEmailParam'], $vars['violationCodeParam'], $vars['employeeGarageParam']);
 	}
 	if($vars['action'] == 'getTickets'){
 		getTickets($vars['emailParam']);
@@ -93,7 +93,7 @@ else
 
 }
 
-function createticket($qrcode, $notesParam, $employeeEmailParam, $violationCodeParam) {
+function createticket($qrcode, $notesParam, $employeeEmailParam, $violationCodeParam, $employeeGarageParam) {
 
 $date = date('Y/m/d');
 $time = date('g:i:s');
@@ -105,6 +105,7 @@ $isflagged = 0;
 $notes = $notesParam;
 $employeeEmail = $employeeEmailParam;
 $isactive = "true";
+$employeeGarage = $employeeGarageParam;
 
 
 $query = sprintf("SELECT user_id from User WHERE user_qrcodeid='%s';",
@@ -121,11 +122,13 @@ $row = mysql_fetch_assoc($results1);
 mysql_free_result($results1);
 $employeeid = $row['user_id'];
 
+//Notes 
 if($notes == null)
 {
 	$notes = "No comment";
 }
 
+//Price
 if($violationCode == 1)
 {
 	$price = '$15.00';
@@ -133,6 +136,36 @@ if($violationCode == 1)
 else if($violationCode == 2)
 {
 	$price = '$10.00';
+}
+
+//Garage
+if($employeeGarage == 1)
+{
+	$garage = 'Conley';
+}
+else if($employeeGarage == 2)
+{
+	$garage = 'Hitt';
+}
+else if($employeeGarage == 3)
+{
+	$garage = 'Tiger';
+}
+else if($employeeGarage == 4)
+{
+	$garage = 'Turner';
+}
+else if($employeeGarage == 5)
+{
+	$garage = 'UAG';
+}
+else if($employeeGarage == 6)
+{
+	$garage = 'Virginia';
+}
+else if($employeeGarage == 7)
+{
+	$garage = 'Structure';
 }
 
 $createTicket = mysql_query("INSERT INTO Ticket VALUES (NULL, '$date', '$time', '$price', '$violationCode', '$notes', '$employeeid','$isactive','$isflagged','$userid')");
@@ -159,7 +192,8 @@ function getTickets($emailParam)
 	$row = mysql_fetch_assoc($result);
 	$emplyeeUserId = $row['user_id'];
 
-	$query1 = sprintf("SELECT a.ticket_date, a.ticket_id, b.vehicle_plate, b.vehicle_state, 
+
+	$query1 = sprintf("SELECT a.ticket_date, a.ticket_id, a.ticket_garage, b.vehicle_plate, b.vehicle_state,
 		b.vehicle_state, b.vehicle_make, b.vehicle_model, b.vehicle_color, a.ticket_violation, b.vehicle_year
 		FROM Ticket a join Vehicle b ON a.ticket_userid = b.vehicle_userid 
 		WHERE a.ticket_employee_id ='%s' ORDER BY a.ticket_date ASC LIMIT 15;", 
@@ -174,6 +208,7 @@ function getTickets($emailParam)
 			
 		$TicketInfo = array('ticket_id' => $row1['ticket_id'],
 		'ticket_date' => $row1['ticket_date'],
+		'ticket_garage' => $row1['ticket_garage'],
 		'plate' => $row1['vehicle_plate'],
 		'state' => $row1['vehicle_state'],
 		'make' => $row1['vehicle_make'],
