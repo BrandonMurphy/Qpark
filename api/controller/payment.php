@@ -35,6 +35,10 @@ function loadHtmlTemplate($page) {
 		include('../../Views/myAccount.php');
 	} else if($page == 'privacyPolicy') {
 		include('../../Views/privacypolicy.php');
+	} else if($page == 'updateUser') {
+		include('../../Views/updateUser.php');
+	} else if($page == 'updateVehicle') {
+		include('../../Views/updateVehicle.php');
 	}
 }
 

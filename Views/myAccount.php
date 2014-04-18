@@ -38,7 +38,7 @@
 			</div>
 			<div style="margin-bottom: 10px;" class="row">
 		  		<div class="twelve columns">
-					<a class="updateUser">Update User Info</a>
+					<a class="updateUser" onlick="loadUpdateUserPage()">Update User Info</a>
 				</div>
 			</div>
 		</div>
@@ -82,7 +82,7 @@
 			</div>
 			<div style="margin-top: -10px;" class="row">
 		  		<div class="twelve columns">
-					<a class="updateVehicle">Update Vehicle Info</a>
+					<a class="updateVehicle" onlick="loadUpdateVehiclePage()">Update Vehicle Info</a>
 				</div>
 			</div>
 		</div>

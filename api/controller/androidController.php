@@ -154,37 +154,44 @@ if(!$createTicket)
 function getTickets($emailParam)
 {
 
-$query = sprintf("Select user_id from User where user_email= '%s'", mysql_real_escape_string($emailParam));
-$result = mysql_query($query);
-$row = mysql_fetch_assoc($result);
-$emplyeeUserId = $row['user_id'];
+	$query = sprintf("Select user_id from User where user_email= '%s'", mysql_real_escape_string($emailParam));
+	$result = mysql_query($query);
+	$row = mysql_fetch_assoc($result);
+	$emplyeeUserId = $row['user_id'];
 
-$query1 = sprintf("SELECT a.ticket_date, a.ticket_id, b.vehicle_plate, b.vehicle_state, 
-	b.vehicle_state, b.vehicle_make, b.vehicle_model, b.vehicle_color 
-	FROM Ticket a join Vehicle b ON a.ticket_userid = b.vehicle_userid 
-	WHERE a.ticket_employee_id ='%s' ORDER BY a.ticket_date ASC LIMIT 15;", 
-	mysql_real_escape_string($emplyeeUserId));
+	$query1 = sprintf("SELECT a.ticket_date, a.ticket_id, b.vehicle_plate, b.vehicle_state, 
+		b.vehicle_state, b.vehicle_make, b.vehicle_model, b.vehicle_color, a.ticket_violation, b.vehicle_year
+		FROM Ticket a join Vehicle b ON a.ticket_userid = b.vehicle_userid 
+		WHERE a.ticket_employee_id ='%s' ORDER BY a.ticket_date ASC LIMIT 15;", 
+		mysql_real_escape_string($emplyeeUserId));
 
-$result1 = mysql_query($query1);
+	$result1 = mysql_query($query1);
 
-$allTickets = is_array();
-$i=0;
+	$allTickets = is_array();
+	$i=0;
 
-while ($row1 = mysql_fetch_assoc($result1)) {
-    
-$TicketInfo = array('ticket_id' => $row1['ticket_id'],'ticket_date' => $row1['ticket_date'], 'vehicle_plate' => $row1['vehicle_plate'], 'vehicle_state' => $row1['vehicle_state'], 
+	while ($row1 = mysql_fetch_assoc($result1)) {
+			
+		$TicketInfo = array('ticket_id' => $row1['ticket_id'],
+		'ticket_date' => $row1['ticket_date'],
+		'plate' => $row1['vehicle_plate'],
+		'state' => $row1['vehicle_state'],
+		'make' => $row1['vehicle_make'],
+		'model' => $row1['vehicle_model'],
+		'color' => $row1['vehicle_color'],
+		'year' => $row1['vehicle_year'],
+		'violation' => $row1['ticket_violation']
+		);
+		$allTickets[$i] = $TicketInfo;
 
-'vehicle_make' => $row1['vehicle_make'], 'vehicle_model' => $row1['vehicle_model'], 'vehicle_color' => $row1['vehicle_color']);
-$allTickets[$i] = $TicketInfo;
+		$i++;
 
-$i++;
+	}
 
-}
-
-echo json_encode($allTickets);
-mysql_free_result($result);
-mysql_free_result($result1);
-mysql_close($link);
+	echo json_encode($allTickets);
+	mysql_free_result($result);
+	mysql_free_result($result1);
+	mysql_close($link);
 
 }
 

@@ -5,7 +5,7 @@
 
 <div class="garages">
 	<h5 style="margin-left: 82px;">Choose A Garage:</h5>
-	<select style="margin-left: 60px; margin-bottom: 10px;" onChange="displayGarage(this)">
+	<select id="garages"style="margin-left: 60px; margin-bottom: 10px;" onChange="displayGarage(this)">
 	  <option id="" value="-1">Select A Garage</option>
 	  <option id="cag" value="1">Conley Avenue Garage</option>
 	  <option id="hsg" value="2">Hitt Street Garage</option>
@@ -20,7 +20,7 @@
 
 <div class="duration">
 	<h5 style="margin-left: 50px;">Choose Park Duration:</h5>
-	<select style="margin-left: 75px; margin-bottom: 10px;" onChange="displayTime(this)">
+	<select id="durations" style="margin-left: 75px; margin-bottom: 10px;" onChange="displayTime(this)">
 	  <option value="00:30:00">30 minutes</option>
 
 	  <option value="01:00:00">1 hour</option>
@@ -91,7 +91,7 @@
 
 	<div class="row" style="margin-top: 10px;">
 		<div class="twelve columns centered">
-			<div class="payForParking medium btn">Pay For Parking</div>
+			<div class="payForParking medium btn" onclick="payForParking()">Pay For Parking</div>
 		</div>
 	</div>
 </div>
@@ -99,9 +99,10 @@
 	<div class="footer">
 		<div class="row" style="margin-top: 20px;">
 			<div class="twelve columns centered text-center">
-				<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="privacypolicy.php" style="margin-right: 5px;">Privacy Policy</a>|</div>
-				<div style="float: left; margin-right: 5px;"><a class="linkHover" href="about.php" style="margin-right: 12px;">About</a>|</div>
-				<div style="float: left; margin-right: 5px;"><a class="linkHover" href="disclaimer.php" style="margin-right: 5px;">Disclaimer</a>|</div>
+				<div style="float: left; margin-right: 5px;">| <a class="linkHover" href="#" onclick="loadPage('privacyPolicy')" style="margin-right: 5px;">Privacy Policy</a>|</div>
+				<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" onclick="loadPage('about')" style="margin-right: 12px;">About</a>|</div>
+				<div style="float: left; margin-right: 5px;"><a class="linkHover" href="#" onclick="loadPage('disclaimer')" style="margin-right: 5px;">Disclaimer</a>|</div>
 			</div>
+		</div>
 	</div>
 </div>

@@ -61,7 +61,7 @@
 
 		<div class="loginOrRegister">
 			<div class="row">
-					<div style="margin-left: -180px;"><?php echo 'Welcome ' . htmlspecialchars($_GET["user"]) . '!';?><a style="margin-top: 10px; margin-left: 10px; font-size: 12px;" href="../index.html">logout</a></div>
+					<div style="float: left; margin-right: 5px;">Welcome</div><div id="getEmail"style="float: left;"><?php echo htmlspecialchars($_GET["user"]);?></div><a style="float: left; margin-left: 10px; font-size: 12px;" href="../index.html">logout</a>
 			</div>
 		</div>
 	</div>

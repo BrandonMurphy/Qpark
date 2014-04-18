@@ -13,6 +13,29 @@ function loadMyAccountPage(email) {
 	});
 }
 
+function loadUpdateUserPage() {
+	$.ajax({
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/payment.php?action=loadHtmlTemplate&page=updateUser',
+		aysnc: false,
+		success: function(result){
+			$('.mainContent').html(result);
+		}
+	});
+}
+
+function loadUpdateVehiclePage() {
+	
+	$.ajax({
+		type: "POST",
+		url: 'http://babbage.cs.missouri.edu/~cs4970s14grp1/Qpark/api/controller/payment.php?action=loadHtmlTemplate&page=updateVehicle',
+		aysnc: false,
+		success: function(result){
+			$('.mainContent').html(result);
+		}
+	});
+}
+
 function getAccountInfo(email) {
 	//console.log(email);
 	$.ajax({
